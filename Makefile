@@ -18,7 +18,7 @@ SOURCE			=	./src/
 OBJ_TMP			=	./obj/
 
 ### FILES
-SRC 			= 	main.c prototype_main.c
+SRC 			= 	main.c prototype_main.c parsing.c clone_envp.c echo.c envp.c get_path.c utils_envp.c work_directory.c
 OBJ				= 	$(addprefix $(OBJ_TMP), $(SRC:%.c=%.o))
 $(OBJ_TMP)%.o	:	$(SOURCE)%.c
 ##						$(CC) $(FLAGS) -c $< -o $@ $(INCLUDE)
@@ -27,7 +27,7 @@ $(OBJ_TMP)%.o	:	$(SOURCE)%.c
 
 ### COMMANDS
 CC				=	gcc
-FLAGS			=	-Wall -Wextra -Werror
+FLAGS			=	-Wall -Wextra -Werror -fsanitize=address
 LIB 			= 	./libft/libft.a
 INCLUDE			= 	-I $(HEADER)
 RM				=	rm -rf

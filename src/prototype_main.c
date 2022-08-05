@@ -27,7 +27,7 @@ void	welcome(void)
 	printf(YELLOW "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = \n" RESET);
 }
 
-void	prompt(void)
+char	*prompt(void)
 {
 	char	*str;
 
@@ -37,14 +37,30 @@ void	prompt(void)
 	printf(GREEN "| ╰╯ ╭╮ ╰╯ |━━━╯ \n" RESET);
 	printf(GREEN "|    ╰╯    | \n" RESET);
 	str = readline(GREEN "|/\\_/\\/\\_/\\|	" RESET);
+	return (str);
 }
+
 
 int main(int argc, char **argv, char **envp)
 {
-	welcome();
+	t_struct	*data;
+	char		*line;
+	char		**parse;
+	int			i;
+	
+	data = malloc(sizeof(t_struct));
+	if (!data)
+		return (0);
 
-	printf ("\n\n coucou");
+	welcome();
+	data = clone_env(envp, data);
+
     while (1)
-	    prompt();
+	{
+		line = prompt();
+		parse = parsing(line);
+		i = 0;
+		call_execute(parse, data);
+	}
 	return (0);
 }
