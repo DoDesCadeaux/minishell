@@ -42,6 +42,8 @@ void	prompt(void)
 int main(int argc, char **argv, char **envp)
 {
 	welcome();
+
+	printf ("\n\n coucou");
     while (1)
 	    prompt();
 	return (0);
