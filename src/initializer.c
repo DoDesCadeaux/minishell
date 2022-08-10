@@ -1,5 +1,11 @@
 #include "../includes/mini.h"
 
+// void	increment_shell_level(t_data *data, t_list *new_env)
+// {
+// 	data->shlvl = ft_atoi(shell_level_value) + 1;
+// 	data->shlvl++;
+// }
+
 // initie la liste de l'env (pas encore de contenu)
 void	init_env(t_data *data, t_list **new_env, char *envp[])
 {
@@ -29,6 +35,7 @@ void	initializer(t_data *data, char *envp[])
 	shlvl = get_env(data->new_env, "SHLVL"); // Lis le shlvl de l'env actuel pour extraire le nombre
 	if (!shlvl)
 		add_env(data, &data->new_env, "SHLVL=1");
-	// else
-	// 	increment_shell_level(data, data->new_env);
+	else
+		data->shlvl = ft_atoi(shlvl);
+		//increment_shell_level(data, data->new_env);
 }

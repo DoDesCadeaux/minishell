@@ -12,7 +12,7 @@ char	*get_env(t_list *env, char *name)
 	{
 		content = (char *) env->content;
 		if (!ft_strncmp(name, content, len_name) && content[len_name] == '=')
-			return (content + len_name + 1);  //??
+			return (content[len_name + 1]);
 		env = env->next;
 	}
 	return (NULL);
