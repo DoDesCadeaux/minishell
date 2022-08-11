@@ -76,7 +76,7 @@ t_struct	*unset_env(t_struct *data, char *unset)
 	return (data);
 }
 
-void	env_builtin(t_struct *data)
+void	env_builtin(t_struct *data, char **parse)
 {
 	//Fonctionnel en l'etat
 	//Attention si il y a qqc apres env -> msg d'erreur
@@ -86,7 +86,8 @@ void	env_builtin(t_struct *data)
 	i = 0;
 	while (data->envp[i])
 	{
-		printf("%s\n", data->envp[i]);
+		ft_putstr_fd(data->envp[i], ft_atoi(parse[2]));
+		ft_putchar_fd('\n', ft_atoi(parse[2]));
 		i++;
 	}
 }
