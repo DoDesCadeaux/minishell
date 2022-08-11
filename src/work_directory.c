@@ -49,7 +49,6 @@ t_struct	*update_envp(t_struct *data, char *type)
 	update_pwd = getcwd(update_pwd, 200);
 	//protection malloc
 	export = ft_strjoin(type, update_pwd);
-	//printf("export ===> %s\n", export);
 	i = 0;
 	while (data->envp[i])
 	{

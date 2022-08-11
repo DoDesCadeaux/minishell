@@ -40,22 +40,19 @@ char	*prompt(void)
 	return (str);
 }
 
-
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_struct	*data;
 	char		*line;
 	char		**parse;
 	int			i;
-	
+
 	data = malloc(sizeof(t_struct));
 	if (!data)
 		return (0);
-
 	welcome();
 	data = clone_env(envp, data);
-
-    while (1)
+	while (1)
 	{
 		line = prompt();
 		parse = parsing(line);

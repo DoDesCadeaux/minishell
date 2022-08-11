@@ -69,4 +69,3 @@ int	is_env_var(t_struct *data, char *export, int i)
 		return (1);
 	return (0);
 }
-

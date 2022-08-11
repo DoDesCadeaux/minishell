@@ -51,45 +51,43 @@ enum	e_redirection
 	REDIR_STDOUT
 };
 
-typedef struct  s_struct
+typedef struct s_struct
 {
-    char    **envp;
-    int     shlvl;
-    char    **pwd;
-}   t_struct;
+	char	**envp;
+	int		shlvl;
+	char	**pwd;
+}	t_struct;
 
-
-//Parsing
-char	**parsing(char *line);
-
-//log des mallocs et free
-void	    log_file(char *type, char *name, char **matrix, char *string);
+//Parsing and utils
+char		**parsing(char *line);
+int			ft_strcmp(char *s1, char *s2);
+char		*get_fd(char *file, int type, char *token);
 
 //Global Utils
-int		    len_split(char **split);
+int			len_split(char **split);
 
 //Environment Path Clone and Utils
-t_struct    *clone_env(char **env, t_struct *data);                                         //clean
-char        **add_var(char **matrix, int len_matrix, int len_nline, char *n_line);          //clean
-char	    *var_exist(t_struct *data, char *variable);
-int	        is_numeric(char *value);
-int	        is_env_var(t_struct *data, char *export, int i);
-
+t_struct	*clone_env(char **env, t_struct *data);
+char		**add_var(char **matrix, int len_matrix, int len_nline,
+				char *n_line);
+char		*var_exist(t_struct *data, char *variable);
+int			is_numeric(char *value);
+int			is_env_var(t_struct *data, char *export, int i);
 
 //Builtins
-t_struct	*unset_env(t_struct *data, char *unset);                        //Unset
-t_struct	*export_env(t_struct *data, char *export);                      //Export        //clean
-void	    env_builtin(t_struct *data, char **parse);                                    //Env           //clean
-void	    echo(char **parse);                                             //Echo
-void	    pwd_builtin(t_struct *data, char **parse);                                    //Pwd
-void	    cd_builtin(t_struct *data, char *directory);
-//Cd
+t_struct	*unset_global(t_struct *data, char *unset);
+t_struct	*export_global(t_struct *data, char *export);
+void		env_builtin(t_struct *data, char **parse);
+t_struct	*export_env(t_struct *data, char **full_cmd);
+t_struct	*unset_env(t_struct *data, char **full_cmd);
+void		echo(char **parse);
+void		pwd_builtin(t_struct *data, char **parse);
+void		cd_builtin(t_struct *data, char *directory);
 
 //Execve Utils
-char	    *get_full_cmd(char **argv);
-
+char		*get_full_cmd(char **argv);
 
 //call diffrent execute
-void	call_execute(char **parse, t_struct *data);
+void		call_execute(char **parse, t_struct *data);
 
 #endif

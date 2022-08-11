@@ -42,4 +42,3 @@ void	echo(char **parse)
 		ft_putchar_fd('\n', ft_atoi(parse[2]));
 	ft_free_split(split_cmd);
 }
-

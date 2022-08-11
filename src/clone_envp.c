@@ -40,21 +40,26 @@ char	**add_var(char **matrix, int len_matrix, int len_nline, char *n_line)
 	return (new_matrix);
 }
 
-void	init_pwd(t_struct *data)
+void	*init_pwd(t_struct *data)
 {
 	char	*pwd_tmp;
 
 	pwd_tmp = NULL;
 	pwd_tmp = getcwd(pwd_tmp, 200);
-	//protection malloc
+	if (!pwd_tmp)
+		return (NULL);
 	data->pwd = malloc(sizeof(char *) * 2 + 1);
-	//protection malloc
+	if (!data->pwd)
+		return (NULL);
 	data->pwd[0] = ft_strdup(pwd_tmp);
-	//protection malloc
+	if (!data->pwd[0])
+		return (NULL);
 	data->pwd[1] = ft_strdup(pwd_tmp);
-	//protection malloc
+	if (!data->pwd[1])
+		return (NULL);
 	data->pwd[2] = 0;
 	free(pwd_tmp);
+	return (NULL);
 }
 
 t_struct	*update_lvl(t_struct *data, char *lvl)
@@ -72,9 +77,9 @@ t_struct	*update_lvl(t_struct *data, char *lvl)
 		tmp = ft_itoa(new_lvl);
 		lvl = ft_strjoin("SHLVL=", tmp);
 		if (new_lvl == 1000)
-			data = export_env(data, "SHLVL=");
+			data = export_global(data, "SHLVL=");
 		else
-			data = export_env(data, lvl);
+			data = export_global(data, lvl);
 		free(lvl);
 		free(tmp);
 	}
@@ -100,7 +105,7 @@ t_struct	*clone_env(char **env, t_struct *data)
 	if (lvl)
 		data = update_lvl(data, lvl);
 	else
-		data = export_env(data, "SHLVL=1");
+		data = export_global(data, "SHLVL=1");
 	init_pwd(data);
 	//Si old power existe il faut le free et adress a null
 	return (data);

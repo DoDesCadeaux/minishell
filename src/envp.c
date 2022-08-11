@@ -14,13 +14,34 @@
 
 #include <errno.h>
 
-t_struct	*export_env(t_struct *data, char *export)
+t_struct	*export_env(t_struct *data, char **full_cmd)
 {
-	//Fonctionnel en l'etat mais a revoir avec le parsing et le format des donnees
-	//il est possible d'export plusieurs variables en même temps
-	//Plusieurs possibilités:
-	//	->on rappel cette fonction dans une boucle qui pqsse tous les arg un a un
-	//	->tous est pris en compte dans cette fonction
+	int	i;
+
+	i = 1;
+	while (full_cmd[i])
+	{
+		data = export_global(data, full_cmd[i]);
+		i++;
+	}
+	return (data);
+}
+
+t_struct	*unset_env(t_struct *data, char **full_cmd)
+{
+	int	i;
+
+	i = 1;
+	while (full_cmd[i])
+	{
+		data = unset_global(data, full_cmd[i]);
+		i++;
+	}
+	return (data);
+}
+
+t_struct	*export_global(t_struct *data, char *export)
+{
 	int	i;
 
 	i = 0;
@@ -41,29 +62,26 @@ t_struct	*export_env(t_struct *data, char *export)
 		i++;
 	}
 	if (ft_strfchr(export, '=') > 1)
-		data->envp = add_var(data->envp, len_split(data->envp), ft_strlen(export), export);
+		data->envp = add_var(data->envp, len_split(data->envp),
+				ft_strlen(export), export);
 	return (data);
 }
 
-t_struct	*unset_env(t_struct *data, char *unset)
+t_struct	*unset_global(t_struct *data, char *unset)
 {
-	//Fonctionnel en l'etat mais a revoir avec le parsing et le format des donnees
-	//il est possible d'export plusieurs variables en même temps
-	//Plusieurs possibilités:
-	//	->on rappel cette fonction dans une boucle qui pqsse tous les arg un a un
-	//	->tous est pris en compte dans cette fonction
-	int i;
+	int	i;
 
 	i = 0;
 	while (data->envp[i])
 	{
 		if (!ft_strncmp(data->envp[i], unset, ft_strlen(unset)))
 		{
-			while(i < len_split(data->envp)-1)
+			while (i < len_split(data->envp) - 1)
 			{
 				free(data->envp[i]);
 				data->envp[i] = 0x0;
-				data->envp[i] = malloc(sizeof(char) * ft_strlen(data->envp[i + 1]));
+				data->envp[i] = malloc(sizeof(char)
+						* ft_strlen(data->envp[i + 1]));
 				ft_strcpy(data->envp[i], data->envp[i + 1]);
 				i++;
 			}
@@ -78,9 +96,6 @@ t_struct	*unset_env(t_struct *data, char *unset)
 
 void	env_builtin(t_struct *data, char **parse)
 {
-	//Fonctionnel en l'etat
-	//Attention si il y a qqc apres env -> msg d'erreur
-	//Messages d'erreurs a vérifier
 	int	i;
 
 	i = 0;
@@ -90,4 +105,5 @@ void	env_builtin(t_struct *data, char **parse)
 		ft_putchar_fd('\n', ft_atoi(parse[2]));
 		i++;
 	}
+	//attention message d'erreur
 }
