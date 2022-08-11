@@ -145,7 +145,7 @@ void	call_execute(char **parse, t_struct *data)
 	else if (!ft_strcmp(cmd, CD))
 		cd_builtin(data, full_cmd[1]);
 	else if (!ft_strcmp(cmd, PWD))
-		pwd_builtin(data);
+		pwd_builtin(data, parse);
 	else if (!ft_strcmp(cmd, ENV))
 		env_builtin(data);
 	else if (!ft_strcmp(cmd, EXPORT))

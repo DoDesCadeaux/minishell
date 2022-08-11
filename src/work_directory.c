@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	pwd_builtin(t_struct *data)
+void	pwd_builtin(t_struct *data, char **parse)
 {
 	char	*pwd;
 	char	*tmp;
@@ -21,7 +21,8 @@ void	pwd_builtin(t_struct *data)
 	pwd = getcwd(pwd, 200);
 	if (!pwd)
 		printf("prout pwd\n");
-	printf("%s\n", pwd);
+	ft_putstr_fd(pwd, ft_atoi(parse[2]));
+	ft_putchar_fd('\n', ft_atoi(parse[2]));
 	free(pwd);
 	pwd = 0x0;
 }

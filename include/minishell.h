@@ -81,7 +81,7 @@ t_struct	*unset_env(t_struct *data, char *unset);                        //Unset
 t_struct	*export_env(t_struct *data, char *export);                      //Export        //clean
 void	    env_builtin(t_struct *data);                                    //Env           //clean
 void	    echo(char **parse);                                             //Echo
-void	    pwd_builtin(t_struct *data);                                    //Pwd
+void	    pwd_builtin(t_struct *data, char **parse);                                    //Pwd
 void	    cd_builtin(t_struct *data, char *directory);
 //Cd
 
