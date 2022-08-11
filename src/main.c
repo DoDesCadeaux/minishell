@@ -7,11 +7,11 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argc;
 	(void) argv;
 	initializer(&data, envp);
-	// while (42)
-	// {
-	// 	data.line = reader(&data);
+	while (42)
+	{
+	 	data.line = input_reader(&data);
 	// 	if (!data.line || !syntax_error(&data) || is_only_space(data.line))
 	// 		continue ;
-	// }
+	}
 	return (1);
 }
