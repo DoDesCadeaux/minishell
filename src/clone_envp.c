@@ -105,4 +105,3 @@ t_struct	*clone_env(char **env, t_struct *data)
 	//Si old power existe il faut le free et adress a null
 	return (data);
 }
-

@@ -122,8 +122,4 @@ void	call_execute(char **parse, t_struct *data)
 		export_env(data, cmd);
 	else if (!ft_strcmp(cmd, UNSET))
 		unset_env(data, cmd);
-
-
-	
-
 }
