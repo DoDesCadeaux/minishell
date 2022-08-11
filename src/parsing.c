@@ -33,13 +33,38 @@ int	ft_strcmp(char *s1, char *s2)
 	
 }
 
+char	*get_fd(char *file, int type, char *token)
+{
+	int		fd;
+	char	*fd_parse;
+
+	if (type == REDIR_STDIN)
+	{
+		if (file)
+			fd = open(file, O_RDONLY);
+		else
+			fd = 0;
+	}
+	else
+	{
+		if (file && !ft_strcmp(token, GREAT))
+			fd = open(file, O_CREAT | O_APPEND | O_RDWR, 0644);
+		else if (file && !ft_strcmp(token, DGREAT))
+			fd = open(file, O_CREAT | O_TRUNC | O_RDWR, 0644);
+		else
+			fd = 1;
+	}
+	if (fd < 0)
+		return (NULL);
+	fd_parse = ft_itoa(fd);
+	return (fd_parse);
+}
+
 char	**parsing(char *line)
 {
 	int		i;
 	char	**line_split;
 	char	**parse;
-	int		fd1;
-	int		fd2;
 	char	*info;
 	char	*tmp;
 
@@ -48,55 +73,60 @@ char	**parsing(char *line)
 		return (NULL);
 	line_split =  ft_split(line, ' ');
 	i = 0;
+	//Found entry redirection
 	if (!ft_strcmp(line_split[i], LESS))
 	{
-		fd1 = open(line_split[i + 1], O_RDONLY);
-		if (fd1 < 0)
+		info = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
+		if (!info)
 		{
-			printf("ERROR 12\n"); ///youpi: No such file or directory
+			printf("ERROR FD1\n"); ///youpi: No such file or directory
 			exit(EXIT_FAILURE); //Pas de vrai exist, on veux pas sortir completement du programme!
 		}
-		else
-		{
-			info = ft_itoa(fd1);
-			parse[0] = ft_strdup(info);
-		}
-		
 		i = 2;
-		//printf("\n\n first step ok avec i = %d\n\n", i);
 	}
 	else
+		info = get_fd(NULL, REDIR_STDIN, NULL);
+	parse[0] = ft_strdup(info);
+	free(info);
+
+
+	if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT) && ft_strcmp(line_split[i], PIPE))
 	{
-		//BEUG ICI
-		//printf("ici");
-		parse[0] = ft_strdup("0");
-		//printf("\n\n first step ok avec i = %d\n\n", i);
+		info = ft_strdup(line_split[i]);
+		i++;
 	}
 	while (line_split[i])
 	{
-		//check redirection d'entree simple
-	
-		if (ft_strcmp(line_split[i], GREAT) || ft_strcmp(line_split[i], DGREAT) || ft_strcmp(line_split[i], PIPE))
-		{
-			info = ft_strdup(line_split[i]);
-			i++;
-		}
-		while (line_split[i] && (ft_strcmp(line_split[i], GREAT) || ft_strcmp(line_split[i], DGREAT) || ft_strcmp(line_split[i], PIPE)))
+		if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT) && ft_strcmp(line_split[i], PIPE))
 		{
 			tmp = ft_strjoin(info, " ");
 			info = ft_strjoin(tmp, line_split[i]);
-			
 			free(tmp);
-			i++;
 		}
-		//ici check des dolls
-		parse[1] = ft_strdup(info);
-		free(info);
-		parse[2] = ft_strdup("1"); // pas prise en compte
-		
+		else
+			break;
+		i++;
 	}
+	parse[1] = ft_strdup(info);
+	free(info);
+
+
+	if (line_split[i] && !ft_strcmp(line_split[i], GREAT))
+		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT);
+	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT))
+		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, DGREAT);
+	else
+		tmp = get_fd(NULL, REDIR_STDOUT, NULL);
+	parse[2] = ft_strdup(tmp);
 	parse[3] = 0;
 	ft_free_split(line_split);
+
+	int y = 0;
+	while (parse[y])
+	{
+		printf("parse[%d] = %s\n", y, parse[y]);
+		y++;
+	}
 	return (parse);
 }
 
@@ -122,4 +152,5 @@ void	call_execute(char **parse, t_struct *data)
 		export_env(data, cmd);
 	else if (!ft_strcmp(cmd, UNSET))
 		unset_env(data, cmd);
+	//else : on lance l'execution classique.
 }

@@ -45,6 +45,12 @@
 # define UNSET  "unset"
 # define EXIT   "exit"
 
+enum	e_redirection
+{
+	REDIR_STDIN,
+	REDIR_STDOUT
+};
+
 typedef struct  s_struct
 {
     char    **envp;
