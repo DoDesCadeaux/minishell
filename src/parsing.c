@@ -12,6 +12,27 @@
 
 #include "../include/minishell.h"
 
+char	*create_heredoc(char *delimiter)
+{
+	char	*line;
+	char	*info;
+	int		here_doc;
+
+	here_doc = open("here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
+	if (here_doc < 0)
+		printf("ERROR HERE DOC");
+	line = get_next_line(0);
+	while (line && (ft_strncmp(line, delimiter, ft_strlen(delimiter))
+			|| ft_strlen(delimiter) + 1 != ft_strlen(line)))
+	{
+		write(here_doc, line, ft_strlen(line));
+		line = get_next_line(0);
+	}
+	free(line);
+	info = ft_itoa(here_doc);
+	return (info);
+}
+
 int	parse_0(char **parse, char **line_split, int i)
 {
 	char	*info;
@@ -24,6 +45,11 @@ int	parse_0(char **parse, char **line_split, int i)
 			printf("ERROR FD1\n"); ///youpi: No such file or directory
 			exit(EXIT_FAILURE); //Pas de vrai exist!
 		}
+		i = 2;
+	}
+	else if (!ft_strcmp(line_split[i], DLESS))
+	{
+		info = create_heredoc(line_split[i + 1]);
 		i = 2;
 	}
 	else
@@ -107,5 +133,7 @@ void	call_execute(char **parse, t_struct *data)
 	else if (!ft_strcmp(full_cmd[0], UNSET))
 		data = unset_env(data, full_cmd);
 	//else : on lance l'execution classique.
+	if (!ft_strcmp(full_cmd[0], DLESS))
+		unlink("here_doc"); //pas au point
 	ft_free_split(full_cmd);
 }

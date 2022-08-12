@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <limits.h>
 # include "../libft/libft.h"
 
 # define BLACK "\e[0;30m"
@@ -30,6 +31,10 @@
 # define CYAN "\e[0;36m"
 # define WHITE "\e[0;37m"
 # define RESET "\e[0m"
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
 
 # define LESS "<"
 # define DLESS "<<"
@@ -65,6 +70,12 @@ char		*get_fd(char *file, int type, char *token);
 
 //Global Utils
 int			len_split(char **split);
+
+//Get Next Line
+char		*get_next_line(int fd);
+char		*ft_strjoin_gnl(char *s1, char *s2);
+char		*ft_strchr(char *s, int c);
+void		*ft_free(char *save);
 
 //Environment Path Clone and Utils
 t_struct	*clone_env(char **env, t_struct *data);

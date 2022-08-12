@@ -39,6 +39,20 @@ void	update_pwd(t_struct *data, int status)
 	free(update_pwd);
 }
 
+t_struct	*update_var(t_struct *data, char *export, int i)
+{
+	if (ft_strncmp(data->envp[i], export, ft_strlen(export))
+		|| ft_strlen(export) < ft_strlen(data->envp[i]))
+	{
+		free(data->envp[i]);
+		data->envp[i] = malloc(sizeof(char) * ft_strlen(export) + 1);
+		if (!data->envp[i])
+			return (NULL);
+		ft_strcpy(data->envp[i], export);
+	}
+	return (data);
+}
+
 t_struct	*update_envp(t_struct *data, char *type)
 {
 	int		i;
@@ -47,21 +61,14 @@ t_struct	*update_envp(t_struct *data, char *type)
 
 	update_pwd = NULL;
 	update_pwd = getcwd(update_pwd, 200);
-	//protection malloc
+	if (!update_pwd)
+		return (NULL);
 	export = ft_strjoin(type, update_pwd);
 	i = 0;
 	while (data->envp[i])
 	{
 		if (is_env_var(data, export, i))
-		{
-			if (ft_strncmp(data->envp[i], export, ft_strlen(export)) || ft_strlen(export) < ft_strlen(data->envp[i]))
-			{
-				free(data->envp[i]);
-				data->envp[i] = malloc(sizeof(char) * ft_strlen(export) + 1);
-				//protection
-				ft_strcpy(data->envp[i], export);
-			}
-		}
+			data = update_var(data, export, i);
 		i++;
 	}
 	free(update_pwd);
@@ -71,7 +78,7 @@ t_struct	*update_envp(t_struct *data, char *type)
 
 void	cd_builtin(t_struct *data, char *directory)
 {
-	int check;
+	int	check;
 
 	//Possibilité du cd
 	check = access(directory, F_OK);
