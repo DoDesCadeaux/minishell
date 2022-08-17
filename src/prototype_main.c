@@ -44,20 +44,24 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_struct	*data;
 	char		*line;
-	char		**parse;
-	int			i;
+	char		**tok;
 
+	if (argc != 1)
+		return (1);
+	argv = NULL;
 	data = malloc(sizeof(t_struct));
 	if (!data)
+		return (0);
+	tok = malloc(sizeof(char *) * 4 + 1);
+	if (!tok)
 		return (0);
 	welcome();
 	data = clone_env(envp, data);
 	while (1)
 	{
 		line = prompt();
-		parse = parsing(line);
-		i = 0;
-		call_execute(parse, data);
+		tok = tokenisation(line, tok);
+		call_execute(tok, data);
 	}
 	return (0);
 }

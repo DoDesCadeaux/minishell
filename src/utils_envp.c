@@ -55,7 +55,7 @@ int	len_split(char **split)
 	i = 0;
 	while (split[i])
 		i++;
-	return (i);
+	return (i + 1);
 }
 
 int	is_env_var(t_struct *data, char *export, int i)

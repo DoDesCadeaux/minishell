@@ -22,23 +22,23 @@ int	option_n(char **split_cmd)
 	return (0);
 }
 
-void	echo(char **parse)
+void	echo(char **tok)
 {
 	char	**split_cmd;
 	int		i;
 
 	i = 1;
-	split_cmd = ft_split(parse[1], ' ');
+	split_cmd = ft_split(tok[1], ' ');
 	if (option_n(split_cmd) == 1)
 		i++;
 	while (split_cmd[i])
 	{
-		ft_putstr_fd(split_cmd[i], ft_atoi(parse[2]));
+		ft_putstr_fd(split_cmd[i], ft_atoi(tok[2]));
 		i++;
 		if (i != len_split(split_cmd))
-			ft_putchar_fd(' ', ft_atoi(parse[2]));
+			ft_putchar_fd(' ', ft_atoi(tok[2]));
 	}
 	if (option_n(split_cmd) == 0)
-		ft_putchar_fd('\n', ft_atoi(parse[2]));
+		ft_putchar_fd('\n', ft_atoi(tok[2]));
 	ft_free_split(split_cmd);
 }

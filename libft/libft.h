@@ -28,6 +28,8 @@ int		*ft_realloc_int(int *tab, int len_tab, int add_len);
 
 int		ft_intlen(int nb);
 
+char	*ft_cpy(char *dest, char *src);
+
 char	*ft_strcpy(char *dest, char *src);
 
 int		ft_strfchr(char *str, char c);
@@ -98,7 +100,7 @@ char	*ft_itoa(int n);
 
 void	*ft_memmove(void *dst, const void *src, size_t len);
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*ft_strlcpy(char *dst, const char *src, int dstsize);
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 

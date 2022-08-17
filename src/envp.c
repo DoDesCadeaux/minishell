@@ -94,15 +94,15 @@ t_struct	*unset_global(t_struct *data, char *unset)
 	return (data);
 }
 
-void	env_builtin(t_struct *data, char **parse)
+void	env_builtin(t_struct *data, char **tok)
 {
 	int	i;
 
 	i = 0;
 	while (data->envp[i])
 	{
-		ft_putstr_fd(data->envp[i], ft_atoi(parse[2]));
-		ft_putchar_fd('\n', ft_atoi(parse[2]));
+		ft_putstr_fd(data->envp[i], ft_atoi(tok[2]));
+		ft_putchar_fd('\n', ft_atoi(tok[2]));
 		i++;
 	}
 	//attention message d'erreur

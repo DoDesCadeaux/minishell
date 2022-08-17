@@ -32,9 +32,8 @@
 # define WHITE "\e[0;37m"
 # define RESET "\e[0m"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
+
+# define BUFFER_SIZE 100
 
 # define LESS "<"
 # define DLESS "<<"
@@ -63,8 +62,8 @@ typedef struct s_struct
 	char	**pwd;
 }	t_struct;
 
-//Parsing and utils
-char		**parsing(char *line);
+//tokenisation and utils
+char		**tokenisation(char *line, char **tok);
 int			ft_strcmp(char *s1, char *s2);
 char		*get_fd(char *file, int type, char *token);
 
@@ -88,17 +87,17 @@ int			is_env_var(t_struct *data, char *export, int i);
 //Builtins
 t_struct	*unset_global(t_struct *data, char *unset);
 t_struct	*export_global(t_struct *data, char *export);
-void		env_builtin(t_struct *data, char **parse);
+void		env_builtin(t_struct *data, char **tok);
 t_struct	*export_env(t_struct *data, char **full_cmd);
 t_struct	*unset_env(t_struct *data, char **full_cmd);
-void		echo(char **parse);
-void		pwd_builtin(t_struct *data, char **parse);
+void		echo(char **tok);
+void		pwd_builtin(t_struct *data, char **tok);
 void		cd_builtin(t_struct *data, char *directory);
 
 //Execve Utils
 char		*get_full_cmd(char **argv);
 
 //call diffrent execute
-void		call_execute(char **parse, t_struct *data);
+void		call_execute(char **tok, t_struct *data);
 
 #endif

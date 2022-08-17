@@ -48,7 +48,7 @@ void	*init_pwd(t_struct *data)
 	pwd_tmp = getcwd(pwd_tmp, 200);
 	if (!pwd_tmp)
 		return (NULL);
-	data->pwd = malloc(sizeof(char *) * 2 + 1);
+	data->pwd = malloc(sizeof(char *) * 3 + 1);
 	if (!data->pwd)
 		return (NULL);
 	data->pwd[0] = ft_strdup(pwd_tmp);
@@ -97,7 +97,10 @@ t_struct	*clone_env(char **env, t_struct *data)
 	i = 0;
 	while (env[i])
 	{
-		data->envp[i] = ft_strdup(env[i]);
+		data->envp[i] = malloc(sizeof(char) * ft_strlen(env[i]) + 1);
+		if (!data->envp[i])
+			return (NULL);
+		data->envp[i] = ft_strlcpy(data->envp[i], env[i], ft_strlen(env[i]) + 1);
 		i++;
 	}
 	data->envp[i] = 0;

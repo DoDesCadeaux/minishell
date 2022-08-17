@@ -22,7 +22,7 @@ static int	ft_len(const char *str)
 	return (i);
 }
 
-static char	*ft_cpy(char *dest, char *src)
+char	*ft_cpy(char *dest, char *src)
 {
 	int	i;
 

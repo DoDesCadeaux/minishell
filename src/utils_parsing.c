@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_parsing.c                                    :+:      :+:    :+:   */
+/*   utils_tokenisation.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -18,6 +18,7 @@ int	ft_strcmp(char *s1, char *s2)
 	int	len2;
 	int	i;
 
+	i = 0;
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	if (len1 != len2)
@@ -34,7 +35,7 @@ int	ft_strcmp(char *s1, char *s2)
 char	*get_fd(char *file, int type, char *token)
 {
 	int		fd;
-	char	*fd_parse;
+	char	*fd_tok;
 
 	if (type == REDIR_STDIN)
 	{
@@ -46,14 +47,14 @@ char	*get_fd(char *file, int type, char *token)
 	else
 	{
 		if (file && !ft_strcmp(token, GREAT))
-			fd = open(file, O_CREAT | O_APPEND | O_RDWR, 0644);
-		else if (file && !ft_strcmp(token, DGREAT))
 			fd = open(file, O_CREAT | O_TRUNC | O_RDWR, 0644);
+		else if (file && !ft_strcmp(token, DGREAT))
+			fd = open(file, O_CREAT | O_APPEND | O_RDWR, 0644);
 		else
 			fd = 1;
 	}
 	if (fd < 0)
 		return (NULL);
-	fd_parse = ft_itoa(fd);
-	return (fd_parse);
+	fd_tok = ft_itoa(fd);
+	return (fd_tok);
 }

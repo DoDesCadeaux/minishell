@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   tokenisation.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -33,7 +33,7 @@ char	*create_heredoc(char *delimiter)
 	return (info);
 }
 
-int	parse_0(char **parse, char **line_split, int i)
+int	tok_fd_in(char **tok, char **line_split, int i)
 {
 	char	*info;
 
@@ -54,12 +54,12 @@ int	parse_0(char **parse, char **line_split, int i)
 	}
 	else
 		info = get_fd(NULL, REDIR_STDIN, NULL);
-	parse[0] = ft_strdup(info);
+	tok[0] = ft_strdup(info);
 	free(info);
 	return (i);
 }
 
-int	parse_1(char **parse, char **line_split, int i)
+int	tok_1(char **tok, char **line_split, int i)
 {
 	char	*info;
 	char	*tmp;
@@ -83,57 +83,53 @@ int	parse_1(char **parse, char **line_split, int i)
 			break ;
 		i++;
 	}
-	parse[1] = ft_strdup(info);
+	tok[1] = ft_strdup(info);
 	free(info);
 	return (i);
 }
 
-char	**parsing(char *line)
+char	**tokenisation(char *line, char **tok)
 {
 	char	**line_split;
-	char	**parse;
 	char	*tmp;
 	int		i;
 
-	parse = malloc(sizeof(char *) * 3 + 1);
-	if (!parse)
-		return (NULL);
 	line_split = ft_split(line, ' ');
 	i = 0;
-	i = parse_0(parse, line_split, i);
-	i = parse_1(parse, line_split, i);
-	if (line_split[i] && !ft_strcmp(line_split[i], GREAT))
+	i = tok_fd_in(tok, line_split, i);
+	i = tok_1(tok, line_split, i); //APPEL PARSING
+	if (line_split[i] && !ft_strcmp(line_split[i], GREAT))  //TOK_FD_OUT
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT);
 	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT))
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, DGREAT);
 	else
 		tmp = get_fd(NULL, REDIR_STDOUT, NULL);
-	parse[2] = ft_strdup(tmp);
-	parse[3] = 0;
+	tok[2] = ft_strdup(tmp);
+	tok[3] = 0;
 	free(tmp);
 	ft_free_split(line_split);
-	return (parse);
+	return (tok);
 }
 
-void	call_execute(char **parse, t_struct *data)
+void	call_execute(char **tok, t_struct *data)
 {
 	char	**full_cmd;
 
-	full_cmd = ft_split(parse[1], ' ');
+	full_cmd = ft_split(tok[1], ' ');
 	if (!ft_strcmp(full_cmd[0], ECHO))
-		echo(parse);
+		echo(tok);
 	else if (!ft_strcmp(full_cmd[0], CD))
 		cd_builtin(data, full_cmd[1]);
 	else if (!ft_strcmp(full_cmd[0], PWD))
-		pwd_builtin(data, parse);
+		pwd_builtin(data, tok);
 	else if (!ft_strcmp(full_cmd[0], ENV))
-		env_builtin(data, parse);
+		env_builtin(data, tok);
 	else if (!ft_strcmp(full_cmd[0], EXPORT))
 		data = export_env(data, full_cmd);
 	else if (!ft_strcmp(full_cmd[0], UNSET))
 		data = unset_env(data, full_cmd);
 	//else : on lance l'execution classique.
-	if (!ft_strcmp(full_cmd[0], DLESS))
-		unlink("here_doc"); //pas au point
+	//if (!ft_strcmp(full_cmd[0], DLESS))
+	//	unlink("here_doc"); //pas au point
 	ft_free_split(full_cmd);
 }
