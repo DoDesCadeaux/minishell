@@ -5,7 +5,7 @@
 
 NAME	= minishell
 CC 		= gcc
-CFLAGS	= -Wall -Wextra -fsanitize=address -lreadline
+CFLAGS	= -Wall -Wextra -lreadline
 MAKE 	= make
 MAKE_CLEAN	= make clean
 MAKE_FCLEAN = make fclean
@@ -26,7 +26,7 @@ INCLUDE_PATH	= ./include
 
 LIB 			= ./libft/libft.a
 
-SRCS			= parsing.c clone_envp.c echo.c envp.c  utils_envp.c work_directory.c utils_parsing.c gnl.c gnl_utils.c
+SRCS			= parsing.c get_path.c exec_global.c clone_envp.c echo.c envp.c  utils_envp.c work_directory.c utils_parsing.c gnl.c gnl_utils.c
 
 MAIN			= prototype_main.c
 

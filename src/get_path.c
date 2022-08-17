@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-static char	**path_list(char **envp)
+char	**path_list(char **envp)
 {
 	char	*path;
 	char	**full_path;
@@ -26,7 +26,7 @@ static char	**path_list(char **envp)
 	return (full_path);
 }
 
-static char	*get_cmd_path(char **paths, char *cmd)
+char	*get_cmd_path(char **paths, char *cmd)
 {
 	char	*tmp;
 	char	*path;

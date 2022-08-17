@@ -57,11 +57,19 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	welcome();
 	data = clone_env(envp, data);
-	while (1)
+	int i = 0;
+	while (i <= 4)
 	{
+		tok = malloc(sizeof(char *) * 4 + 1);
+		if (!tok)
+			return (0);
 		line = prompt();
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
+		ft_free_split(tok);
+		i++;
 	}
+	system("leaks minishell");
+	exit(EXIT_SUCCESS);
 	return (0);
 }

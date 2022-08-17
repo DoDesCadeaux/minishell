@@ -96,8 +96,13 @@ void		cd_builtin(t_struct *data, char *directory);
 
 //Execve Utils
 char		*get_full_cmd(char **argv);
+void		execute(t_struct *data, char *cmd);
+char		**path_list(char **envp);
+char		*get_cmd_path(char **paths, char *cmd);
+
 
 //call diffrent execute
 void		call_execute(char **tok, t_struct *data);
+void		exec_global(t_struct *data, char **tok, char *cmd);
 
 #endif

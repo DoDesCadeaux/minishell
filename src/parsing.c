@@ -128,8 +128,11 @@ void	call_execute(char **tok, t_struct *data)
 		data = export_env(data, full_cmd);
 	else if (!ft_strcmp(full_cmd[0], UNSET))
 		data = unset_env(data, full_cmd);
-	//else : on lance l'execution classique.
+	else
+		exec_global(data, tok, tok[1]);
+
 	//if (!ft_strcmp(full_cmd[0], DLESS))
 	//	unlink("here_doc"); //pas au point
 	ft_free_split(full_cmd);
+	
 }
