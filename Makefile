@@ -5,14 +5,15 @@
 
 NAME	= minishell
 CC 		= gcc
-CFLAGS	= -Wall -Wextra -lreadline -fsanitize=address
+CFLAGS_RL	= -Wall -Wextra -Wall -lreadline -fsanitize=address
+CFLAGS_WRL = -Wall -Wextra -Wall -fsanitize=address
 MAKE 	= make
 MAKE_CLEAN	= make clean
 MAKE_FCLEAN = make fclean
-AUTHOR	= dduraku tverdood pamartin algaspar
+AUTHOR	= Dorian, Pauline, Tanguy, Alex
 DATE	= 17/08/2022
 
-NOVISU 	= 1 # 1 = no progress bar usefull when tty is not available
+NOVISU 	= 0 # 1 = no progress bar usefull when tty is not available
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -30,6 +31,7 @@ TOK 			= ./tokenisation/
 GNL 			= ./gnl/
 BUILTINS 		= ./builtins/
 ENV 			= ./environnement/
+PARS			= ./parsing/
 
 SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c \
  				  $(GNL)gnl.c	$(GNL)gnl_utils.c \
@@ -94,7 +96,6 @@ else
 endif
 
 ifeq ($(shell git rev-parse HEAD &>/dev/null; echo $$?),0)
-	AUTHOR	:= $(shell git log --format='%aN' | sort -u | awk '{printf "%s, ", $$0}' | rev | cut -c 3- | rev)
 	DATE	:= $(shell git log -1 --date=format:"%d/%m/%Y %T" --format="%ad")
 	HASH	:= $(shell git rev-parse --short HEAD)
 endif
@@ -210,12 +211,20 @@ all: header setup $(NAME)
 	@rm -rf .files_changed
 
 header:
-	@echo "MINISHELLLLLL"
-ifneq ($(HASH),)
+		@printf "%b" "$(OBJ_COLOR)"
+		@echo
+		@echo
+		@echo "    __  ___ _         _    _____  __           __ __"
+		@echo "   /  |/  /(_)____   (_)  / ___/ / /_   ___   / // /"
+		@echo "  / /|_/ // // __ \ / /   \__ \ / __ \ / _ \ / // / "
+		@echo " / /  / // // / / // /   ___/ // / / //  __// // /  "
+		@echo "/_/  /_//_//_/ /_//_/   /____//_/ /_/ \___//_//_/   "
+		@echo "                                                    "
+		@echo
+		@echo
+		@echo
+
 	@printf "%b" "$(OBJ_COLOR)Name:	$(WARN_COLOR)$(NAME)\n"
-else
-	@printf "%b" "$(OBJ_COLOR)Name:	$(WARN_COLOR)$(NAME)\n"
-endif
 	@printf "%b" "$(OBJ_COLOR)Author:	$(WARN_COLOR)$(AUTHOR)\n"
 	@printf "%b" "$(OBJ_COLOR)Date: 	$(WARN_COLOR)$(DATE)\n\033[m"
 	@printf "%b" "$(OBJ_COLOR)CC: 	$(WARN_COLOR)$(CC)\n\033[m"
@@ -224,10 +233,10 @@ endif
 
 
 -include $(DEPS) $(DEPS_MAIN)
-$(NAME):	${OBJS} ${OBJ_MAIN}
+$(NAME):	$(OBJS) $(OBJ_MAIN)
 			@$(MAKE) -C Libft
 			@$(call display_progress_bar)
-			@$(call run_and_test,$(CC) $(CFLAGS) -I$(INCLUDE_PATH) $(LIB) -o $@ ${COMPIL} ${OBJS} ${OBJ_MAIN})
+			@$(call run_and_test,$(CC) $(CFLAGS_RL) -I$(INCLUDE_PATH) $(LIB) -o $@ ${COMPIL} ${OBJS} ${OBJ_MAIN})
 			@printf "$(WARN_COLOR)Project Ready :)\n"
 
 setup:
@@ -236,7 +245,7 @@ setup:
 objs/%.o: 	$(SRCS_PATH)/%$(FILE_EXTENSION)
 			@mkdir -p $(dir $@)
 			@$(call display_progress_bar)
-			@$(call run_and_test,$(CC) $(CFLAGS) -c $< -o $@ -I$(INCLUDE_PATH))
+			@$(call run_and_test,$(CC) $(CFLAGS_WRL) -c $< -o $@ -I$(INCLUDE_PATH))
 
 clean:		header
 			@rm -rf objs objs_tests
