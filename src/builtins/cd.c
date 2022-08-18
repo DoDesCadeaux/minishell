@@ -68,7 +68,8 @@ void	change_directory(t_struct *data, char *directory)
 	update_pwd(data, 1);
 	data = update_envp(data, "OLDPWD=");
 	check = chdir(directory);
-	//protection
+	if (check < 0)
+		printf("merde\n");
 	update_pwd(data, 0);
 	data = update_envp(data, "PWD=");
 }
@@ -88,7 +89,6 @@ void	cd_builtin(t_struct *data, char *directory, char **tok)
 		free(tmp);
 		ft_putstr_fd(data->pwd[0], ft_atoi(tok[2]));
 		ft_putchar_fd('\n', ft_atoi(tok[2]));
-		//printf("%s\n", data->pwd[0]);
 	}
 	else
 		printf(" ERROR CD\n");

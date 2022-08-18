@@ -78,6 +78,7 @@ int	tok_1(char **tok, char **line_split, int i)
 			&& ft_strcmp(line_split[i], PIPE))
 		{
 			tmp = ft_strjoin(info, " ");
+			free(info);
 			info = ft_strjoin(tmp, line_split[i]);
 			free(tmp);
 		}
@@ -109,6 +110,7 @@ char	**tokenisation(char *line, char **tok)
 	tok[2] = ft_strdup(tmp);
 	tok[3] = 0;
 	free(tmp);
+	free(line);
 	ft_free_split(line_split);
 	return (tok);
 }
