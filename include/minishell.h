@@ -95,7 +95,6 @@ void		pwd_builtin(t_struct *data, char **tok);
 void		cd_builtin(t_struct *data, char *directory);
 
 //Execve Utils
-char		*get_full_cmd(char **argv);
 void		execute(t_struct *data, char *cmd);
 char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);

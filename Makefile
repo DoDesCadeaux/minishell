@@ -5,7 +5,7 @@
 
 NAME	= minishell
 CC 		= gcc
-CFLAGS	= -Wall -Wextra -lreadline
+CFLAGS	= -Wall -Wextra -lreadline -fsanitize=address
 MAKE 	= make
 MAKE_CLEAN	= make clean
 MAKE_FCLEAN = make fclean
@@ -26,9 +26,19 @@ INCLUDE_PATH	= ./include
 
 LIB 			= ./libft/libft.a
 
-SRCS			= parsing.c get_path.c exec_global.c clone_envp.c echo.c envp.c  utils_envp.c work_directory.c utils_parsing.c gnl.c gnl_utils.c
+TOK 			= ./tokenisation/
+GNL 			= ./gnl/
+BUILTINS 		= ./builtins/
+ENV 			= ./environnement/
 
-MAIN			= prototype_main.c
+SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c \
+ 				  $(GNL)gnl.c	$(GNL)gnl_utils.c \
+				  $(BUILTINS)echo.c $(BUILTINS)pwd.c $(BUILTINS)export.c $(BUILTINS)cd.c $(BUILTINS)env.c $(BUILTINS)unset.c \
+				  $(ENV)clone_envp.c $(ENV)utils_envp.c \
+				  exec_global.c 
+				 
+
+MAIN			= main.c
 
 ################################################################################
 #                                  Makefile  objs                              #

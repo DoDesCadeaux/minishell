@@ -12,34 +12,6 @@
 
 #include "../include/minishell.h"
 
-char	**add_var(char **matrix, int len_matrix, int len_nline, char *n_line)
-{
-	char	**new_matrix;
-	int		i;
-
-	if (len_matrix == 0)
-		len_matrix++;
-	new_matrix = malloc(sizeof(char *) * (len_matrix + 1));
-	if (!new_matrix)
-		return (NULL);
-	i = 0;
-	while (matrix[i] && i <= len_matrix)
-	{
-		new_matrix[i] = malloc(sizeof(char) * ft_strlen(matrix[i]) + 1);
-		if (!new_matrix[i])
-			return (NULL);
-		ft_strcpy(new_matrix[i], matrix[i]);
-		i++;
-	}
-	new_matrix[i] = malloc(sizeof(char) * len_nline + 1);
-	if (!new_matrix[i])
-		return (NULL);
-	ft_strcpy(new_matrix[i], n_line);
-	new_matrix[i + 1] = 0;
-	ft_free_split(matrix);
-	return (new_matrix);
-}
-
 void	*init_pwd(t_struct *data)
 {
 	char	*pwd_tmp;

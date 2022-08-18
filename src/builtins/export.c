@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.c                                             :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/05 18:42:23 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/05 18:42:25 by pamartin         ###   ########.fr       */
+/*   Created: 2022/08/18 13:11:34 by pamartin          #+#    #+#             */
+/*   Updated: 2022/08/18 13:11:36 by pamartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-#include <errno.h>
 
 t_struct	*export_env(t_struct *data, char **full_cmd)
 {
@@ -27,17 +25,32 @@ t_struct	*export_env(t_struct *data, char **full_cmd)
 	return (data);
 }
 
-t_struct	*unset_env(t_struct *data, char **full_cmd)
+char	**add_var(char **matrix, int len_matrix, int len_nline, char *n_line)
 {
-	int	i;
+	char	**new_matrix;
+	int		i;
 
-	i = 1;
-	while (full_cmd[i])
+	if (len_matrix == 0)
+		len_matrix++;
+	new_matrix = malloc(sizeof(char *) * (len_matrix + 1));
+	if (!new_matrix)
+		return (NULL);
+	i = 0;
+	while (matrix[i] && i <= len_matrix)
 	{
-		data = unset_global(data, full_cmd[i]);
+		new_matrix[i] = malloc(sizeof(char) * ft_strlen(matrix[i]) + 1);
+		if (!new_matrix[i])
+			return (NULL);
+		ft_strcpy(new_matrix[i], matrix[i]);
 		i++;
 	}
-	return (data);
+	new_matrix[i] = malloc(sizeof(char) * len_nline + 1);
+	if (!new_matrix[i])
+		return (NULL);
+	ft_strcpy(new_matrix[i], n_line);
+	new_matrix[i + 1] = 0;
+	ft_free_split(matrix);
+	return (new_matrix);
 }
 
 t_struct	*export_global(t_struct *data, char *export)
@@ -65,45 +78,4 @@ t_struct	*export_global(t_struct *data, char *export)
 		data->envp = add_var(data->envp, len_split(data->envp),
 				ft_strlen(export), export);
 	return (data);
-}
-
-t_struct	*unset_global(t_struct *data, char *unset)
-{
-	int	i;
-
-	i = 0;
-	while (data->envp[i])
-	{
-		if (!ft_strncmp(data->envp[i], unset, ft_strlen(unset)))
-		{
-			while (i < len_split(data->envp) - 1)
-			{
-				free(data->envp[i]);
-				data->envp[i] = 0x0;
-				data->envp[i] = malloc(sizeof(char)
-						* ft_strlen(data->envp[i + 1]));
-				ft_strcpy(data->envp[i], data->envp[i + 1]);
-				i++;
-			}
-			free(data->envp[i]);
-			data->envp[i] = 0x0;
-			return (data);
-		}
-		i++;
-	}
-	return (data);
-}
-
-void	env_builtin(t_struct *data, char **tok)
-{
-	int	i;
-
-	i = 0;
-	while (data->envp[i])
-	{
-		ft_putstr_fd(data->envp[i], ft_atoi(tok[2]));
-		ft_putchar_fd('\n', ft_atoi(tok[2]));
-		i++;
-	}
-	//attention message d'erreur
 }

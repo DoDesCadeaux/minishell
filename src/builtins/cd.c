@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   work_directory.c                                   :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/05 18:45:46 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/05 18:45:48 by pamartin         ###   ########.fr       */
+/*   Created: 2022/08/18 13:10:37 by pamartin          #+#    #+#             */
+/*   Updated: 2022/08/18 13:10:40 by pamartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	pwd_builtin(t_struct *data, char **tok)
-{
-	char	*pwd;
-
-	data++;
-	pwd = NULL;
-	pwd = getcwd(pwd, 200);
-	if (!pwd)
-		printf("prout pwd\n");
-	ft_putstr_fd(pwd, ft_atoi(tok[2]));
-	ft_putchar_fd('\n', ft_atoi(tok[2]));
-	free(pwd);
-	pwd = 0x0;
-}
 
 void	update_pwd(t_struct *data, int status)
 {
@@ -80,7 +65,7 @@ void	cd_builtin(t_struct *data, char *directory)
 {
 	int	check;
 
-	//Possibilité du cd
+	//Possibilité du cd avec le -
 	check = access(directory, F_OK);
 	if (check == 0)
 	{

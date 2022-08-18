@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenisation.c                                          :+:      :+:    :+:   */
+/*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/05 18:35:47 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/05 18:35:50 by pamartin         ###   ########.fr       */
+/*   Created: 2022/08/18 12:49:46 by pamartin          #+#    #+#             */
+/*   Updated: 2022/08/18 12:49:51 by pamartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*create_heredoc(char *delimiter)
 	char	*line;
 	char	*info;
 	int		here_doc;
+	int		fd;
 
 	here_doc = open("here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (here_doc < 0)
@@ -29,7 +30,8 @@ char	*create_heredoc(char *delimiter)
 		line = get_next_line(0);
 	}
 	free(line);
-	info = ft_itoa(here_doc);
+	fd =  open("here_doc", O_RDONLY);
+	info = ft_itoa(fd);
 	return (info);
 }
 
@@ -55,7 +57,7 @@ int	tok_fd_in(char **tok, char **line_split, int i)
 	else
 		info = get_fd(NULL, REDIR_STDIN, NULL);
 	tok[0] = ft_strdup(info);
-	free(info);
+	free(info);	
 	return (i);
 }
 
@@ -134,5 +136,4 @@ void	call_execute(char **tok, t_struct *data)
 	//if (!ft_strcmp(full_cmd[0], DLESS))
 	//	unlink("here_doc"); //pas au point
 	ft_free_split(full_cmd);
-	
 }
