@@ -52,12 +52,8 @@ int	main(int argc, char **argv, char **envp)
 	data = malloc(sizeof(t_struct));
 	if (!data)
 		return (0);
-	tok = malloc(sizeof(char *) * 4 + 1);
-	if (!tok)
-		return (0);
 	welcome();
 	data = clone_env(envp, data);
-	int i = 0;
 	while (1)
 	{
 		tok = malloc(sizeof(char *) * 4 + 1);
@@ -67,9 +63,6 @@ int	main(int argc, char **argv, char **envp)
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
 		ft_free_split(tok);
-		i++;
 	}
-	//system("leaks minishell");
-	exit(EXIT_SUCCESS);
 	return (0);
 }

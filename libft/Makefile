@@ -42,23 +42,23 @@ BONUS 		= 	ft_lstnew.c			ft_lstsize.c		ft_lstlast.c \
 BONUSOBJ	= ${BONUS:.c=.o}
 
 .c.o:
-	${CC} ${FLAG} ${OPTION} $< -o ${<:.c=.o}
+	@${CC} ${FLAG} ${OPTION} $< -o ${<:.c=.o}
 	
 
 
 ${NAME}:	${OBJ}
-		ar -rc ${NAME} ${OBJ}
+		@ar -rc ${NAME} ${OBJ}
 
 all:		${NAME}
 
 bonus: ${OBJ} ${BONUSOBJ}
-	ar -rc ${NAME} ${OBJ} ${BONUSOBJ}
+	@ar -rc ${NAME} ${OBJ} ${BONUSOBJ}
 
 clean:
-		rm  -f ${OBJ} ${BONUSOBJ}
+		@rm  -f ${OBJ} ${BONUSOBJ}
 		
 fclean: 	clean
-		rm  -f ${NAME} 
+		@rm  -f ${NAME} 
 
 re:		fclean all 
 

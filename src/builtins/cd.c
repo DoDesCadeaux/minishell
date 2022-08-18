@@ -61,20 +61,34 @@ t_struct	*update_envp(t_struct *data, char *type)
 	return (data);
 }
 
-void	cd_builtin(t_struct *data, char *directory)
+void	change_directory(t_struct *data, char *directory)
 {
 	int	check;
 
-	//Possibilité du cd avec le -
+	update_pwd(data, 1);
+	data = update_envp(data, "OLDPWD=");
+	check = chdir(directory);
+	//protection
+	update_pwd(data, 0);
+	data = update_envp(data, "PWD=");
+}
+
+void	cd_builtin(t_struct *data, char *directory, char **tok)
+{
+	int		check;
+	char	*tmp;
+
 	check = access(directory, F_OK);
 	if (check == 0)
+		change_directory(data, directory);
+	else if (!ft_strcmp(directory, "-"))
 	{
-		update_pwd(data, 1);
-		data = update_envp(data, "OLDPWD=");
-		check = chdir(directory);
-		//protection
-		update_pwd(data, 0);
-		data = update_envp(data, "PWD=");
+		tmp = ft_strdup(data->pwd[1]);
+		change_directory(data, tmp);
+		free(tmp);
+		ft_putstr_fd(data->pwd[0], ft_atoi(tok[2]));
+		ft_putchar_fd('\n', ft_atoi(tok[2]));
+		//printf("%s\n", data->pwd[0]);
 	}
 	else
 		printf(" ERROR CD\n");

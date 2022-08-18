@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/31 19:27:40 by pamartin          #+#    #+#             */
-/*   Updated: 2021/12/31 19:27:42 by pamartin         ###   ########.fr       */
+/*   Created: 2022/08/18 14:43:18 by pamartin          #+#    #+#             */
+/*   Updated: 2022/08/18 14:43:47 by pamartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
 
-char	*ft_strlcpy(char *dst, const char *src, int dstsize)
+void	exit_builtins(t_struct *data, char **tok)
 {
-	int	y;
-
-	y = 0;
-	while (src[y] && y < (dstsize - 1))
-	{
-		dst[y] = src[y];
-		y++;
-	}
-	dst[y] = '\0';
-	return (dst);
+	ft_free_split(data->envp);
+	ft_free_split(data->pwd);
+	free(data);
+	ft_free_split(tok);
+	system("leaks minishell");
+	exit(EXIT_SUCCESS);
 }

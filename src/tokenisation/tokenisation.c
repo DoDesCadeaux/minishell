@@ -30,7 +30,7 @@ char	*create_heredoc(char *delimiter)
 		line = get_next_line(0);
 	}
 	free(line);
-	fd =  open("here_doc", O_RDONLY);
+	fd = open("here_doc", O_RDONLY);
 	info = ft_itoa(fd);
 	return (info);
 }
@@ -57,7 +57,7 @@ int	tok_fd_in(char **tok, char **line_split, int i)
 	else
 		info = get_fd(NULL, REDIR_STDIN, NULL);
 	tok[0] = ft_strdup(info);
-	free(info);	
+	free(info);
 	return (i);
 }
 
@@ -100,7 +100,7 @@ char	**tokenisation(char *line, char **tok)
 	i = 0;
 	i = tok_fd_in(tok, line_split, i);
 	i = tok_1(tok, line_split, i); //APPEL PARSING
-	if (line_split[i] && !ft_strcmp(line_split[i], GREAT))  //TOK_FD_OUT
+	if (line_split[i] && !ft_strcmp(line_split[i], GREAT)) //TOK_FD_OUT
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT);
 	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT))
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, DGREAT);
@@ -121,7 +121,7 @@ void	call_execute(char **tok, t_struct *data)
 	if (!ft_strcmp(full_cmd[0], ECHO))
 		echo(tok);
 	else if (!ft_strcmp(full_cmd[0], CD))
-		cd_builtin(data, full_cmd[1]);
+		cd_builtin(data, full_cmd[1], tok);
 	else if (!ft_strcmp(full_cmd[0], PWD))
 		pwd_builtin(data, tok);
 	else if (!ft_strcmp(full_cmd[0], ENV))
@@ -130,10 +130,11 @@ void	call_execute(char **tok, t_struct *data)
 		data = export_env(data, full_cmd);
 	else if (!ft_strcmp(full_cmd[0], UNSET))
 		data = unset_env(data, full_cmd);
+	else if (!ft_strcmp(full_cmd[0], EXIT))
+		exit_builtins(data, tok);
 	else
 		exec_global(data, tok, tok[1]);
-
-	//if (!ft_strcmp(full_cmd[0], DLESS))
-	//	unlink("here_doc"); //pas au point
+	if (access(HERE_DOC, F_OK) == 0)
+		unlink("here_doc");
 	ft_free_split(full_cmd);
 }

@@ -32,6 +32,7 @@
 # define WHITE "\e[0;37m"
 # define RESET "\e[0m"
 
+# define HERE_DOC "./here_doc"
 
 # define BUFFER_SIZE 100
 
@@ -92,13 +93,13 @@ t_struct	*export_env(t_struct *data, char **full_cmd);
 t_struct	*unset_env(t_struct *data, char **full_cmd);
 void		echo(char **tok);
 void		pwd_builtin(t_struct *data, char **tok);
-void		cd_builtin(t_struct *data, char *directory);
+void		cd_builtin(t_struct *data, char *directory, char **tok);
+void		exit_builtins(t_struct *data, char **tok);
 
 //Execve Utils
 void		execute(t_struct *data, char *cmd);
 char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);
-
 
 //call diffrent execute
 void		call_execute(char **tok, t_struct *data);

@@ -50,27 +50,46 @@ char	*get_cmd_path(char **paths, char *cmd)
 	return (NULL);
 }
 
+void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
+{
+	int	check;
+
+	if (status == 1)
+		check = execve(path, cmd_arg, envp);
+	else
+		check = -1;
+	if (check == -1)
+	{
+		ft_free_split(cmd_arg);
+		printf("ERROR EXEC 2\n");
+	}
+}
+
 void	execute(t_struct *data, char *cmd)
 {
 	char	**paths;
 	char	**cmd_arg;
 	char	*path;
-	int		check;
 
 	cmd_arg = ft_split(cmd, ' ');
 	if (!cmd_arg)
 		printf("ERROR SPLIT ARG\n");
-	paths = path_list(data->envp);
-	if (!paths)
-		printf("ERROR PATH\n");
-	path = get_cmd_path(paths, cmd_arg[0]);
-	if (!path)
-		printf("ERROR PATH ARG\n");
-	check = execve(path, cmd_arg, data->envp);
-	if (check == -1)
+	if (!ft_strncmp(cmd, "./", 2))
 	{
-		ft_free_split(cmd_arg);
-		printf("ERROR EXEC\n");
+		if (access(cmd, X_OK) == 0)
+			protected_execve(cmd, cmd_arg, data->envp, 1);
+		else
+			protected_execve(NULL, cmd_arg, NULL, 0);
+	}
+	else
+	{
+		paths = path_list(data->envp);
+		if (!paths)
+			printf("ERROR PATH\n");
+		path = get_cmd_path(paths, cmd_arg[0]);
+		if (!path)
+			printf("ERROR PATH ARG\n");
+		protected_execve(path, cmd_arg, data->envp, 1);
 	}
 }
 
