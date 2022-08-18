@@ -36,7 +36,7 @@ SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c \
  				  $(GNL)gnl.c	$(GNL)gnl_utils.c \
 				  $(BUILTINS)echo.c $(BUILTINS)pwd.c $(BUILTINS)export.c $(BUILTINS)cd.c $(BUILTINS)env.c $(BUILTINS)unset.c $(BUILTINS)exit.c\
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \
-				  exec_global.c 
+				  exec_global.c welcome.c
 				 
 
 MAIN			= main.c
@@ -63,13 +63,13 @@ WARN_COLOR  = \033[0;33m
 NO_COLOR    = \033[m
 BLACK =\e[0;30m
 RED =\e[0;31m
-GREEN =\e[0;32m
-YELLOW =\e[0;33m
+G =\e[0;32m
+Y =\e[0;33m
 BLUE =\e[0;34m
 MAGENTA =\e[0;35m
 CYAN =\e[0;36m
 WHITE =\e[0;37m
-RESET =\e[0m
+R =\e[0m
 
 COM_STRING   = "Compiling:"
 

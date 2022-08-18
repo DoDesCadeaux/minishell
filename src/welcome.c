@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   welcome.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/18 13:32:28 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/18 13:32:31 by pamartin         ###   ########.fr       */
+/*   Created: 2022/08/18 17:14:22 by pamartin          #+#    #+#             */
+/*   Updated: 2022/08/18 17:14:24 by pamartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-/*
-void	welcome(void)
+
+void	part_1(void)
 {
 	printf(Y "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
 	printf(Y " = = = = = = = = = = = = = = = = = \n" R);
@@ -30,6 +30,10 @@ void	welcome(void)
 	printf(Y"|  |  " G "\\" Y "      \\  :` `. |   .|  | |  |    |  | " );
 	printf(G "OO )" Y " |  | " G "OO )" Y"  =\n" R);
 	printf(Y "=  |  |'.'|  |  |  |" G"(_/" Y "|  .     |" G "/" Y " |  |" );
+}
+
+void	part_2(void)
+{
 	printf(G "(_/" Y "       '..`''." G ")" Y "|       |" G "(" );
 	printf(Y "|  '--. |  |" G "`-' |" Y " |  |" G "`-' |"Y"  =\n" R);
 	printf(Y "=  |  |   |  | " G "," Y "|  |" G "_.'" Y "|  |\\    | " );
@@ -42,44 +46,10 @@ void	welcome(void)
 	printf(Y"`--' `--' `------'`------'  `------'   =\n" R);
 	printf(Y "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ");
 	printf(Y "= = = = = = = = = = = = = = = = = = \n" R);
-}*/
-
-char	*prompt(void)
-{
-	char	*str;
-
-	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);
-	printf(G "| ╭--╮╭--╮ | |BOO…|\n" R);
-	printf(G "| |╭-╯╰-╮| | ╰━┳━━╯\n" R);
-	printf(G "| ╰╯ ╭╮ ╰╯ |━━━╯ \n" R);
-	printf(G "|    ╰╯    | \n" R);
-	str = readline(G "|/\\_/\\/\\_/\\|	" R);
-	return (str);
 }
 
-int	main(int argc, char **argv, char **envp)
+void	welcome(void)
 {
-	t_struct	*data;
-	char		*line;
-	char		**tok;
-
-	if (argc != 1)
-		return (1);
-	argv = NULL;
-	data = malloc(sizeof(t_struct));
-	if (!data)
-		return (0);
-	welcome();
-	data = clone_env(envp, data);
-	while (1)
-	{
-		tok = malloc(sizeof(char *) * 4 + 1);
-		if (!tok)
-			return (0);
-		line = prompt();
-		tok = tokenisation(line, tok);
-		call_execute(tok, data);
-		ft_free_split(tok);
-	}
-	return (0);
+	part_1();
+	part_2();
 }
