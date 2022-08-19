@@ -13,7 +13,7 @@ MAKE_FCLEAN = make fclean
 AUTHOR	= Dorian, Pauline, Tanguy, Alex
 DATE	= 17/08/2022
 
-NOVISU 	= 0 # 1 = no progress bar usefull when tty is not available
+NOVISU 	= 1 # 1 = no progress bar usefull when tty is not available
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -220,15 +220,12 @@ header:
 		@echo " / /  / // // / / // /   ___/ // / / //  __// // /  "
 		@echo "/_/  /_//_//_/ /_//_/   /____//_/ /_/ \___//_//_/   "
 		@echo "                                                    "
-		@echo
-		@echo
-		@echo
 
 	@printf "%b" "$(OBJ_COLOR)Name:	$(WARN_COLOR)$(NAME)\n"
 	@printf "%b" "$(OBJ_COLOR)Author:	$(WARN_COLOR)$(AUTHOR)\n"
 	@printf "%b" "$(OBJ_COLOR)Date: 	$(WARN_COLOR)$(DATE)\n\033[m"
 	@printf "%b" "$(OBJ_COLOR)CC: 	$(WARN_COLOR)$(CC)\n\033[m"
-	@printf "%b" "$(OBJ_COLOR)Flags: 	$(WARN_COLOR)$(CFLAGS)\n\033[m"
+	@printf "%b" "$(OBJ_COLOR)Flags: 	$(WARN_COLOR)$(CFLAGS_RL)\n\033[m"
 	@echo
 
 

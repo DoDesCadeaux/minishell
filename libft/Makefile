@@ -17,6 +17,9 @@ CC 			= 	gcc
 FLAG 		= 	-Wall -Wextra -Werror
 OPTION 		= 	-I $(HEADER) -c
 
+COM_COLOR   = \033[0;34m
+OBJ_COLOR   = \033[0;36m
+
 ####        MENDATORY	PART
 SRC 		= 	ft_isalpha.c		ft_isdigit.c 		ft_isalnum.c \
 				ft_isprint.c		ft_toupper.c		ft_tolower.c \
@@ -42,12 +45,12 @@ BONUS 		= 	ft_lstnew.c			ft_lstsize.c		ft_lstlast.c \
 BONUSOBJ	= ${BONUS:.c=.o}
 
 .c.o:
-	${CC} ${FLAG} ${OPTION} $< -o ${<:.c=.o}
-	
+	@printf "%b" "$(COM_COLOR)Compiling libft : $(OBJ_COLOR) ${<:.c=.o}\n"
+	@${CC} ${FLAG} ${OPTION} $< -o ${<:.c=.o}
 
 
 ${NAME}:	${OBJ}
-		ar -rc ${NAME} ${OBJ}
+		@ar -rc ${NAME} ${OBJ}
 
 all:		${NAME}
 
@@ -55,10 +58,10 @@ bonus: ${OBJ} ${BONUSOBJ}
 	ar -rc ${NAME} ${OBJ} ${BONUSOBJ}
 
 clean:
-		rm  -f ${OBJ} ${BONUSOBJ}
+		@rm  -f ${OBJ} ${BONUSOBJ}
 		
 fclean: 	clean
-		rm  -f ${NAME} 
+		@rm  -f ${NAME}
 
 re:		fclean all 
 
