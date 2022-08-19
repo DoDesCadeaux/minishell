@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	exit_builtins(t_struct *data, char **tok)
 {
@@ -18,6 +18,6 @@ void	exit_builtins(t_struct *data, char **tok)
 	ft_free_split(data->pwd);
 	free(data);
 	ft_free_split(tok);
-	system("leaks minishell");
+//	system("leaks minishell");
 	exit(EXIT_SUCCESS);
 }
