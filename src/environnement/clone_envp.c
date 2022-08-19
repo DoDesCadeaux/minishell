@@ -72,7 +72,8 @@ t_struct	*clone_env(char **env, t_struct *data)
 		data->envp[i] = malloc(sizeof(char) * ft_strlen(env[i]) + 1);
 		if (!data->envp[i])
 			return (NULL);
-		data->envp[i] = ft_strlcpy(data->envp[i], env[i], ft_strlen(env[i]) + 1);
+		data->envp[i] = ft_strlcpy(data->envp[i], env[i],
+				ft_strlen(env[i]) + 1);
 		i++;
 	}
 	data->envp[i] = 0;

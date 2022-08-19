@@ -55,13 +55,17 @@ ${NAME}:	${OBJ}
 all:		${NAME}
 
 bonus: ${OBJ} ${BONUSOBJ}
-	ar -rc ${NAME} ${OBJ} ${BONUSOBJ}
+	@ar -rc ${NAME} ${OBJ} ${BONUSOBJ}
 
 clean:
 		@rm  -f ${OBJ} ${BONUSOBJ}
 		
 fclean: 	clean
+<<<<<<< HEAD
 		@rm  -f ${NAME}
+=======
+		@rm  -f ${NAME} 
+>>>>>>> c9df67703dbbefb34ff7018173e87335e14de78e
 
 re:		fclean all 
 
