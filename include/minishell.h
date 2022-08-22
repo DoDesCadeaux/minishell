@@ -83,7 +83,7 @@ void		*ft_free(char *save);
 t_struct	*clone_env(char **env, t_struct *data);
 char		**add_var(char **matrix, int len_matrix, int len_nline,
 				char *n_line);
-char		*var_exist(t_struct *data, char *variable);
+char		*var_exist(char **envp, char *variable);
 int			is_numeric(char *value);
 int			is_env_var(t_struct *data, char *export, int i);
 
@@ -106,5 +106,8 @@ char		*get_cmd_path(char **paths, char *cmd);
 //call diffrent execute
 void		call_execute(char **tok, t_struct *data);
 void		exec_global(t_struct *data, char **tok, char *cmd);
+
+//TEST
+char	    *parsing_dollar(t_struct *data, char *line_to_pars);
 
 #endif

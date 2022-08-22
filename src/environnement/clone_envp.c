@@ -77,7 +77,7 @@ t_struct	*clone_env(char **env, t_struct *data)
 		i++;
 	}
 	data->envp[i] = 0;
-	lvl = var_exist(data, "SHLVL");
+	lvl = var_exist(data->envp, "SHLVL");
 	if (lvl)
 		data = update_lvl(data, lvl);
 	else

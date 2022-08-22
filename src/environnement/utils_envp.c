@@ -12,25 +12,25 @@
 
 #include "../include/minishell.h"
 
-char	*var_exist(t_struct *data, char *variable)
-{
-	int		i;
-	char	*tmp;
-
-	tmp = ft_strjoin(variable, "=");
-	i = 0;
-	while (data->envp[i])
-	{
-		if (!ft_strncmp(data->envp[i], tmp, ft_strlen(tmp)))
-		{
-			free(tmp);
-			return (data->envp[i]);
-		}
-		i++;
-	}
-	free(tmp);
-	return (NULL);
-}
+//char	*var_exist(t_struct *data, char *variable)
+//{
+//	int		i;
+//	char	*tmp;
+//
+//	tmp = ft_strjoin(variable, "=");
+//	i = 0;
+//	while (data->envp[i])
+//	{
+//		if (!ft_strncmp(data->envp[i], tmp, ft_strlen(tmp)))
+//		{
+//			free(tmp);
+//			return (data->envp[i]);
+//		}
+//		i++;
+//	}
+//	free(tmp);
+//	return (NULL);
+//}
 
 int	is_numeric(char *value)
 {
