@@ -22,8 +22,6 @@ char	*prompt(void)
 	printf(G "| ╰╯ ╭╮ ╰╯ |━━━╯ \n" R);
 	printf(G "|    ╰╯    | \n" R);
 	str = readline(G "|/\\_/\\/\\_/\\|	" R);
-//    if (!str)
-//        return (NULL);
 	return (str);
 }
 
@@ -41,17 +39,15 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	welcome();
 	data = clone_env(envp, data);
-	while (1)
+	while (19)
 	{
 		tok = malloc(sizeof(char *) * 4 + 1);
 		if (!tok)
 			return (0);
-        line = prompt();
-//        printf("line = %s\n", line);
-//        if (line == NULL)
-//            continue;
-       // printf("line main = %s\n", line);
-        line = parsing_dollar(data, line);
+		line = prompt();
+
+		if (*line == '\0')
+			continue;
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
 		ft_free_split(tok);
