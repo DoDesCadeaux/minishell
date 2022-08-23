@@ -1,0 +1,11 @@
+**.o
+test\**
+**app
+**app.exe
+**.DS_Store
+**a.out
+**.pdf
+**.code-workspace
+**.a
+**.txt
+**.so
