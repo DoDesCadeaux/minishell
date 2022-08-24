@@ -45,9 +45,9 @@ int	main(int argc, char **argv, char **envp)
 		if (!tok)
 			return (0);
 		line = prompt();
-
 		if (*line == '\0')
 			continue;
+        line = parsing_dollar(data, line); //temporaire
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
 		ft_free_split(tok);
