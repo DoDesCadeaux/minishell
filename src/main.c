@@ -25,6 +25,19 @@ char	*prompt(void)
 	return (str);
 }
 
+int	is_only_spaces(char *line)
+{
+	size_t	i;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'
+		   || line[i] == '\v' || line[i] == '\f' || line[i] == '\r')
+		i++;
+	if (i == ft_strlen(line))
+		return (1);
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_struct	*data;
@@ -46,6 +59,8 @@ int	main(int argc, char **argv, char **envp)
 			return (0);
 		line = prompt();
 		if (*line == '\0')
+			continue;
+		if (is_only_spaces(line) || syntax_error(line))
 			continue;
         line = parsing_dollar(data, line); //temporaire
 		tok = tokenisation(line, tok);

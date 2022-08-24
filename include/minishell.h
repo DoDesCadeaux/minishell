@@ -110,7 +110,8 @@ char		*get_cmd_path(char **paths, char *cmd);
 void		call_execute(char **tok, t_struct *data);
 void		exec_global(t_struct *data, char **tok, char *cmd);
 
-//TEST
+//PARSING
 char		*parsing_dollar(t_struct *data, char *line_to_pars);
+int			syntax_error(char *line);
 
 #endif
