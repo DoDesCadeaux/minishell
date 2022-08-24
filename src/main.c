@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 			continue;
 		if (is_only_spaces(line) || syntax_error(line))
 			continue;
-        line = parsing_dollar(data, line); //temporaire
+        line = parsing_dollar(data, line);
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
 		ft_free_split(tok);
