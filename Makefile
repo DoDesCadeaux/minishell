@@ -5,7 +5,7 @@
 
 NAME	= minishell
 CC 		= gcc
-CFLAGS	= -Wall -Wextra -Werror -lreadline #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -lreadline -fsanitize=address
 CFLAGS_WRL = -Wall -Wextra -Werror
 MAKE 	= make
 MAKE_CLEAN	= make clean
@@ -31,12 +31,14 @@ TOK 			= ./tokenisation/
 GNL 			= ./gnl/
 BUILTINS 		= ./builtins/
 ENV 			= ./environnement/
+PARS			= ./parsing/
 
 SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c \
  				  $(GNL)gnl.c	$(GNL)gnl_utils.c \
 				  $(BUILTINS)echo.c $(BUILTINS)pwd.c $(BUILTINS)export.c $(BUILTINS)cd.c $(BUILTINS)env.c $(BUILTINS)unset.c $(BUILTINS)exit.c\
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \
-				  exec_global.c welcome.c dollar.c
+				  $(PARS)dollar.c\
+				  exec_global.c welcome.c
 				 
 
 MAIN			= main.c
