@@ -12,19 +12,6 @@
 
 #include "../include/minishell.h"
 
-char	*prompt(void)
-{
-	char	*str;
-
-	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);
-	printf(G "| ╭--╮╭--╮ | |BOO…|\n" R);
-	printf(G "| |╭-╯╰-╮| | ╰━┳━━╯\n" R);
-	printf(G "| ╰╯ ╭╮ ╰╯ |━━━╯ \n" R);
-	printf(G "|    ╰╯    | \n" R);
-	str = readline(G "|/\\_/\\/\\_/\\|	" R);
-	return (str);
-}
-
 int	is_only_spaces(char *line)
 {
 	size_t	i;
@@ -36,6 +23,25 @@ int	is_only_spaces(char *line)
 	if (i == ft_strlen(line))
 		return (1);
 	return (0);
+}
+
+void	show_ghost(void)
+{
+	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);
+	printf(G "| ╭--╮╭--╮ | |BOO…|\n" R);
+	printf(G "| |╭-╯╰-╮| | ╰━┳━━╯\n" R);
+	printf(G "| ╰╯ ╭╮ ╰╯ |━━━╯ \n" R);
+	printf(G "|    ╰╯    | \n" R);
+	printf(G "|/\\_/\\/\\_/\\|	" R);
+}
+
+char	*prompt(void)
+{
+	char	*str;
+
+	show_ghost();
+	str = readline("");
+	return (str);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -54,6 +60,7 @@ int	main(int argc, char **argv, char **envp)
 	data = clone_env(envp, data);
 	while (19)
 	{
+		run_signals(1);
 		tok = malloc(sizeof(char *) * 4 + 1);
 		if (!tok)
 			return (0);
@@ -62,10 +69,12 @@ int	main(int argc, char **argv, char **envp)
 			continue;
 		if (is_only_spaces(line))
 			continue;
+		add_history(line);
         line = parsing_dollar(data, line);
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
 		ft_free_split(tok);
 	}
+	clear_history();
 	return (0);
 }
