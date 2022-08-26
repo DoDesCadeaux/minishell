@@ -61,6 +61,9 @@ typedef struct s_struct
 	char	**envp;
 	int		shlvl;
 	char	**pwd;
+	char	*tmp_1;
+	char	*tmp_2;
+	char	*tmp_3;
 }	t_struct;
 
 void		welcome(void);
@@ -107,7 +110,8 @@ char		*get_cmd_path(char **paths, char *cmd);
 void		call_execute(char **tok, t_struct *data);
 void		exec_global(t_struct *data, char **tok, char *cmd);
 
-//TEST
-char	    *parsing_dollar(t_struct *data, char *line_to_pars);
+//PARSING
+char		*parsing_dollar(t_struct *data, char *line_to_pars);
+int			syntax_error(char *line);
 
 #endif
