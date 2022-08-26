@@ -60,7 +60,7 @@ int	main(int argc, char **argv, char **envp)
 		line = prompt();
 		if (*line == '\0')
 			continue;
-		if (is_only_spaces(line) || syntax_error(line))
+		if (is_only_spaces(line))
 			continue;
         line = parsing_dollar(data, line);
 		tok = tokenisation(line, tok);
