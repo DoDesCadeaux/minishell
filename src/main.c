@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 		return (1);
-	argv = NULL;
+	printf("ARGV[0] = %s\n", argv[0]);
 	data = malloc(sizeof(t_struct));
 	if (!data)
 		return (0);
