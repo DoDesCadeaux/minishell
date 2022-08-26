@@ -25,22 +25,16 @@ int	is_only_spaces(char *line)
 	return (0);
 }
 
-void	show_ghost(void)
+char	*prompt(void)
 {
+	char	*str;
+
 	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);
 	printf(G "| ╭--╮╭--╮ | |BOO…|\n" R);
 	printf(G "| |╭-╯╰-╮| | ╰━┳━━╯\n" R);
 	printf(G "| ╰╯ ╭╮ ╰╯ |━━━╯ \n" R);
 	printf(G "|    ╰╯    | \n" R);
-	printf(G "|/\\_/\\/\\_/\\|	" R);
-}
-
-char	*prompt(void)
-{
-	char	*str;
-
-	show_ghost();
-	str = readline("");
+	str = readline(G "|/\\_/\\/\\_/\\|	" R);
 	return (str);
 }
 
@@ -75,6 +69,6 @@ int	main(int argc, char **argv, char **envp)
 		call_execute(tok, data);
 		ft_free_split(tok);
 	}
-	clear_history();
+	//rl_clear_history();
 	return (0);
 }
