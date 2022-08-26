@@ -25,6 +25,19 @@ char	*prompt(void)
 	return (str);
 }
 
+int	is_only_spaces(char *line)
+{
+	size_t	i;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'
+		   || line[i] == '\v' || line[i] == '\f' || line[i] == '\r')
+		i++;
+	if (i == ft_strlen(line))
+		return (1);
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_struct	*data;
@@ -33,18 +46,24 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 		return (1);
-	argv = NULL;
+	printf("ARGV[0] = %s\n", argv[0]);
 	data = malloc(sizeof(t_struct));
 	if (!data)
 		return (0);
 	welcome();
 	data = clone_env(envp, data);
-	while (1)
+	while (19)
 	{
 		tok = malloc(sizeof(char *) * 4 + 1);
 		if (!tok)
 			return (0);
 		line = prompt();
+		if (*line == '\0')
+			continue;
+		add_history(line);
+		if (is_only_spaces(line))
+			continue;
+        line = parsing_dollar(data, line);
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
 		ft_free_split(tok);
