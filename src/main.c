@@ -63,7 +63,8 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		if (is_only_spaces(line))
 			continue;
-        line = parsing_dollar(data, line);
+		printf("SINGLE QUOTE : %s\n", single_quote(line));
+		line = parsing_dollar(data, line);
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
 		ft_free_split(tok);
