@@ -14,11 +14,11 @@
 
 void	restore_prompt(int sig)
 {
-	write (1, "\n", 1); //fd 1 ou 2 ??
 	rl_on_new_line();
 	rl_replace_line("", 0);
+	write(1, "\n", 1);
+	show_ghost();
 	rl_redisplay();
-	//show_ghost();
 	(void)sig;
 }
 

@@ -25,15 +25,20 @@ int	is_only_spaces(char *line)
 	return (0);
 }
 
-char	*prompt(void)
+void	show_ghost()
 {
-	char	*str;
-
 	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);
 	printf(G "| ╭--╮╭--╮ | |BOO…|\n" R);
 	printf(G "| |╭-╯╰-╮| | ╰━┳━━╯\n" R);
 	printf(G "| ╰╯ ╭╮ ╰╯ |━━━╯ \n" R);
 	printf(G "|    ╰╯    | \n" R);
+}
+
+char	*prompt(void)
+{
+	char	*str;
+
+	show_ghost();
 	str = readline(G "|/\\_/\\/\\_/\\|	" R);
 	return (str);
 }

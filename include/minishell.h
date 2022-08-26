@@ -117,7 +117,7 @@ char		*parsing_dollar(t_struct *data, char *line_to_pars);
 int			syntax_error(char *line);
 
 char	*prompt(void);
-//void	show_ghost(void);
+void	show_ghost(void);
 void	rl_replace_line(const char *text, int clear_undo);
 
 #endif
