@@ -38,6 +38,7 @@ char	*prompt(void)
 {
 	char	*str;
 
+	run_signals(1);
 	show_ghost();
 	str = readline(G "|/\\_/\\/\\_/\\|	" R);
 	return (str);
@@ -59,11 +60,11 @@ int	main(int argc, char **argv, char **envp)
 	data = clone_env(envp, data);
 	while (19)
 	{
-		run_signals(1);
 		tok = malloc(sizeof(char *) * 4 + 1);
 		if (!tok)
 			return (0);
 		line = prompt();
+		//run_signals(1);
 		if (*line == '\0')
 			continue;
 		if (is_only_spaces(line))

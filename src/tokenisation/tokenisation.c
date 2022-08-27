@@ -119,7 +119,6 @@ void	call_execute(char **tok, t_struct *data)
 {
 	char	**full_cmd;
 
-	run_signals(2);
 	full_cmd = ft_split(tok[1], ' ');
 	if (!ft_strcmp(full_cmd[0], ECHO))
 		echo(tok);
