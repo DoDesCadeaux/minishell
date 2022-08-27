@@ -68,6 +68,7 @@ typedef struct s_struct
 }	t_struct;
 
 void		welcome(void);
+void		show_ghost(void);
 
 //tokenisation and utils
 char		**tokenisation(char *line, char **tok);
@@ -116,8 +117,7 @@ void		exec_global(t_struct *data, char **tok, char *cmd);
 char		*parsing_dollar(t_struct *data, char *line_to_pars);
 int			syntax_error(char *line);
 
-char	*prompt(void);
-void	show_ghost(void);
-void	rl_replace_line(const char *text, int clear_undo);
+//SIGNALS
+void		rl_replace_line(const char *text, int clear_undo);
 
 #endif
