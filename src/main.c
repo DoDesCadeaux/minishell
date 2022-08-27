@@ -64,7 +64,6 @@ int	main(int argc, char **argv, char **envp)
 		if (!tok)
 			return (0);
 		line = prompt();
-		//run_signals(1);
 		if (*line == '\0')
 			continue;
 		add_history(line);

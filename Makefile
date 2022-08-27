@@ -6,6 +6,7 @@
 NAME	= minishell
 CC 		= gcc
 CFLAGS	= -Wall -Wextra -Werror -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
+##-L et -I adaptes pour fonctionner sur l'ordi de Tanguy. Remplacer le dessous pour faire fonctionner à l'école!
 ##-L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
 CFLAGS_WRL = -Wall -Wextra -Werror
 MAKE 	= make
