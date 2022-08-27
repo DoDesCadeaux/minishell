@@ -5,7 +5,8 @@
 
 NAME	= minishell
 CC 		= gcc
-CFLAGS	= -Wall -Wextra -Werror -lreadline -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
+##-L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
 CFLAGS_WRL = -Wall -Wextra -Werror
 MAKE 	= make
 MAKE_CLEAN	= make clean
@@ -38,7 +39,7 @@ SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c \
 				  $(BUILTINS)echo.c $(BUILTINS)pwd.c $(BUILTINS)export.c $(BUILTINS)cd.c $(BUILTINS)env.c $(BUILTINS)unset.c $(BUILTINS)exit.c\
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \
 				  $(PARS)dollar.c\
-				  exec_global.c welcome.c
+				  exec_global.c welcome.c signals.c
 				 
 
 MAIN			= main.c
@@ -230,6 +231,7 @@ endif
 $(NAME):	${OBJS} ${OBJ_MAIN}
 			@$(MAKE) -C Libft
 			@$(call display_progress_bar)
+##			@$(CC) $(CFLAGS) src/signals.c
 			@$(call run_and_test,$(CC) $(CFLAGS) -I$(INCLUDE_PATH) $(LIB) -o $@ ${COMPIL} ${OBJS} ${OBJ_MAIN})
 			@printf "$(WARN_COLOR)Project Ready :)\n"
 

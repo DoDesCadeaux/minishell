@@ -12,19 +12,6 @@
 
 #include "../include/minishell.h"
 
-char	*prompt(void)
-{
-	char	*str;
-
-	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);
-	printf(G "| ╭--╮╭--╮ | |BOO…|\n" R);
-	printf(G "| |╭-╯╰-╮| | ╰━┳━━╯\n" R);
-	printf(G "| ╰╯ ╭╮ ╰╯ |━━━╯ \n" R);
-	printf(G "|    ╰╯    | \n" R);
-	str = readline(G "|/\\_/\\/\\_/\\|	" R);
-	return (str);
-}
-
 int	is_only_spaces(char *line)
 {
 	size_t	i;
@@ -36,6 +23,25 @@ int	is_only_spaces(char *line)
 	if (i == ft_strlen(line))
 		return (1);
 	return (0);
+}
+
+void	show_ghost()
+{
+	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);
+	printf(G "| ╭--╮╭--╮ | |BOO…|\n" R);
+	printf(G "| |╭-╯╰-╮| | ╰━┳━━╯\n" R);
+	printf(G "| ╰╯ ╭╮ ╰╯ |━━━╯ \n" R);
+	printf(G "|    ╰╯    | \n" R);
+}
+
+char	*prompt(void)
+{
+	char	*str;
+
+	run_signals(1);
+	show_ghost();
+	str = readline(G "|/\\_/\\/\\_/\\|	" R);
+	return (str);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -58,15 +64,18 @@ int	main(int argc, char **argv, char **envp)
 		if (!tok)
 			return (0);
 		line = prompt();
+		//run_signals(1);
 		if (*line == '\0')
 			continue;
 		add_history(line);
 		if (is_only_spaces(line))
 			continue;
+		add_history(line);
         line = parsing_dollar(data, line);
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
 		ft_free_split(tok);
 	}
+	//rl_clear_history();
 	return (0);
 }

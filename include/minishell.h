@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
+# include <signal.h>
 # include "../libft/libft.h"
 
 # define BLACK "\e[0;30m"
@@ -105,6 +106,7 @@ void		exit_builtins(t_struct *data, char **tok);
 void		execute(t_struct *data, char *cmd);
 char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);
+void		run_signals(int sig);
 
 //call diffrent execute
 void		call_execute(char **tok, t_struct *data);
@@ -113,5 +115,9 @@ void		exec_global(t_struct *data, char **tok, char *cmd);
 //PARSING
 char		*parsing_dollar(t_struct *data, char *line_to_pars);
 int			syntax_error(char *line);
+
+char	*prompt(void);
+void	show_ghost(void);
+void	rl_replace_line(const char *text, int clear_undo);
 
 #endif
