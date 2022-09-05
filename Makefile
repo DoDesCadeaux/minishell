@@ -5,8 +5,10 @@
 
 NAME	= minishell
 CC 		= gcc
-CFLAGS_RL	= -Wall -Wextra -Wall -lreadline #-fsanitize=address
-CFLAGS_WRL = -Wall -Wextra -Wall #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
+##-L et -I adaptes pour fonctionner sur l'ordi de Tanguy. Remplacer le dessous pour faire fonctionner à l'école!
+##-L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
+CFLAGS_WRL = -Wall -Wextra -Werror
 MAKE 	= make
 MAKE_CLEAN	= make clean
 MAKE_FCLEAN = make fclean
@@ -37,8 +39,8 @@ SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c \
  				  $(GNL)gnl.c	$(GNL)gnl_utils.c \
 				  $(BUILTINS)echo.c $(BUILTINS)pwd.c $(BUILTINS)export.c $(BUILTINS)cd.c $(BUILTINS)env.c $(BUILTINS)unset.c $(BUILTINS)exit.c\
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \
-				  $(PARS)dollar.c $(PARS)single_quote.c\
-				  exec_global.c welcome.c \
+				  $(PARS)dollar.c\
+				  exec_global.c welcome.c signals.c
 				 
 
 MAIN			= main.c
@@ -234,7 +236,7 @@ header:
 $(NAME):	$(OBJS) $(OBJ_MAIN)
 			@$(MAKE) -C Libft
 			@$(call display_progress_bar)
-			@$(call run_and_test,$(CC) $(CFLAGS_RL) -I$(INCLUDE_PATH) $(LIB) -o $@ ${COMPIL} ${OBJS} ${OBJ_MAIN})
+			@$(call run_and_test,$(CC) $(CFLAGS) -I$(INCLUDE_PATH) $(LIB) -o $@ ${COMPIL} ${OBJS} ${OBJ_MAIN})
 			@printf "$(WARN_COLOR)Project Ready :)\n"
 
 setup:

@@ -98,6 +98,7 @@ void	exec_global(t_struct *data, char **tok, char *cmd)
 	pid_t	child;
 	int		check;
 
+	run_signals(2);
 	child = fork();
 	if (child == 0)
 	{

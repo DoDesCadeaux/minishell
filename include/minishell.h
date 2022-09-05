@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
+# include <signal.h>
 # include "../libft/libft.h"
 
 # define BLACK "\e[0;30m"
@@ -67,6 +68,7 @@ typedef struct s_struct
 }	t_struct;
 
 void		welcome(void);
+void		show_ghost(void);
 
 //tokenisation and utils
 char		**tokenisation(char *line, char **tok);
@@ -105,6 +107,7 @@ void		exit_builtins(t_struct *data, char **tok);
 void		execute(t_struct *data, char *cmd);
 char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);
+void		run_signals(int sig);
 
 //call diffrent execute
 void		call_execute(char **tok, t_struct *data);
@@ -116,5 +119,7 @@ int			syntax_error(char *line);
 
 //QUOTES
 char	*single_quote(char *line);
+//SIGNALS
+void		rl_replace_line(const char *text, int clear_undo);
 
 #endif
