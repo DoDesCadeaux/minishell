@@ -54,8 +54,13 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 {
 	int	check;
 
+	printf("en cours d'execution\n");
 	if (status == 1)
+	{
+		printf("réussite\n");
 		check = execve(path, cmd_arg, envp);
+		
+	}	
 	else
 		check = -1;
 	if (check == -1)
@@ -63,6 +68,7 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 		ft_free_split(cmd_arg);
 		printf("ERROR EXEC 2\n");
 	}
+	printf("execution effectuee normalment\n");
 }
 
 void	execute(t_struct *data, char *cmd)
@@ -91,6 +97,7 @@ void	execute(t_struct *data, char *cmd)
 			printf("ERROR PATH ARG\n");
 		protected_execve(path, cmd_arg, data->envp, 1);
 	}
+	printf("je suis ici\n");
 }
 
 void	exec_global(t_struct *data, char **tok, char *cmd)
@@ -118,5 +125,8 @@ void	exec_global(t_struct *data, char **tok, char *cmd)
 		}
 		execute(data, cmd);
 	}
-	waitpid(-1, NULL, 0);
+	printf("c'est passé\n");
+	waitpid(child, NULL, 0);
+	//wait(NULL);
+	printf("EXEC EFFECTUEE\n");
 }

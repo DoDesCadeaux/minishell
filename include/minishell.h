@@ -74,6 +74,10 @@ void		show_ghost(void);
 char		**tokenisation(char *line, char **tok);
 int			ft_strcmp(char *s1, char *s2);
 char		*get_fd(char *file, int type, char *token);
+int			is_pipe(char *line);
+void		execute_pipe(t_struct *data, char **tok, char *line);
+char		*create_heredoc(char *delimiter);
+int			tok_1(char **tok, char **line_split, int i);
 
 //Global Utils
 int			len_split(char **split);

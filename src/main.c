@@ -72,10 +72,15 @@ int	main(int argc, char **argv, char **envp)
 		if (is_only_spaces(line))
 			continue;
 		add_history(line);
-        line = parsing_dollar(data, line);
-		tok = tokenisation(line, tok);
-		call_execute(tok, data);
-		ft_free_split(tok);
+		if (!is_pipe(line))
+		{
+			line = parsing_dollar(data, line);
+			tok = tokenisation(line, tok);
+			call_execute(tok, data);
+			ft_free_split(tok);
+		}
+		else
+			execute_pipe(data, tok, line);
 	}
 	//rl_clear_history();
 	return (0);

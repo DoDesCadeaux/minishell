@@ -67,7 +67,7 @@ int	tok_1(char **tok, char **line_split, int i)
 	char	*tmp;
 
 	if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT)
-		&& ft_strcmp(line_split[i], PIPE))
+		&& ft_strcmp(line_split[i], PIPE)) // on peux peut etre enlever le pipe ici
 	{
 		info = ft_strdup(line_split[i]);
 		i++;
@@ -139,4 +139,5 @@ void	call_execute(char **tok, t_struct *data)
 	if (access(HERE_DOC, F_OK) == 0)
 		unlink("here_doc");
 	ft_free_split(full_cmd);
+	printf("CALL EXECUTE EFFECTUEl\n");
 }
