@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_free_split(tok);
 		}
 		else
-			execute_pipe(data, tok, line);
+			pipe_exec(data, tok, line);
 	}
 	//rl_clear_history();
 	return (0);

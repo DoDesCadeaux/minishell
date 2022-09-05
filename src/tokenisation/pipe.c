@@ -32,10 +32,7 @@ int	tok_fd_in_pipe(char **tok, char **line_split, int i, int *pipe_fd)
 	{
 		info = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
 		if (!info)
-		{
 			printf("ERROR FD1\n"); ///youpi: No such file or directory
-			exit(EXIT_FAILURE); //Pas de vrai exist!
-		}
 		i = 2;
 	}
 	else if (!ft_strcmp(line_split[i], DLESS))
@@ -74,6 +71,7 @@ char	**toke_with_pipe(char *line, char **tok, int *pipe_fd)
 	return (tok);
 }
 
+/*
 void	execute_pipe(t_struct *data, char **tok, char *line)
 {
 	char	**split_pipe;
@@ -120,4 +118,65 @@ void	execute_pipe(t_struct *data, char **tok, char *line)
 	call_execute(tok, data);
 	printf("derniere exec ok\n");
 	ft_free_split(tok);
+}*/
+
+
+void	multi_pipe(t_struct *data, char **tok)
+{
+	pid_t	child;
+	int		pipe_fd[2];
+	int		check;
+
+	check = pipe(pipe_fd);
+	//protect(check);
+	child = fork();
+	if (child == 0)
+	{
+		check = dup2(pipe_fd[1], 1);
+		//protect(check);
+		close(pipe_fd[0]);
+		call_execute_pipe(tok, data);
+	}
+	close(pipe_fd[1]);
+	check = dup2(pipe_fd[0], 0);
+	//protect(check);
+	waitpid(-1, NULL, 0);
+}
+
+void	pipe_exec(t_struct *data, char **tok, char *line)
+{
+	int		check;
+	int		last_child;
+	char	**split_pipe;
+	int		len;
+	int		i;
+
+	
+
+	split_pipe = ft_split(line, '|');
+	len = len_split(split_pipe);
+	i = 0;
+	split_pipe[i] = parsing_dollar(data, split_pipe[i]);
+	tok = tokenisation(split_pipe[i], tok);
+
+
+	check = dup2(ft_atoi(tok[0]), 0);
+	//protect(check);
+	close(ft_atoi(tok[0]));
+
+	multi_pipe(data, tok);
+	i++;
+	while (i < len - 2)
+	{
+		split_pipe[i] = parsing_dollar(data, split_pipe[i]);
+		tok = tokenisation(split_pipe[i], tok);
+		multi_pipe(data, tok);
+		i++;
+	}
+	split_pipe[i] = parsing_dollar(data, split_pipe[i]);
+	tok = tokenisation(split_pipe[i], tok);
+	last_child = fork();
+	if (last_child == 0)
+		call_execute_pipe(tok, data);
+	waitpid(-1, NULL, 0);
 }

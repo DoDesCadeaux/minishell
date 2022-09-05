@@ -45,7 +45,7 @@ int	tok_fd_in(char **tok, char **line_split, int i)
 		if (!info)
 		{
 			printf("ERROR FD1\n"); ///youpi: No such file or directory
-			exit(EXIT_FAILURE); //Pas de vrai exist!
+			//exit(EXIT_FAILURE); //Pas de vrai exist!
 		}
 		i = 2;
 	}
@@ -139,5 +139,30 @@ void	call_execute(char **tok, t_struct *data)
 	if (access(HERE_DOC, F_OK) == 0)
 		unlink("here_doc");
 	ft_free_split(full_cmd);
-	printf("CALL EXECUTE EFFECTUEl\n");
+}
+
+void	call_execute_pipe(char **tok, t_struct *data)
+{
+	char	**full_cmd;
+
+	full_cmd = ft_split(tok[1], ' ');
+	if (!ft_strcmp(full_cmd[0], ECHO))
+		echo(tok);
+	else if (!ft_strcmp(full_cmd[0], CD))
+		cd_builtin(data, full_cmd[1], tok);
+	else if (!ft_strcmp(full_cmd[0], PWD))
+		pwd_builtin(data, tok);
+	else if (!ft_strcmp(full_cmd[0], ENV))
+		env_builtin(data, tok);
+	else if (!ft_strcmp(full_cmd[0], EXPORT))
+		data = export_env(data, full_cmd);
+	else if (!ft_strcmp(full_cmd[0], UNSET))
+		data = unset_env(data, full_cmd);
+	else if (!ft_strcmp(full_cmd[0], EXIT))
+		exit_builtins(data, tok);
+	else
+		execute(data, tok[1]);
+	if (access(HERE_DOC, F_OK) == 0)
+		unlink("here_doc");
+	ft_free_split(full_cmd);
 }
