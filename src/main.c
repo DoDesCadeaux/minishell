@@ -12,19 +12,6 @@
 
 #include "../include/minishell.h"
 
-int	is_only_spaces(char *line)
-{
-	size_t	i;
-
-	i = 0;
-	while (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'
-		   || line[i] == '\v' || line[i] == '\f' || line[i] == '\r')
-		i++;
-	if (i == ft_strlen(line))
-		return (1);
-	return (0);
-}
-
 void	show_ghost()
 {
 	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);
@@ -66,18 +53,16 @@ int	main(int argc, char **argv, char **envp)
 		line = prompt();
 		if (!line)
 			exit(EXIT_FAILURE);
-		if (*line == '\0')								//verifie si la ligne est vide
-			continue;
-		if (is_only_spaces(line))						//verifie s'il y a que des espaces
-			continue;
-		if (check_if_open_quotes(line))					//verifie s'il y a des quotes ouverts
+		if (syntax_errors(line))	//ligne est vide || que des espaces || quotes ouverts
 			continue;
 		add_history(line);
-		line = parsing_dollar(data, line);	//remplace les $ s'il faut (pas les single quotes)
+		line = parsing_dollar(data, line);
+//		line = espaces_redirections
+
 
 		//a mettre dans la tokenisation/exec ??
-		line = remove_single_quotes(line);				//supprime les single quotes
-		line = remove_double_quotes(line);				//supprime les double quotes
+//		line = remove_single_quotes(line);
+//		line = remove_double_quotes(line);
 
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
