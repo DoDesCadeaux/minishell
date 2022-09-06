@@ -66,14 +66,14 @@ int	main(int argc, char **argv, char **envp)
 		line = prompt();
 		if (!line)
 			exit(EXIT_FAILURE);
-		if (*line == '\0')
+		if (*line == '\0')        //verifie si la ligne est vide
 			continue;
-		if (is_only_spaces(line))
+		if (is_only_spaces(line)) //verifie s'il y a que des espaces
 			continue;
-		if (!single_quote(line))
+		if (!single_quote(line)) //verifie s'il y a des quotes ouverts
 			continue;
 		add_history(line);
-		line = parsing_dollar(data, line);
+		line = parsing_dollar(data, line);  //remplace les $ s'il faut (pas les single quotes)
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
 		ft_free_split(tok);
