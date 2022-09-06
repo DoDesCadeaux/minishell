@@ -142,7 +142,7 @@ int			syntax_error(char *line);
 void		rl_replace_line(const char *text, int clear_undo);
 
 //UTILS
-void	ft_putstr(char *str);
+void		ft_putstr(char *str);
 
 
 #endif
