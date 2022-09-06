@@ -12,16 +12,19 @@
 
 #include "../include/minishell.h"
 
-t_struct	*unset_env(t_struct *data, char **full_cmd)
+t_struct	*unset_env(t_struct *data, char *cmd)
 {
 	int	i;
+	char	**full_cmd;
 
 	i = 1;
+	full_cmd = ft_split(cmd, ' ');
 	while (full_cmd[i])
 	{
 		data = unset_global(data, full_cmd[i]);
 		i++;
 	}
+	ft_free_split(full_cmd);
 	return (data);
 }
 

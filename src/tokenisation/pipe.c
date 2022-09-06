@@ -12,171 +12,95 @@
 
 #include "../../include/minishell.h"
 
-void	clear_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-}
-
-int	tok_fd_in_pipe(char **tok, char **line_split, int i, int *pipe_fd)
-{
-	char	*info;
-
-	if (!ft_strcmp(line_split[i], LESS))
-	{
-		info = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
-		if (!info)
-			printf("ERROR FD1\n"); ///youpi: No such file or directory
-		i = 2;
-	}
-	else if (!ft_strcmp(line_split[i], DLESS))
-	{
-		info = create_heredoc(line_split[i + 1]);
-		i = 2;
-	}
-	else
-		info = ft_itoa(pipe_fd[0]);
-	tok[0] = ft_strdup(info);
-	free(info);
-	return (i);
-}
-
-char	**toke_with_pipe(char *line, char **tok, int *pipe_fd)
-{
-	char	**line_split;
-	char	*tmp;
-	int		i;
-	
-	line_split = ft_split(line, ' ');
-	i = 0;
-	i = tok_fd_in_pipe(tok, line_split, i, pipe_fd);
-	i = tok_1(tok, line_split, i); //APPEL PARSING
-	if (line_split[i] && !ft_strcmp(line_split[i], GREAT)) //TOK_FD_OUT
-		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT);
-	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT))
-		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, DGREAT);
-	else
-		tmp = ft_itoa(pipe_fd[1]);
-	tok[2] = ft_strdup(tmp);
-	tok[3] = 0;
-	free(tmp);
-	free(line);
-	ft_free_split(line_split);
-	return (tok);
-}
-
-/*
-void	execute_pipe(t_struct *data, char **tok, char *line)
-{
-	char	**split_pipe;
-	int		len;
-	int		i;
-	int		pipe_fd[2];
-	char	*tmp;
-	int		check;
-
-	check = pipe(pipe_fd);
-	//protection du pipe
-	split_pipe = ft_split(line, '|');
-	len = len_split(split_pipe);
-	i = 0;
-	split_pipe[i] = parsing_dollar(data, split_pipe[i]);
-	tok = tokenisation(split_pipe[i], tok);
-	free(tok[2]);
-	tmp = ft_itoa(pipe_fd[1]);
-	tok[2] = ft_strdup(tmp);
-	call_execute(tok, data);
-	//printf("exec ok\n");
-	clear_split(tok);
-	i++;
-	//printf("taille = %d\n", len);
-	while (i < len - 2)
-	{
-		//split_pipe[i] = parsing_dollar(data, split_pipe[i]);
-		printf("ici\n");
-		tok = toke_with_pipe(split_pipe[i], tok, pipe_fd);
-		printf("tok ok\n");
-		printf("TOK\n0 : %s\n1 : %s\n2 : %s\n", tok[0], tok[1], tok[2]);
-		call_execute(tok, data);
-		printf("exec ok\n");
-		clear_split(tok);
-		printf("clear ok\n");
-		i++;
-		
-	}
-	split_pipe[i] = parsing_dollar(data, split_pipe[i]);
-	tok = tokenisation(split_pipe[i], tok);
-	free(tok[0]);
-	tmp = ft_itoa(pipe_fd[0]);
-	tok[0] = ft_strdup(tmp);
-	call_execute(tok, data);
-	printf("derniere exec ok\n");
-	ft_free_split(tok);
-}*/
-
-
-void	multi_pipe(t_struct *data, char **tok)
+void	call_exec(t_struct *data, char **tok, int fdin, int fdout, int type)
 {
 	pid_t	child;
-	int		pipe_fd[2];
 	int		check;
-
-	check = pipe(pipe_fd);
-	//protect(check);
+	
 	child = fork();
 	if (child == 0)
 	{
-		check = dup2(pipe_fd[1], 1);
+		printf("new exec with in: %i o:%i\n", fdin, fdout);
+		check = dup2(fdin, 0);
 		//protect(check);
-		close(pipe_fd[0]);
-		call_execute_pipe(tok, data);
+		check = dup2(fdout, 1);
+		// protect(check);
+		if (fdout != 1)
+			close(fdout);
+		if (fdin != 0)
+			close(fdin);
+		if (type == BINARY)
+			execute(data, tok[1]);
+		else if (type == BU_ECHO)
+			echo(tok);
+		else if (type == BU_CD)
+			cd_builtin(data, tok);
+		else if (type == BU_PWD)
+			pwd_builtin();
+		else if (type == BU_ENV)
+			env_builtin(data);
+		else if (type == BU_EXPORT)
+		{
+			data = export_env(data, tok[1]);
+			exit(EXIT_SUCCESS);
+		}
+		else if (type == BU_EXIT)
+			exit_builtins(data, tok);
+		else if (type == BU_UNSET)
+		{
+			data = unset_env(data, tok[1]);
+			exit(EXIT_SUCCESS);
+		}
 	}
-	close(pipe_fd[1]);
-	check = dup2(pipe_fd[0], 0);
-	//protect(check);
-	waitpid(-1, NULL, 0);
+	waitpid(child, NULL, 0);
 }
 
 void	pipe_exec(t_struct *data, char **tok, char *line)
 {
 	int		check;
-	int		last_child;
 	char	**split_pipe;
 	int		len;
 	int		i;
+	int		pipe_fd[2];
+	int		pipe_fd2[2];
+	int		type;
+
 
 	
 
 	split_pipe = ft_split(line, '|');
 	len = len_split(split_pipe);
 	i = 0;
-	split_pipe[i] = parsing_dollar(data, split_pipe[i]);
+	//split_pipe[i] = parsing_dollar(data, split_pipe[i]);
 	tok = tokenisation(split_pipe[i], tok);
 
+	type = check_type(tok);
 
-	check = dup2(ft_atoi(tok[0]), 0);
-	//protect(check);
-	close(ft_atoi(tok[0]));
 
-	multi_pipe(data, tok);
+	check = pipe(pipe_fd);
+	printf("new pipe fds in: %i o:%i\n\n", pipe_fd[0], pipe_fd[1]);
+	call_exec(data, tok, ft_atoi(tok[0]), pipe_fd[1], type);
+	close(pipe_fd[1]);
 	i++;
 	while (i < len - 2)
 	{
-		split_pipe[i] = parsing_dollar(data, split_pipe[i]);
+		check = pipe(pipe_fd2);
+		printf("new pipe 2 fds in: %i o:%i\n\n", pipe_fd2[0], pipe_fd2[1]);
+		//split_pipe[i] = parsing_dollar(data, split_pipe[i]);
 		tok = tokenisation(split_pipe[i], tok);
-		multi_pipe(data, tok);
+		type = check_type(tok);
+		call_exec(data, tok, pipe_fd[0], pipe_fd2[1], type);
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		close(pipe_fd2[1]);
+		pipe_fd[0] = pipe_fd2[0];
+		pipe_fd[1] = pipe_fd2[1];
 		i++;
 	}
-	split_pipe[i] = parsing_dollar(data, split_pipe[i]);
+	//split_pipe[i] = parsing_dollar(data, split_pipe[i]);
+	// printf("gnl: %s\n", get_next_line(pipe_fd[0]));
 	tok = tokenisation(split_pipe[i], tok);
-	last_child = fork();
-	if (last_child == 0)
-		call_execute_pipe(tok, data);
-	waitpid(-1, NULL, 0);
+	type = check_type(tok);
+	call_exec(data, tok, pipe_fd[0], ft_atoi(tok[2]), type);
+	printf("j'qi finiiiiiii\n");
 }

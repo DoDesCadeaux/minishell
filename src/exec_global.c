@@ -62,6 +62,7 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	{
 		ft_free_split(cmd_arg);
 		printf("ERROR EXEC 2\n");
+		exit(EXIT_SUCCESS);
 	}
 }
 
@@ -91,33 +92,4 @@ void	execute(t_struct *data, char *cmd)
 			printf("ERROR PATH ARG\n");
 		protected_execve(path, cmd_arg, data->envp, 1);
 	}
-}
-
-void	exec_global(t_struct *data, char **tok, char *cmd)
-{
-	pid_t	child;
-	int		check;
-
-	run_signals(2);
-	child = fork();
-	if (child == 0)
-	{
-		if (ft_strcmp(tok[0], "0"))
-		{
-			check = dup2(ft_atoi(tok[0]), 0);
-			if (check == -1)
-				printf("nuuuuul\n");
-			close(ft_atoi(tok[0]));
-		}
-		if (ft_strcmp(tok[2], "1"))
-		{
-			check = dup2(ft_atoi(tok[2]), 1);
-			if (check == -1)
-				printf("merdouille\n");
-			close(ft_atoi(tok[2]));
-		}
-		execute(data, cmd);
-	}
-	waitpid(-1, NULL, 0);
-	//wait(NULL);
 }

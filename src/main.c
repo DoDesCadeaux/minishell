@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <errno.h>
 
 int	is_only_spaces(char *line)
 {
@@ -49,6 +50,7 @@ int	main(int argc, char **argv, char **envp)
 	t_struct	*data;
 	char		*line;
 	char		**tok;
+	int			type;
 
 	if (argc != 1)
 		return (1);
@@ -64,6 +66,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!tok)
 			return (0);
 		line = prompt();
+		printf("j'ai refait\n");
 		if (!line)
 			exit(EXIT_FAILURE);
 		if (*line == '\0')
@@ -76,11 +79,14 @@ int	main(int argc, char **argv, char **envp)
 		{
 			line = parsing_dollar(data, line);
 			tok = tokenisation(line, tok);
-			call_execute(tok, data);
+			type = check_type(tok);
+			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
 			ft_free_split(tok);
 		}
 		else
 			pipe_exec(data, tok, line);
+
+		
 	}
 	//rl_clear_history();
 	return (0);

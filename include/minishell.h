@@ -57,6 +57,19 @@ enum	e_redirection
 	REDIR_STDOUT
 };
 
+enum	e_type
+{
+	BU_ECHO,
+	BU_CD,
+	BU_PWD,
+	BU_ENV,
+	BU_EXPORT,
+	BU_UNSET,
+	BU_EXIT,
+	BINARY,
+	BINARY_PIPE //utile ?
+};
+
 typedef struct s_struct
 {
 	char	**envp;
@@ -65,6 +78,8 @@ typedef struct s_struct
 	char	*tmp_1;
 	char	*tmp_2;
 	char	*tmp_3;
+	int		fd;
+	
 }	t_struct;
 
 void		welcome(void);
@@ -78,7 +93,8 @@ int			is_pipe(char *line);
 void		pipe_exec(t_struct *data, char **tok, char *line);
 char		*create_heredoc(char *delimiter);
 int			tok_1(char **tok, char **line_split, int i);
-void		call_execute_pipe(char **tok, t_struct *data);
+void		call_exec(t_struct *data, char **tok, int fdin, int fdout, int type);
+int			check_type(char **tok);
 
 
 //Global Utils
@@ -101,12 +117,12 @@ int			is_env_var(t_struct *data, char *export, int i);
 //Builtins
 t_struct	*unset_global(t_struct *data, char *unset);
 t_struct	*export_global(t_struct *data, char *export);
-void		env_builtin(t_struct *data, char **tok);
-t_struct	*export_env(t_struct *data, char **full_cmd);
-t_struct	*unset_env(t_struct *data, char **full_cmd);
+void		env_builtin(t_struct *data);
+t_struct	*export_env(t_struct *data, char *cmd);
+t_struct	*unset_env(t_struct *data, char *cmd);
 void		echo(char **tok);
-void		pwd_builtin(t_struct *data, char **tok);
-void		cd_builtin(t_struct *data, char *directory, char **tok);
+void		pwd_builtin(void);
+void		cd_builtin(t_struct *data, char **tok);
 void		exit_builtins(t_struct *data, char **tok);
 
 //Execve Utils
@@ -116,8 +132,7 @@ char		*get_cmd_path(char **paths, char *cmd);
 void		run_signals(int sig);
 
 //call diffrent execute
-void		call_execute(char **tok, t_struct *data);
-void		exec_global(t_struct *data, char **tok, char *cmd);
+
 
 //PARSING
 char		*parsing_dollar(t_struct *data, char *line_to_pars);
@@ -125,5 +140,9 @@ int			syntax_error(char *line);
 
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
+
+//UTILS
+void	ft_putstr(char *str);
+
 
 #endif

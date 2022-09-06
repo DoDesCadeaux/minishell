@@ -12,16 +12,16 @@
 
 #include "../include/minishell.h"
 
-void	env_builtin(t_struct *data, char **tok)
+void	env_builtin(t_struct *data)
 {
 	int	i;
 
 	i = 0;
 	while (data->envp[i])
 	{
-		ft_putstr_fd(data->envp[i], ft_atoi(tok[2]));
-		ft_putchar_fd('\n', ft_atoi(tok[2]));
+		printf("%s\n", data->envp[i]);
 		i++;
 	}
+	exit(EXIT_SUCCESS);
 	//attention message d'erreur
 }
