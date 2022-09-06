@@ -94,9 +94,9 @@ int	tok_1(char **tok, char **line_split, int i)
 
 char	**tokenisation(char *line, char **tok)
 {
-	char	**line_split;
-	char	*tmp;
-	int		i;
+	char **line_split;
+	char *tmp;
+	int i;
 
 	line_split = ft_split(line, ' ');
 	i = 0;
@@ -121,6 +121,7 @@ int	check_type(char **tok)
 	char	**full_cmd;
 	int		type;
 
+	run_signals(2);
 	full_cmd = ft_split(tok[1], ' ');
 	if (!ft_strcmp(full_cmd[0], ECHO))
 		type = BU_ECHO;

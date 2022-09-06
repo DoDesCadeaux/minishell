@@ -13,19 +13,6 @@
 #include "../include/minishell.h"
 #include <errno.h>
 
-int	is_only_spaces(char *line)
-{
-	size_t	i;
-
-	i = 0;
-	while (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'
-		   || line[i] == '\v' || line[i] == '\f' || line[i] == '\r')
-		i++;
-	if (i == ft_strlen(line))
-		return (1);
-	return (0);
-}
-
 void	show_ghost()
 {
 	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);
@@ -69,15 +56,17 @@ int	main(int argc, char **argv, char **envp)
 		printf("j'ai refait\n");
 		if (!line)
 			exit(EXIT_FAILURE);
-		if (*line == '\0')
+		if (syntax_errors(line))	//ligne est vide || que des espaces || quotes ouverts
 			continue;
 		add_history(line);
-		if (is_only_spaces(line))
-			continue;
-		add_history(line);
+
+		//a mettre dans la tokenisation/exec ??
+//		line = remove_single_quotes(line);
+//		line = remove_double_quotes(line);
+
 		if (!is_pipe(line))
 		{
-			line = parsing_dollar(data, line);
+			line = parsing(line, data);
 			tok = tokenisation(line, tok);
 			type = check_type(tok);
 			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
@@ -85,9 +74,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 			pipe_exec(data, tok, line);
-
-		
 	}
-	//rl_clear_history();
 	return (0);
 }

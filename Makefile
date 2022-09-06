@@ -5,14 +5,12 @@
 
 NAME	= minishell
 CC 		= gcc
-CFLAGS	= -Wall -Wextra -Werror -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
-##-L et -I adaptes pour fonctionner sur l'ordi de Tanguy. Remplacer le dessous pour faire fonctionner à l'école!
-##-Wall -Wextra -Werror -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include #-fsanitize=address
 CFLAGS_WRL = -Wall -Wextra -Werror
 MAKE 	= make
 MAKE_CLEAN	= make clean
 MAKE_FCLEAN = make fclean
-AUTHOR	= dduraku tverdood pamartin algaspar
+AUTHOR	= Dorian, Pauline, Tanguy, Alex
 DATE	= 17/08/2022
 
 NOVISU 	= 1 # 1 = no progress bar usefull when tty is not available
@@ -39,7 +37,7 @@ SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c $(TOK)pipe.c\
  				  $(GNL)gnl.c	$(GNL)gnl_utils.c \
 				  $(BUILTINS)echo.c $(BUILTINS)pwd.c $(BUILTINS)export.c $(BUILTINS)cd.c $(BUILTINS)env.c $(BUILTINS)unset.c $(BUILTINS)exit.c\
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \
-				  $(PARS)dollar.c\
+				  $(PARS)parsing.c $(PARS)dollar.c $(PARS)single_quotes.c $(PARS)double_quotes.c $(PARS)utils_parsing.c $(PARS)syntax_errors.c\
 				  exec_global.c welcome.c signals.c
 				 
 
@@ -99,7 +97,6 @@ else
 endif
 
 ifeq ($(shell git rev-parse HEAD &>/dev/null; echo $$?),0)
-	AUTHOR	:= $(shell git log --format='%aN' | sort -u | awk '{printf "%s, ", $$0}' | rev | cut -c 3- | rev)
 	DATE	:= $(shell git log -1 --date=format:"%d/%m/%Y %T" --format="%ad")
 	HASH	:= $(shell git rev-parse --short HEAD)
 endif
@@ -215,24 +212,28 @@ all: header setup $(NAME)
 	@rm -rf .files_changed
 
 header:
-	@echo "MINISHELLLLLL"
-ifneq ($(HASH),)
+		@printf "%b" "$(OBJ_COLOR)"
+		@echo
+		@echo
+		@echo "    __  ___ _         _    _____  __           __ __"
+		@echo "   /  |/  /(_)____   (_)  / ___/ / /_   ___   / // /"
+		@echo "  / /|_/ // // __ \ / /   \__ \ / __ \ / _ \ / // / "
+		@echo " / /  / // // / / // /   ___/ // / / //  __// // /  "
+		@echo "/_/  /_//_//_/ /_//_/   /____//_/ /_/ \___//_//_/   "
+		@echo "                                                    "
+
 	@printf "%b" "$(OBJ_COLOR)Name:	$(WARN_COLOR)$(NAME)\n"
-else
-	@printf "%b" "$(OBJ_COLOR)Name:	$(WARN_COLOR)$(NAME)\n"
-endif
 	@printf "%b" "$(OBJ_COLOR)Author:	$(WARN_COLOR)$(AUTHOR)\n"
 	@printf "%b" "$(OBJ_COLOR)Date: 	$(WARN_COLOR)$(DATE)\n\033[m"
 	@printf "%b" "$(OBJ_COLOR)CC: 	$(WARN_COLOR)$(CC)\n\033[m"
-	@printf "%b" "$(OBJ_COLOR)Flags: 	$(WARN_COLOR)$(CFLAGS)\n\033[m"
+	@printf "%b" "$(OBJ_COLOR)Flags: 	$(WARN_COLOR)$(CFLAGS_RL)\n\033[m"
 	@echo
 
 
 -include $(DEPS) $(DEPS_MAIN)
-$(NAME):	${OBJS} ${OBJ_MAIN}
+$(NAME):	$(OBJS) $(OBJ_MAIN)
 			@$(MAKE) -C Libft
 			@$(call display_progress_bar)
-##			@$(CC) $(CFLAGS) src/signals.c
 			@$(call run_and_test,$(CC) $(CFLAGS) -I$(INCLUDE_PATH) $(LIB) -o $@ ${COMPIL} ${OBJS} ${OBJ_MAIN})
 			@printf "$(WARN_COLOR)Project Ready :)\n"
 

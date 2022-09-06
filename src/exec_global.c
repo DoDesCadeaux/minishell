@@ -93,3 +93,4 @@ void	execute(t_struct *data, char *cmd)
 		protected_execve(path, cmd_arg, data->envp, 1);
 	}
 }
+
