@@ -56,9 +56,7 @@ int	main(int argc, char **argv, char **envp)
 		if (syntax_errors(line))	//ligne est vide || que des espaces || quotes ouverts
 			continue;
 		add_history(line);
-		line = parsing_dollar(data, line);
-//		line = espaces_redirections
-
+		line = parsing(line, data);
 
 		//a mettre dans la tokenisation/exec ??
 //		line = remove_single_quotes(line);

@@ -91,7 +91,8 @@ int	tok_1(char **tok, char **line_split, int i)
 	return (i);
 }
 
-char	**tokenisation(char *line, char **tok) {
+char	**tokenisation(char *line, char **tok)
+{
 	char **line_split;
 	char *tmp;
 	int i;

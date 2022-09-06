@@ -32,3 +32,21 @@ char	*str_dup_parts(char *src, int end, int start)
 	duplicate[i] = '\0';
 	return (duplicate);
 }
+
+int	skip_single_quotes(char *line, int i)
+{
+	i++;
+	while (line[i] != 39 && line[i])
+		i++;
+	i++;
+	return (i);
+}
+
+int	skip_all_quotes(char *line, int i)
+{
+	i++;
+	while (line[i] != 39 && line[i] != 34 && line[i])
+		i++;
+	i++;
+	return (i);
+}

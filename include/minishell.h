@@ -78,7 +78,7 @@ char		*get_fd(char *file, int type, char *token);
 //Global Utils
 int			len_split(char **split);
 
-//Get Next Line
+//GNL
 char		*get_next_line(int fd);
 char		*ft_strjoin_gnl(char *s1, char *s2);
 char		*ft_strchr(char *s, int c);
@@ -92,7 +92,7 @@ char		*var_exist(t_struct *data, char *variable);
 int			is_numeric(char *value);
 int			is_env_var(t_struct *data, char *export, int i);
 
-//Builtins
+//BUILTINS
 t_struct	*unset_global(t_struct *data, char *unset);
 t_struct	*export_global(t_struct *data, char *export);
 void		env_builtin(t_struct *data, char **tok);
@@ -114,9 +114,13 @@ void		call_execute(char **tok, t_struct *data);
 void		exec_global(t_struct *data, char **tok, char *cmd);
 
 //PARSING
-char		*parsing_dollar(t_struct *data, char *line_to_pars);
 int 		syntax_errors(char *line);
+char	 	*parsing(char *line_to_pars, t_struct *data);
+char		*parsing_dollar(t_struct *data, char *line_to_pars);
 char		*str_dup_parts(char *src, int end, int start);
+int			skip_single_quotes(char *line, int i);
+int			skip_all_quotes(char *line, int i);
+
 char		*remove_single_quotes(char *line);
 char		*remove_double_quotes(char *line);
 
