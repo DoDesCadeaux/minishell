@@ -18,6 +18,8 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout, int type)
 	int		check;
 	
 	child = fork();
+	if (type == BU_EXIT)
+		exit_builtins(data, tok);
 	if (child == 0)
 	{
 		printf("new exec with in: %i o:%i\n", fdin, fdout);
@@ -44,8 +46,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout, int type)
 			data = export_env(data, tok[1]);
 			exit(EXIT_SUCCESS);
 		}
-		else if (type == BU_EXIT)
-			exit_builtins(data, tok);
+
 		else if (type == BU_UNSET)
 		{
 			data = unset_env(data, tok[1]);
