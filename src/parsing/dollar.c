@@ -65,14 +65,24 @@ static char	*replace_or_erase(char *line, t_struct *data)
 	return (line);
 }
 
+static int	skip_quotes(char *line, int i)
+{
+	while (line[i] != 39 && line[i])
+		i++;
+
+	return (i);
+}
+
 char	*parsing_dollar(t_struct *data, char *line_pars)
 {
 	int		i;
 	int		y;
 
 	i = 0;
-	while (line_pars[i++])
+	while (line_pars[i])
 	{
+		if (line_pars[i] == 39)
+			i = skip_quotes(line_pars, i);
 		if (line_pars[i] == '$')
 		{
 			data->tmp_1 = str_dup_parts(line_pars, i - 1, 0);
@@ -86,8 +96,9 @@ char	*parsing_dollar(t_struct *data, char *line_pars)
 				i++;
 			data->tmp_3 = str_dup_parts(line_pars, i - 1, y);
 			line_pars = replace_or_erase(line_pars, data);
-			i = y - ft_strlen(data->tmp_2) - 1;
+			i = 0;
 		}
+		i++;
 	}
 	return (line_pars);
 }

@@ -91,11 +91,10 @@ int	tok_1(char **tok, char **line_split, int i)
 	return (i);
 }
 
-char	**tokenisation(char *line, char **tok)
-{
-	char	**line_split;
-	char	*tmp;
-	int		i;
+char	**tokenisation(char *line, char **tok) {
+	char **line_split;
+	char *tmp;
+	int i;
 
 	line_split = ft_split(line, ' ');
 	i = 0;
@@ -119,6 +118,7 @@ void	call_execute(char **tok, t_struct *data)
 {
 	char	**full_cmd;
 
+	run_signals(2);
 	full_cmd = ft_split(tok[1], ' ');
 	if (!ft_strcmp(full_cmd[0], ECHO))
 		echo(tok);

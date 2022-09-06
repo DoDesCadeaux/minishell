@@ -70,8 +70,10 @@ int	main(int argc, char **argv, char **envp)
 			continue;
 		if (is_only_spaces(line))
 			continue;
+		if (!single_quote(line))
+			continue;
 		add_history(line);
-        line = parsing_dollar(data, line);
+		line = parsing_dollar(data, line);
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
 		ft_free_split(tok);
