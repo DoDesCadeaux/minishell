@@ -117,6 +117,8 @@ void		exec_global(t_struct *data, char **tok, char *cmd);
 char		*parsing_dollar(t_struct *data, char *line_to_pars);
 int			syntax_error(char *line);
 
+//QUOTES
+char	*single_quote(char *line);
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
 
