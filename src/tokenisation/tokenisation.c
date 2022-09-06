@@ -57,10 +57,7 @@ int	tok_fd_in(char **tok, char **line_split, int i, int len)
 		i = 2;
 	}
 	else	
-	{
 		info = get_fd(NULL, REDIR_STDIN, NULL);
-		i = 1;
-	}
 	tok[0] = ft_strdup(info);
 	free(info);
 	return (i);
