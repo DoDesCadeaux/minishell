@@ -86,7 +86,7 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	{
 		check = pipe(pipe_fd2);
 		printf("new pipe 2 fds in: %i o:%i\n\n", pipe_fd2[0], pipe_fd2[1]);
-		//split_pipe[i] = parsing_dollar(data, split_pipe[i]);
+		split_pipe[i] = parsing(split_pipe[i], data);
 		tok = tokenisation(split_pipe[i], tok);
 		type = check_type(tok);
 		call_exec(data, tok, pipe_fd[0], pipe_fd2[1], type);
@@ -97,10 +97,8 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 		pipe_fd[1] = pipe_fd2[1];
 		i++;
 	}
-	//split_pipe[i] = parsing_dollar(data, split_pipe[i]);
-	// printf("gnl: %s\n", get_next_line(pipe_fd[0]));
+	split_pipe[i] = parsing(split_pipe[i], data);
 	tok = tokenisation(split_pipe[i], tok);
 	type = check_type(tok);
 	call_exec(data, tok, pipe_fd[0], ft_atoi(tok[2]), type);
-	printf("j'qi finiiiiiii\n");
 }
