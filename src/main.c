@@ -74,6 +74,7 @@ int	main(int argc, char **argv, char **envp)
 			continue;
 		add_history(line);
 		line = parsing_dollar(data, line);  //remplace les $ s'il faut (pas les single quotes)
+		line = remove_single_quotes(line); 			  //supprime les single quotes
 		tok = tokenisation(line, tok);
 		call_execute(tok, data);
 		ft_free_split(tok);

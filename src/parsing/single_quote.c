@@ -41,6 +41,29 @@ static int		check_if_open_quotes(char *line)
 	return (0);
 }
 
+char	*remove_single_quotes(char *line)
+{
+	int 	i;
+	char 	*tmp1;
+	char 	*tmp2;
+
+	i = 0;
+	while(line[i])
+	{
+		if (line[i] == 39)
+		{
+			tmp1 = str_dup_parts(line, i - 1, 0);
+			tmp2 = str_dup_parts(line, ft_strlen(line), i + 1);
+			line = ft_strjoin(tmp1, tmp2);
+			free(tmp1);
+			free(tmp2);
+			i = 0;
+		}
+		i++;
+	}
+	return (line);
+}
+
 char	*single_quote(char *line)
 {
 	int	i;
@@ -72,7 +95,7 @@ char	*single_quote(char *line)
 		i++;
 	}
 	string_in_quote[i] = '\0';
-	printf("line=%s\n", string_in_quote);
+//	printf("line=%s\n", string_in_quote);
 	return (string_in_quote);
 }
 
