@@ -30,7 +30,7 @@ void	ctrl_C(int sig)
 
 void	ctrl_D(int sig)
 {
-	printf("^\\Quit : 3\n");
+	printf("^\\\n\nEXIT\n\n");
 	(void)sig;
 }
 
