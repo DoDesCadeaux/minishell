@@ -12,28 +12,7 @@
 
 #include "../../include/minishell.h"
 
-static char	*str_dup_parts(char *src, int end, int start)
-{
-	char	*duplicate;
-	int		i;
-
-	if ((end - start) <= 0)
-		return (ft_strdup(""));
-	duplicate = malloc(sizeof(char) * (end - start) + 1);
-	if (!duplicate)
-		return (NULL);
-	i = 0;
-	while (src[i] && start - 1 < end)
-	{
-		duplicate[i] = src[start];
-		i++;
-		start++;
-	}
-	duplicate[i] = '\0';
-	return (duplicate);
-}
-
-char	*join_and_replace(t_struct *data, char *tmp1, char *replace, char *tmp3)
+static char	*join_and_replace(t_struct *data, char *tmp1, char *replace, char *tmp3)
 {
 	char	*dst;
 	char	*tmp_dollar;
@@ -67,6 +46,7 @@ static char	*replace_or_erase(char *line, t_struct *data)
 
 static int	skip_quotes(char *line, int i)
 {
+	i++;
 	while (line[i] != 39 && line[i])
 		i++;
 	i++;
@@ -82,7 +62,7 @@ char	*parsing_dollar(t_struct *data, char *line_pars)
 	while (line_pars[i])
 	{
 		if (line_pars[i] == 39)
-			i += skip_quotes(line_pars, i);
+			i = skip_quotes(line_pars, i);
 		if (line_pars[i] == '$')
 		{
 			data->tmp_1 = str_dup_parts(line_pars, i - 1, 0);
