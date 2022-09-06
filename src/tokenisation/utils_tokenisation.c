@@ -58,3 +58,17 @@ char	*get_fd(char *file, int type, char *token)
 	fd_tok = ft_itoa(fd);
 	return (fd_tok);
 }
+
+int	is_pipe(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '|')
+			return (1);
+		i++;
+	}
+	return (0);
+}

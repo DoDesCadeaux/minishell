@@ -74,22 +74,24 @@ void	change_directory(t_struct *data, char *directory)
 	data = update_envp(data, "PWD=");
 }
 
-void	cd_builtin(t_struct *data, char *directory, char **tok)
+void	cd_builtin(t_struct *data, char **tok)
 {
 	int		check;
 	char	*tmp;
+	char	**full_cmd;
 
-	check = access(directory, F_OK);
+	full_cmd = ft_split(tok[1], ' ');
+	check = access(full_cmd[1], F_OK);
 	if (check == 0)
-		change_directory(data, directory);
-	else if (!ft_strcmp(directory, "-"))
+		change_directory(data, full_cmd[1]);
+	else if (!ft_strcmp(full_cmd[1], "-"))
 	{
 		tmp = ft_strdup(data->pwd[1]);
 		change_directory(data, tmp);
 		free(tmp);
-		ft_putstr_fd(data->pwd[0], ft_atoi(tok[2]));
-		ft_putchar_fd('\n', ft_atoi(tok[2]));
+		printf("%s\n", data->pwd[0]);
 	}
 	else
 		printf(" ERROR CD\n");
+	exit(EXIT_SUCCESS);
 }

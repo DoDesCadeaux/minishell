@@ -33,12 +33,13 @@ void	echo(char **tok)
 		i++;
 	while (split_cmd[i])
 	{
-		ft_putstr_fd(split_cmd[i], ft_atoi(tok[2]));
+		printf("%s", split_cmd[i]);
 		i++;
 		if (i != len_split(split_cmd))
-			ft_putchar_fd(' ', ft_atoi(tok[2]));
+			printf(" ");
 	}
 	if (option_n(split_cmd) == 0)
-		ft_putchar_fd('\n', ft_atoi(tok[2]));
+		printf("\n");
 	ft_free_split(split_cmd);
+	exit(EXIT_SUCCESS);
 }

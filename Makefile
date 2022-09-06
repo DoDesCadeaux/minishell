@@ -6,10 +6,6 @@
 NAME	= minishell
 CC 		= gcc
 CFLAGS	= -Wall -Wextra -Werror -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include #-fsanitize=address
-
-## ordi Tanguy : -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
-##
-
 CFLAGS_WRL = -Wall -Wextra -Werror
 MAKE 	= make
 MAKE_CLEAN	= make clean
@@ -37,7 +33,7 @@ BUILTINS 		= ./builtins/
 ENV 			= ./environnement/
 PARS			= ./parsing/
 
-SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c \
+SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c $(TOK)pipe.c\
  				  $(GNL)gnl.c	$(GNL)gnl_utils.c \
 				  $(BUILTINS)echo.c $(BUILTINS)pwd.c $(BUILTINS)export.c $(BUILTINS)cd.c $(BUILTINS)env.c $(BUILTINS)unset.c $(BUILTINS)exit.c\
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \

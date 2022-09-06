@@ -45,7 +45,7 @@ int	tok_fd_in(char **tok, char **line_split, int i)
 		if (!info)
 		{
 			printf("ERROR FD1\n"); ///youpi: No such file or directory
-			exit(EXIT_FAILURE); //Pas de vrai exist!
+			//exit(EXIT_FAILURE); //Pas de vrai exist!
 		}
 		i = 2;
 	}
@@ -67,7 +67,7 @@ int	tok_1(char **tok, char **line_split, int i)
 	char	*tmp;
 
 	if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT)
-		&& ft_strcmp(line_split[i], PIPE))
+		&& ft_strcmp(line_split[i], PIPE)) // on peux peut etre enlever le pipe ici
 	{
 		info = ft_strdup(line_split[i]);
 		i++;
@@ -86,6 +86,7 @@ int	tok_1(char **tok, char **line_split, int i)
 			break ;
 		i++;
 	}
+	//info = doll
 	tok[1] = ft_strdup(info);
 	free(info);
 	return (i);
@@ -115,29 +116,28 @@ char	**tokenisation(char *line, char **tok)
 	return (tok);
 }
 
-void	call_execute(char **tok, t_struct *data)
+int	check_type(char **tok)
 {
 	char	**full_cmd;
+	int		type;
 
 	run_signals(2);
 	full_cmd = ft_split(tok[1], ' ');
 	if (!ft_strcmp(full_cmd[0], ECHO))
-		echo(tok);
+		type = BU_ECHO;
 	else if (!ft_strcmp(full_cmd[0], CD))
-		cd_builtin(data, full_cmd[1], tok);
+		type = BU_CD;
 	else if (!ft_strcmp(full_cmd[0], PWD))
-		pwd_builtin(data, tok);
+		type = BU_PWD;
 	else if (!ft_strcmp(full_cmd[0], ENV))
-		env_builtin(data, tok);
+		type = BU_ENV;
 	else if (!ft_strcmp(full_cmd[0], EXPORT))
-		data = export_env(data, full_cmd);
+		type = BU_EXPORT;
 	else if (!ft_strcmp(full_cmd[0], UNSET))
-		data = unset_env(data, full_cmd);
+		type = BU_UNSET;
 	else if (!ft_strcmp(full_cmd[0], EXIT))
-		exit_builtins(data, tok);
+		type = BU_EXIT;
 	else
-		exec_global(data, tok, tok[1]);
-	if (access(HERE_DOC, F_OK) == 0)
-		unlink("here_doc");
-	ft_free_split(full_cmd);
+		type = BINARY;
+	return (type);
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <errno.h>
 
 void	show_ghost()
 {
@@ -36,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 	t_struct	*data;
 	char		*line;
 	char		**tok;
+	int			type;
 
 	if (argc != 1)
 		return (1);
@@ -51,21 +53,27 @@ int	main(int argc, char **argv, char **envp)
 		if (!tok)
 			return (0);
 		line = prompt();
+		printf("j'ai refait\n");
 		if (!line)
 			exit(EXIT_FAILURE);
 		if (syntax_errors(line))	//ligne est vide || que des espaces || quotes ouverts
 			continue;
 		add_history(line);
-		line = parsing(line, data);
 
 		//a mettre dans la tokenisation/exec ??
 //		line = remove_single_quotes(line);
 //		line = remove_double_quotes(line);
 
-		tok = tokenisation(line, tok);
-		call_execute(tok, data);
-		ft_free_split(tok);
+		if (!is_pipe(line))
+		{
+			line = parsing(line, data);
+			tok = tokenisation(line, tok);
+			type = check_type(tok);
+			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
+			ft_free_split(tok);
+		}
+		else
+			pipe_exec(data, tok, line);
 	}
-	//rl_clear_history();
 	return (0);
 }
