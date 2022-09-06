@@ -82,4 +82,3 @@ char	*parsing_dollar(t_struct *data, char *line_pars)
 	}
 	return (line_pars);
 }
-//Pas besoin de free...?!

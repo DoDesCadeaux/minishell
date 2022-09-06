@@ -117,8 +117,10 @@ void		exec_global(t_struct *data, char **tok, char *cmd);
 char		*parsing_dollar(t_struct *data, char *line_to_pars);
 int			syntax_error(char *line);
 char		*str_dup_parts(char *src, int end, int start);
-char		*remove_single_quotes(char *line);
 char		*single_quote(char *line);
+int			check_if_open_quotes(char *line);
+char		*remove_single_quotes(char *line);
+char		*remove_double_quotes(char *line);
 
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
