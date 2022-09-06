@@ -64,6 +64,7 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	int		pipe_fd[2];
 	int		pipe_fd2[2];
 	int		type;
+	//int		redir[2];
 
 
 	
@@ -71,34 +72,51 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	split_pipe = ft_split(line, '|');
 	len = len_split(split_pipe);
 	i = 0;
-	//split_pipe[i] = parsing_dollar(data, split_pipe[i]);
+	split_pipe[i] = parsing(split_pipe[i], data);
 	tok = tokenisation(split_pipe[i], tok);
 
 	type = check_type(tok);
 
 
 	check = pipe(pipe_fd);
-	printf("new pipe fds in: %i o:%i\n\n", pipe_fd[0], pipe_fd[1]);
-	call_exec(data, tok, ft_atoi(tok[0]), pipe_fd[1], type);
+	//protectio
+	//redir[1] = ft_atoi(tok[2]);
+	if (ft_atoi(tok[2]) == 1)
+		call_exec(data, tok, ft_atoi(tok[0]), pipe_fd[1], type);
+	else
+		call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
 	close(pipe_fd[1]);
 	i++;
 	while (i < len - 2)
 	{
 		check = pipe(pipe_fd2);
-		printf("new pipe 2 fds in: %i o:%i\n\n", pipe_fd2[0], pipe_fd2[1]);
+		//protection
 		split_pipe[i] = parsing(split_pipe[i], data);
 		tok = tokenisation(split_pipe[i], tok);
 		type = check_type(tok);
-		call_exec(data, tok, pipe_fd[0], pipe_fd2[1], type);
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
+		//redir[1] = ft_atoi(tok[2]);
+		//redir[0] = ft_atoi(tok[0]);
+		if (ft_atoi(tok[0]) == 0 && ft_atoi(tok[2]) == 1)
+			call_exec(data, tok, pipe_fd[0], pipe_fd2[1], type);
+		else if (ft_atoi(tok[0]) == 0 && ft_atoi(tok[2]) != 1)
+			call_exec(data, tok, pipe_fd[0], ft_atoi(tok[2]), type);
+		else if (ft_atoi(tok[0]) != 0 && ft_atoi(tok[2]) == 1)
+			call_exec(data, tok, ft_atoi(tok[0]), pipe_fd2[1], type);
+		else
+			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
 		close(pipe_fd2[1]);
-		pipe_fd[0] = pipe_fd2[0];
-		pipe_fd[1] = pipe_fd2[1];
+		pipe_fd[0] = dup2(pipe_fd2[0], pipe_fd[0]);
+		pipe_fd[1] = dup2(pipe_fd2[1], pipe_fd[1]);
+		close(pipe_fd2[0]);
+		close(pipe_fd2[1]);
 		i++;
 	}
 	split_pipe[i] = parsing(split_pipe[i], data);
 	tok = tokenisation(split_pipe[i], tok);
 	type = check_type(tok);
-	call_exec(data, tok, pipe_fd[0], ft_atoi(tok[2]), type);
+	//redir[0] = ft_atoi(tok[0]);
+	if (ft_atoi(tok[0]) == 0)
+		call_exec(data, tok, pipe_fd[0], ft_atoi(tok[2]), type);
+	else
+		call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
 }
