@@ -2,12 +2,12 @@
 
 char	*remove_single_quotes(char *line)
 {
-	int 	i;
-	char 	*tmp1;
-	char 	*tmp2;
+	int		i;
+	char	*tmp1;
+	char	*tmp2;
 
 	i = 0;
-	while(line[i])
+	while (line[i])
 	{
 		if (line[i] == 39)
 		{
@@ -17,7 +17,7 @@ char	*remove_single_quotes(char *line)
 			free(tmp1);
 			free(tmp2);
 			i = 0;
-			continue;
+			continue ;
 		}
 		i++;
 	}

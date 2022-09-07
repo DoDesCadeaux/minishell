@@ -12,6 +12,11 @@
 
 #include "../../include/minishell.h"
 
+int	is_metachar(char c)
+{
+	return (c == '|' || c == '<' || c == '>');
+}
+
 char	*str_dup_parts(char *src, int end, int start)
 {
 	char	*duplicate;
@@ -35,10 +40,13 @@ char	*str_dup_parts(char *src, int end, int start)
 
 int	skip_single_quotes(char *line, int i)
 {
-	i++;
-	while (line[i] != 39 && line[i])
+	if (line[i] == 39)
+	{
 		i++;
-	i++;
+		while (line[i] != 39 && line[i])
+			i++;
+		i++;
+	}
 	return (i);
 }
 
