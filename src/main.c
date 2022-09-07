@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!tok)
 			return (0);
 		line = prompt();
-		printf("j'ai refait\n");
+//		printf("j'ai refait\n");
 		if (!line)
 			exit(EXIT_FAILURE);
 		if (syntax_errors(line))	//ligne est vide || que des espaces || quotes ouverts

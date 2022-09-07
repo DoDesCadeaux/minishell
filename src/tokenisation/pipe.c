@@ -22,7 +22,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout, int type)
 		exit_builtins(data, tok);
 	if (child == 0)
 	{
-		printf("new exec with in: %i o:%i\n", fdin, fdout);
+//		printf("new exec with in: %i o:%i\n", fdin, fdout);
 		check = dup2(fdin, 0);
 		//protect(check);
 		check = dup2(fdout, 1);

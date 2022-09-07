@@ -39,8 +39,8 @@ int	tok_fd_in(char **tok, char **line_split, int i, int len)
 {
 	char	*info;
 
-	printf("jsuis iciiiiii\n");
-	printf("%s\n", line_split[i]);
+//	printf("jsuis iciiiiii\n");
+//	printf("%s\n", line_split[i]);
 	if (!ft_strcmp(line_split[i], LESS) && i < len)
 	{
 		info = get_fd(line_split[i + 1], REDIR_STDIN, NULL);

@@ -29,7 +29,7 @@ static int		open_quotes(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == 39)
+		if (line[i] == 39 || line[i] == 34)
 			count_quotes++;
 		i++;
 	}
