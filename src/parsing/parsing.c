@@ -43,9 +43,24 @@ static char 	*check_spaces_redirections(char *line_to_pars)
 
 char 	*parsing(char *line, t_struct *data)
 {
-	line = remove_double_quotes(line);
-	line = parsing_dollar(data, line);
-	line = remove_single_quotes(line);
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == 34)
+		{
+			line = remove_double_quotes(line);
+			line = parsing_dollar(data, line);
+			break;
+		}
+		else if (line[i] == 39)
+		{
+			line = remove_single_quotes(line);
+			break;
+		}
+		i++;
+	}
 	line = check_spaces_redirections(line);
 	return (line);
 }
