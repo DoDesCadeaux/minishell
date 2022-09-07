@@ -56,8 +56,11 @@ int	main(int argc, char **argv, char **envp)
 		printf("j'ai refait\n");
 		if (!line)
 			exit(EXIT_FAILURE);
-		if (syntax_errors(line))	//ligne est vide || que des espaces || quotes ouverts
+		if (syntax_errors(line))
+		{
+			printf("Syntax ERROR\n");
 			continue;
+		}
 		add_history(line);
 
 		//a mettre dans la tokenisation/exec ??

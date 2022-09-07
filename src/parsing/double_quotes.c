@@ -1,13 +1,13 @@
 #include "../../include/minishell.h"
 
-char *remove_double_quotes(char *line)
+char	*remove_double_quotes(char *line)
 {
-	int 	i;
-	char 	*tmp1;
-	char 	*tmp2;
+	int		i;
+	char	*tmp1;
+	char	*tmp2;
 
 	i = 0;
-	while(line[i])
+	while (line[i])
 	{
 		if (line[i] == 34)
 		{

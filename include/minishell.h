@@ -136,6 +136,7 @@ void		run_signals(int sig);
 
 //PARSING
 int 		syntax_errors(char *line);
+int			is_metachar(char c);
 char	 	*parsing(char *line_to_pars, t_struct *data);
 char		*parsing_dollar(t_struct *data, char *line_to_pars);
 char		*str_dup_parts(char *src, int end, int start);
