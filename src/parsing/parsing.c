@@ -27,8 +27,6 @@ static char	*add_space(char *side, char *line, int i)
 
 static char	*left_redirection(char *line, int i)
 {
-	int 	i;
-	int		len;
 	if (line[i - 1] != ' ' && line[i - 1] != '<')
 	{
 		line = add_space("before", line, i);
@@ -77,9 +75,11 @@ static char	*check_spaces_redirections(char *line_to_pars)
 		}
 		i++;
 	}
-	printf("line = %s\n", line_to_pars);
+//	printf("line = %s\n", line_to_pars);
 	return (line_to_pars);
 }
+
+
 
 char	*parsing(char *line, t_struct *data)
 {
@@ -90,17 +90,22 @@ char	*parsing(char *line, t_struct *data)
 	{
 		if (line[i] == 34)
 		{
-			line = remove_double_quotes(line);
+			//Remove les quotes apres a tokenisation
 			line = parsing_dollar(data, line);
-			break;
+			line = remove_double_quotes(line);
+			line = check_spaces_redirections(line);
+			return (line);
 		}
 		else if (line[i] == 39)
 		{
+			//Remove les quotes apres a tokenisation
 			line = remove_single_quotes(line);
-			break;
+			line = check_spaces_redirections(line);
+			return (line);
 		}
 		i++;
 	}
+	line = parsing_dollar(data, line);
 	line = check_spaces_redirections(line);
 	return (line);
 }

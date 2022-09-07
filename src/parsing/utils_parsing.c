@@ -50,6 +50,18 @@ int	skip_single_quotes(char *line, int i)
 	return (i);
 }
 
+int	skip_double_quotes(char *line, int i)
+{
+	if (line[i] == 34)
+	{
+		i++;
+		while (line[i] != 34 && line[i])
+			i++;
+		i++;
+	}
+	return (i);
+}
+
 int	skip_all_quotes(char *line, int i)
 {
 	i++;

@@ -28,7 +28,7 @@ char	*prompt(void)
 
 	run_signals(1);
 	show_ghost();
-	str = readline(G "|/\\_/\\/\\_/\\|	" R);
+	str = readline(G "|/\\_/\\/\\_/\\|	->" R);
 	return (str);
 }
 

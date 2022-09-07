@@ -23,14 +23,18 @@ static int	is_only_spaces(char *line)
 static int	open_quotes(char *line)
 {
 	int	i;
+	int	j;
 	int	count_quotes;
 
 	count_quotes = 0;
 	i = 0;
+	j = 0;
 	while (line[i])
 	{
-		if (line[i] == 39 || line[i] == 34)
-			count_quotes++;
+		if (line[i] == 39)
+			i = skip_single_quotes(line, i);
+		else if (line[i] == 34)
+			i = skip_double_quotes(line, i);
 		i++;
 	}
 	if (count_quotes % 2 != 0)

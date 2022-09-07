@@ -140,6 +140,7 @@ int			is_metachar(char c);
 char	 	*parsing(char *line_to_pars, t_struct *data);
 char		*parsing_dollar(t_struct *data, char *line_to_pars);
 char		*str_dup_parts(char *src, int end, int start);
+int			skip_double_quotes(char *line, int i);
 int			skip_single_quotes(char *line, int i);
 int			skip_all_quotes(char *line, int i);
 

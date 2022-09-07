@@ -20,6 +20,8 @@ static int	is_not_end_of_dollar(char c)
 		return (0);
 	if (c == '"')
 		return (0);
+	if (c == 39)
+		return (0);
 	return (1);
 }
 
@@ -63,7 +65,7 @@ char	*parsing_dollar(t_struct *data, char *line_pars)
 	i = 0;
 	while (line_pars[i])
 	{
-		i = skip_single_quotes(line_pars, i);
+//		i = skip_single_quotes(line_pars, i);
 		if (line_pars[i] == '$')
 		{
 			data->tmp_1 = str_dup_parts(line_pars, i - 1, 0);
@@ -76,7 +78,9 @@ char	*parsing_dollar(t_struct *data, char *line_pars)
 			while (line_pars[i])
 				i++;
 			data->tmp_3 = str_dup_parts(line_pars, i, y);
+		//	printf("tmp2=%s\n",data->tmp_2);
 			line_pars = replace_or_erase(line_pars, data);
+			printf("line=%s\n", line_pars);
 			i = -1;
 		}
 		i++;
