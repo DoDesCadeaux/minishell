@@ -74,6 +74,8 @@ char	*ft_strstr(const char *haystack, const char *needle);
 
 int		ft_strpstr(const char *haystack, const char *needle);
 
+int		ft_strqstr(const char *haystack, const char *needle);
+
 void	ft_bzero(void *s, size_t n);
 
 char	*ft_strdup(const char *s1);

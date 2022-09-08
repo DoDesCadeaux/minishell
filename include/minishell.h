@@ -50,6 +50,8 @@
 # define EXPORT "export"
 # define UNSET  "unset"
 # define EXIT   "exit"
+# define OPTION	"-n "
+# define CMD	"echo "
 
 enum	e_redirection
 {
