@@ -19,6 +19,8 @@ char	*create_heredoc(char *delimiter)
 	int		here_doc;
 	int		fd;
 
+	if (!delimiter)
+		return (NULL);
 	here_doc = open("here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (here_doc < 0)
 		printf("ERROR HERE DOC");
@@ -39,25 +41,39 @@ int	tok_fd_in(char **tok, char **line_split, int i)
 {
 	char	*info;
 
+<<<<<<< HEAD
 //	printf("jsuis iciiiiii\n");
 //	printf("%s\n", line_split[i]);
+=======
+	info= NULL;
+>>>>>>> 6d5b0bfc85c48e6b7f2eba8deeb5ef5cdd4fffbe
 	if (!ft_strcmp(line_split[i], LESS))
 	{
 		info = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
 		if (!info)
-		{
 			printf("ERROR FD1\n"); ///youpi: No such file or directory
-			//exit(EXIT_FAILURE); //Pas de vrai exist!
-		}
 		i = 2;
 	}
 	else if (!ft_strcmp(line_split[i], DLESS))
 	{
 		info = create_heredoc(line_split[i + 1]);
 		i = 2;
+		if (!line_split[i + 1])
+		{
+			i = 3;
+			unlink(HERE_DOC);
+		}
 	}
+<<<<<<< HEAD
 	else	
+=======
+	else if (!ft_strcmp(line_split[i], DGREAT)|| !ft_strcmp(line_split[i], GREAT))
+		i = 2;
+	else
+>>>>>>> 6d5b0bfc85c48e6b7f2eba8deeb5ef5cdd4fffbe
 		info = get_fd(NULL, REDIR_STDIN, NULL);
+	if (!info)
+		return (i);
 	tok[0] = ft_strdup(info);
 	free(info);
 	return (i);
@@ -68,16 +84,14 @@ int	tok_1(char **tok, char **line_split, int i)
 	char	*info;
 	char	*tmp;
 
-	if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT)
-		&& ft_strcmp(line_split[i], PIPE)) // on peux peut etre enlever le pipe ici
+	if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT)) // on peux peut etre enlever le pipe ici
 	{
 		info = ft_strdup(line_split[i]);
 		i++;
 	}
 	while (line_split[i])
 	{
-		if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT)
-			&& ft_strcmp(line_split[i], PIPE))
+		if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT))
 		{
 			tmp = ft_strjoin(info, " ");
 			free(info);
@@ -103,11 +117,17 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	line_split = ft_split(line, ' ');
 	i = 0;
 	i = tok_fd_in(tok, line_split, i);
+<<<<<<< HEAD
 	i = tok_1(tok, line_split, i);//APPEL PARSING
 	tmp = parsing(tok[1], data);
 	tok[1] = ft_strdup(tmp);
 	free(tmp);
 
+=======
+	if (i == len_split(line_split))
+		return (NULL);
+	i = tok_1(tok, line_split, i); //APPEL PARSING
+>>>>>>> 6d5b0bfc85c48e6b7f2eba8deeb5ef5cdd4fffbe
 	if (line_split[i] && !ft_strcmp(line_split[i], GREAT)) //TOK_FD_OUT
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT);
 	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT))

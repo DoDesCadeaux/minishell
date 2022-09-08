@@ -31,6 +31,7 @@ void	echo(char **tok)
 	split_cmd = ft_split(tok[1], ' ');
 	if (option_n(split_cmd) == 1)
 		i++;
+	
 	while (split_cmd[i])
 	{
 		printf("%s", split_cmd[i]);

@@ -14,7 +14,7 @@
 
 int	is_metachar(char c)
 {
-	return (c == '|' || c == '<' || c == '>');
+	return (c == '|');
 }
 
 char	*str_dup_parts(char *src, int end, int start)

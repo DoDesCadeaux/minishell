@@ -42,7 +42,7 @@ static int	open_quotes(char *line)
 	return (0);
 }
 
-static int	begin_or_end_with_separators(char *line)
+static int	begin_or_end_with_pipe(char *line)
 {
 	int	i;
 	int	max;
@@ -64,7 +64,7 @@ int	syntax_errors(char *line)
 		return (1);
 	if (open_quotes(line))
 		return (1);
-	if (begin_or_end_with_separators(line))
+	if (begin_or_end_with_pipe(line))
 		return (1);
 	return (0);
 }

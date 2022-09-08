@@ -53,7 +53,10 @@ int	main(int argc, char **argv, char **envp)
 		if (!tok)
 			return (0);
 		line = prompt();
+<<<<<<< HEAD
 //		printf("j'ai refait\n");
+=======
+>>>>>>> 6d5b0bfc85c48e6b7f2eba8deeb5ef5cdd4fffbe
 		if (!line)
 			exit(EXIT_FAILURE);
 		if (syntax_errors(line))
@@ -69,11 +72,15 @@ int	main(int argc, char **argv, char **envp)
 
 		if (!is_pipe(line))
 		{
-//			line = parsing(line, data);
-			tok = tokenisation(line, tok, data);
-			type = check_type(tok);
-			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
-			ft_free_split(tok);
+			line = parsing(line, data);
+			tok = tokenisation(line, tok);
+			if (tok)
+			{
+				type = check_type(tok);
+				call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
+				ft_clear_split(tok);
+			}
+			free(tok);
 		}
 		else
 			printf("TEST\n");
