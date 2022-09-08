@@ -74,8 +74,8 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	split_pipe = ft_split(line, '|');
 	len = len_split(split_pipe);
 	i = 0;
-	split_pipe[i] = parsing(split_pipe[i], data);
-	tok = tokenisation(split_pipe[i], tok);
+	//split_pipe[i] = parsing(split_pipe[i], data);
+	tok = tokenisation(split_pipe[i], tok, data);
 
 	type = check_type(tok);
 
@@ -93,8 +93,8 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	{
 		check = pipe(pipe_fd2);
 		//protection
-		split_pipe[i] = parsing(split_pipe[i], data);
-		tok = tokenisation(split_pipe[i], tok);
+		//split_pipe[i] = parsing(split_pipe[i], data);
+		tok = tokenisation(split_pipe[i], tok, data);
 		type = check_type(tok);
 		//redir[1] = ft_atoi(tok[2]);
 		//redir[0] = ft_atoi(tok[0]);
@@ -113,8 +113,8 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 		close(pipe_fd2[1]);
 		i++;
 	}
-	split_pipe[i] = parsing(split_pipe[i], data);
-	tok = tokenisation(split_pipe[i], tok);
+	//split_pipe[i] = parsing(split_pipe[i], data);
+	tok = tokenisation(split_pipe[i], tok, data);
 	type = check_type(tok);
 	//redir[0] = ft_atoi(tok[0]);
 	if (ft_atoi(tok[0]) == 0)

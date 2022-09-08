@@ -68,8 +68,8 @@ int	main(int argc, char **argv, char **envp)
 
 		if (!is_pipe(line))
 		{
-			line = parsing(line, data);
-			tok = tokenisation(line, tok);
+			//line = parsing(line, data);
+			tok = tokenisation(line, tok, data);
 			if (tok)
 			{
 				type = check_type(tok);

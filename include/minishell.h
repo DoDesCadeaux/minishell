@@ -86,13 +86,13 @@ void		welcome(void);
 void		show_ghost(void);
 
 //tokenisation and utils
-char		**tokenisation(char *line, char **tok);
+char		**tokenisation(char *line, char **tok, t_struct *data);
 int			ft_strcmp(char *s1, char *s2);
 char		*get_fd(char *file, int type, char *token);
 int			is_pipe(char *line);
 void		pipe_exec(t_struct *data, char **tok, char *line);
 char		*create_heredoc(char *delimiter);
-int			tok_1(char **tok, char **line_split, int i);
+int			tok_1(char **tok, char **line_split, int i, char *line);
 void		call_exec(t_struct *data, char **tok, int fdin, int fdout, int type);
 int			check_type(char **tok);
 
