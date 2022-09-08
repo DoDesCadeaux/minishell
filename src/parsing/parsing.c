@@ -74,7 +74,6 @@ static char	*check_spaces_redirections(char *line_to_pars)
 		}
 		i++;
 	}
-	printf("line = %s\n", line_to_pars);
 	return (line_to_pars);
 }
 
