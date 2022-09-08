@@ -36,6 +36,8 @@ int		ft_strfchr(char *str, char c);
 
 void	*ft_free_split(char **split);
 
+void	*ft_clear_split(char **split);
+
 int		ft_isprint(int c);
 
 int		ft_isalpha(int c);

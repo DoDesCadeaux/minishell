@@ -49,10 +49,12 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout, int type)
 		else if (type == BU_UNSET)
 		{
 			data = unset_env(data, tok[1]);
-			exit(EXIT_SUCCESS);
+			exit(EXIT_SUCCESS); //utilité ?
 		}
 	}
 	waitpid(child, NULL, 0);
+	if (access(HERE_DOC, F_OK) == 0)
+		unlink(HERE_DOC);
 }
 
 void	pipe_exec(t_struct *data, char **tok, char *line)

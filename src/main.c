@@ -53,11 +53,13 @@ int	main(int argc, char **argv, char **envp)
 		if (!tok)
 			return (0);
 		line = prompt();
-		printf("j'ai refait\n");
 		if (!line)
 			exit(EXIT_FAILURE);
-		if (syntax_errors(line))	//ligne est vide || que des espaces || quotes ouverts
+		if (syntax_errors(line))
+		{
+			printf("Syntax ERROR\n");
 			continue;
+		}
 		add_history(line);
 
 		//a mettre dans la tokenisation/exec ??
@@ -68,9 +70,13 @@ int	main(int argc, char **argv, char **envp)
 		{
 			line = parsing(line, data);
 			tok = tokenisation(line, tok);
-			type = check_type(tok);
-			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
-			ft_free_split(tok);
+			if (tok)
+			{
+				type = check_type(tok);
+				call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
+				ft_clear_split(tok);
+			}
+			free(tok);
 		}
 		else
 			pipe_exec(data, tok, line);
