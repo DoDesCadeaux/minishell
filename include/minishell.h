@@ -86,7 +86,7 @@ void		welcome(void);
 void		show_ghost(void);
 
 //tokenisation and utils
-char		**tokenisation(char *line, char **tok, t_struct *data);
+char		**tokenisation(char *line, char **tok);
 int			ft_strcmp(char *s1, char *s2);
 char		*get_fd(char *file, int type, char *token);
 int			is_pipe(char *line);

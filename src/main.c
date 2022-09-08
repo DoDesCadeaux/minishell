@@ -53,10 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!tok)
 			return (0);
 		line = prompt();
-<<<<<<< HEAD
-//		printf("j'ai refait\n");
-=======
->>>>>>> 6d5b0bfc85c48e6b7f2eba8deeb5ef5cdd4fffbe
+
 		if (!line)
 			exit(EXIT_FAILURE);
 		if (syntax_errors(line))
