@@ -35,13 +35,13 @@ char	*create_heredoc(char *delimiter)
 	return (info);
 }
 
-int	tok_fd_in(char **tok, char **line_split, int i, int len)
+int	tok_fd_in(char **tok, char **line_split, int i)
 {
 	char	*info;
 
 //	printf("jsuis iciiiiii\n");
 //	printf("%s\n", line_split[i]);
-	if (!ft_strcmp(line_split[i], LESS) && i < len)
+	if (!ft_strcmp(line_split[i], LESS))
 	{
 		info = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
 		if (!info)
@@ -51,7 +51,7 @@ int	tok_fd_in(char **tok, char **line_split, int i, int len)
 		}
 		i = 2;
 	}
-	else if (!ft_strcmp(line_split[i], DLESS) && i < len)
+	else if (!ft_strcmp(line_split[i], DLESS))
 	{
 		info = create_heredoc(line_split[i + 1]);
 		i = 2;
@@ -93,28 +93,24 @@ int	tok_1(char **tok, char **line_split, int i)
 	return (i);
 }
 
-char	**tokenisation(char *line, char **tok)
+char	**tokenisation(char *line, char **tok, t_struct *data)
 {
 	char **line_split;
 	char *tmp;
 	int i;
-	int len;
 
 	
 	line_split = ft_split(line, ' ');
-	len = len_split(line_split);
 	i = 0;
-	i = tok_fd_in(tok, line_split, i, len);
-	if (i + 1 < len)
-		i = tok_1(tok, line_split, i); //APPEL PARSING
-	else
-	{
-		printf("error\n");
-		return (NULL);
-	}
-	if (line_split[i] && !ft_strcmp(line_split[i], GREAT) && i < len) //TOK_FD_OUT
+	i = tok_fd_in(tok, line_split, i);
+	i = tok_1(tok, line_split, i);//APPEL PARSING
+	tmp = parsing(tok[1], data);
+	tok[1] = ft_strdup(tmp);
+	free(tmp);
+
+	if (line_split[i] && !ft_strcmp(line_split[i], GREAT)) //TOK_FD_OUT
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT);
-	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT) && i < len)
+	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT))
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, DGREAT);
 	else
 		tmp = get_fd(NULL, REDIR_STDOUT, NULL);

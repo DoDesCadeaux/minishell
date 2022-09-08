@@ -80,7 +80,7 @@ char	*parsing_dollar(t_struct *data, char *line_pars)
 			data->tmp_3 = str_dup_parts(line_pars, i, y);
 		//	printf("tmp2=%s\n",data->tmp_2);
 			line_pars = replace_or_erase(line_pars, data);
-			printf("line=%s\n", line_pars);
+//			printf("line=%s\n", line_pars);
 			i = -1;
 		}
 		i++;

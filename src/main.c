@@ -69,14 +69,16 @@ int	main(int argc, char **argv, char **envp)
 
 		if (!is_pipe(line))
 		{
-			line = parsing(line, data);
-			tok = tokenisation(line, tok);
+//			line = parsing(line, data);
+			tok = tokenisation(line, tok, data);
 			type = check_type(tok);
 			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
 			ft_free_split(tok);
 		}
 		else
-			pipe_exec(data, tok, line);
+			printf("TEST\n");
+//			pipe_exec(data, tok, line);
+
 	}
 	return (0);
 }
