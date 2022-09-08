@@ -66,13 +66,9 @@ static char	*check_spaces_redirections(char *line_to_pars)
 		if (line_to_pars[i] == 39 || line_to_pars[i] == 34)
 			i = skip_all_quotes(line_to_pars, i);
 		if ((i + 1 <= len) && line_to_pars[i] == '>')
-		{
 			line_to_pars = right_redirection(line_to_pars, i);
-		}
 		else if ((i + 1 <= len) && line_to_pars[i] == '<')
-		{
 			line_to_pars = left_redirection(line_to_pars, i);
-		}
 		i++;
 	}
 	return (line_to_pars);

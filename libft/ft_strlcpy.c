@@ -16,6 +16,8 @@ char	*ft_strlcpy(char *dst, const char *src, int dstsize)
 {
 	int	y;
 
+	if (!dst)
+		return (NULL);
 	y = 0;
 	while (src[y] && y < (dstsize - 1))
 	{

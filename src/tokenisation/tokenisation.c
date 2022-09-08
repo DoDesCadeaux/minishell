@@ -70,47 +70,71 @@ int	tok_fd_in(char **tok, char **line_split, int i)
 	return (i);
 }
 
-int	tok_1(char **tok, char **line_split, int i)
+char	*get_cmd(char *str, int i)
+{
+	int		y;
+	char	*line;
+
+	y = 0;
+	if (!str)
+		return (NULL);
+	line = malloc(sizeof(char) * i + 1);
+	if (!line)
+		return (NULL);
+	while (y < i)
+	{
+		line[y] = str[y];
+		y++;
+	}
+	line[y] = '\0';
+	return (line);
+}
+
+int	tok_1(char **tok, char **line_split, int i, char *line)
 {
 	char	*info;
 	char	*tmp;
+	char	*start;
+	char	*end;
+	int		i_end;
 
-	if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT)) // on peux peut etre enlever le pipe ici
-	{
-		info = ft_strdup(line_split[i]);
-		i++;
-	}
+	end = NULL;
+	info = NULL;
+	start = ft_strdup(line_split[i]);
+	tmp = ft_strstr(line, start);
 	while (line_split[i])
 	{
 		if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT))
-		{
-			tmp = ft_strjoin(info, " ");
-			free(info);
-			info = ft_strjoin(tmp, line_split[i]);
-			free(tmp);
-		}
+			i++;
 		else
 			break ;
-		i++;
 	}
+	if (line_split[i])
+		end = ft_strdup(line_split[i]);
+	if (end)
+		i_end = ft_strpstr(tmp, end);
+	else
+		i_end = ft_strlen(line);
+	
+	info = get_cmd(tmp, i_end);
 	tok[1] = ft_strdup(info);
 	free(info);
 	return (i);
 }
 
-char	**tokenisation(char *line, char **tok)
+char	**tokenisation(char *line, char **tok, t_struct *data)
 {
 	char **line_split;
 	char *tmp;
 	int i;
 
-	
 	line_split = ft_split(line, ' ');
 	i = 0;
 	i = tok_fd_in(tok, line_split, i);
 	if (i == len_split(line_split))
 		return (NULL);
-	i = tok_1(tok, line_split, i); //APPEL PARSING
+	i = tok_1(tok, line_split, i, line); //APPEL PARSING
+	tok[1] = parsing(tok[1], data);
 	if (line_split[i] && !ft_strcmp(line_split[i], GREAT)) //TOK_FD_OUT
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT);
 	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT))
