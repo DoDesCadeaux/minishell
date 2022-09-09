@@ -83,6 +83,5 @@ t_struct	*clone_env(char **env, t_struct *data)
 	else
 		data = export_global(data, "SHLVL=1");
 	init_pwd(data);
-	//Si old power existe il faut le free et adress a null
 	return (data);
 }

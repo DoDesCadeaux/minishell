@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	**path_list(char **envp)
 {
@@ -93,4 +93,3 @@ void	execute(t_struct *data, char *cmd)
 		protected_execve(path, cmd_arg, data->envp, 1);
 	}
 }
-

@@ -24,7 +24,6 @@ void	*ft_clear_split(char **split)
 		free(split[i]);
 		i++;
 	}
-	//free(split);
 	return (NULL);
 }
 

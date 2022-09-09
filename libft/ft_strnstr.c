@@ -92,7 +92,7 @@ int	ft_strqstr(const char *haystack, const char *needle)
 		while ((haystack[i + y] == needle[y]))
 		{
 			if (needle[y + 1] == '\0')
-				return (i + y) ;
+				return (i + y);
 			y++;
 		}
 		i++;

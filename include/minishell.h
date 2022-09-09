@@ -69,7 +69,6 @@ enum	e_type
 	BU_UNSET,
 	BU_EXIT,
 	BINARY,
-	BINARY_PIPE //utile ?
 };
 
 typedef struct s_struct
@@ -80,8 +79,7 @@ typedef struct s_struct
 	char	*tmp_1;
 	char	*tmp_2;
 	char	*tmp_3;
-	int		fd;
-	
+	int		type;
 }	t_struct;
 
 void		welcome(void);
@@ -95,9 +93,8 @@ int			is_pipe(char *line);
 void		pipe_exec(t_struct *data, char **tok, char *line);
 char		*create_heredoc(char *delimiter);
 int			tok_1(char **tok, char **line_split, int i, char *line);
-void		call_exec(t_struct *data, char **tok, int fdin, int fdout, int type);
+void		call_exec(t_struct *data, char **tok, int fdin, int fdout);
 int			check_type(char **tok);
-
 
 //Global Utils
 int			len_split(char **split);
@@ -120,8 +117,8 @@ int			is_env_var(t_struct *data, char *export, int i);
 t_struct	*unset_global(t_struct *data, char *unset);
 t_struct	*export_global(t_struct *data, char *export);
 void		env_builtin(t_struct *data);
-t_struct	*export_env(t_struct *data, char *cmd);
-t_struct	*unset_env(t_struct *data, char *cmd);
+void		export_env(t_struct *data, char *cmd);
+void		unset_env(t_struct *data, char *cmd);
 void		echo(char **tok);
 void		pwd_builtin(void);
 void		cd_builtin(t_struct *data, char **tok);
@@ -133,13 +130,10 @@ char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);
 void		run_signals(int sig);
 
-//call diffrent execute
-
-
 //PARSING
-int 		syntax_errors(char *line);
+int			syntax_errors(char *line);
 int			is_metachar(char c);
-char	 	*parsing(char *line_to_pars, t_struct *data);
+char		*parsing(char *line_to_pars, t_struct *data);
 char		*parsing_dollar(t_struct *data, char *line_to_pars);
 char		*str_dup_parts(char *src, int end, int start);
 int			skip_double_quotes(char *line, int i);
@@ -151,9 +145,5 @@ char		*remove_double_quotes(char *line);
 
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
-
-//UTILS
-void		ft_putstr(char *str);
-
 
 #endif

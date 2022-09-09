@@ -37,7 +37,6 @@ int	main(int argc, char **argv, char **envp)
 	t_struct	*data;
 	char		*line;
 	char		**tok;
-	int			type;
 
 	if (argc != 1)
 		return (1);
@@ -53,7 +52,6 @@ int	main(int argc, char **argv, char **envp)
 		if (!tok)
 			return (0);
 		line = prompt();
-
 		if (!line)
 			exit(EXIT_FAILURE);
 		if (syntax_errors(line))
@@ -62,27 +60,18 @@ int	main(int argc, char **argv, char **envp)
 			continue;
 		}
 		add_history(line);
-
-		//a mettre dans la tokenisation/exec ??
-//		line = remove_single_quotes(line);
-//		line = remove_double_quotes(line);
-
 		if (!is_pipe(line))
 		{
-			//line = parsing(line, data);
 			tok = tokenisation(line, tok, data);
 			if (tok)
 			{
-				type = check_type(tok);
-				call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
+				call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
 				ft_clear_split(tok);
 			}
 			free(tok);
 		}
 		else
-			printf("TEST\n");
-//			pipe_exec(data, tok, line);
-
+			pipe_exec(data, tok, line);
 	}
 	return (0);
 }

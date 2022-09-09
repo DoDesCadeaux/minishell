@@ -12,17 +12,42 @@
 
 #include "../../include/minishell.h"
 
-void	call_exec(t_struct *data, char **tok, int fdin, int fdout, int type)
+t_struct	*run_exec(t_struct *data, char **tok)
+{
+	if (data->type == BINARY)
+		execute(data, tok[1]);
+	else if (data->type == BU_ECHO)
+		echo(tok);
+	else if (data->type == BU_CD)
+		cd_builtin(data, tok);
+	else if (data->type == BU_PWD)
+		pwd_builtin();
+	else if (data->type == BU_ENV)
+		env_builtin(data);
+	else if (data->type == BU_EXPORT)
+	{
+		export_env(data, tok[1]);
+		//exit(EXIT_SUCCESS);
+	}
+	else if (data->type == BU_UNSET)
+	{
+		unset_env(data, tok[1]);
+		//exit(EXIT_SUCCESS);
+	}
+	//Quid de l'exit 
+	return (data);
+}
+
+void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 {
 	pid_t	child;
 	int		check;
-	
+
 	child = fork();
-	if (type == BU_EXIT)
+	if (data->type == BU_EXIT)
 		exit_builtins(data, tok);
 	if (child == 0)
 	{
-//		printf("new exec with in: %i o:%i\n", fdin, fdout);
 		check = dup2(fdin, 0);
 		//protect(check);
 		check = dup2(fdout, 1);
@@ -31,26 +56,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout, int type)
 			close(fdout);
 		if (fdin != 0)
 			close(fdin);
-		if (type == BINARY)
-			execute(data, tok[1]);
-		else if (type == BU_ECHO)
-			echo(tok);
-		else if (type == BU_CD)
-			cd_builtin(data, tok);
-		else if (type == BU_PWD)
-			pwd_builtin();
-		else if (type == BU_ENV)
-			env_builtin(data);
-		else if (type == BU_EXPORT)
-		{
-			data = export_env(data, tok[1]);
-			exit(EXIT_SUCCESS);
-		}
-		else if (type == BU_UNSET)
-		{
-			data = unset_env(data, tok[1]);
-			exit(EXIT_SUCCESS); //utilité ?
-		}
+		data = run_exec(data, tok);
 	}
 	waitpid(child, NULL, 0);
 	if (access(HERE_DOC, F_OK) == 0)
@@ -65,23 +71,17 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	int		i;
 	int		pipe_fd[2];
 	int		pipe_fd2[2];
-	int		type;
-	//int		redir[2];
-
-
-	
 
 	split_pipe = ft_split(line, '|');
 	len = len_split(split_pipe);
 	i = 0;
 	tok = tokenisation(split_pipe[i], tok, data);
-	type = check_type(tok);
 	check = pipe(pipe_fd);
 	//protection
 	if (ft_atoi(tok[2]) == 1)
-		call_exec(data, tok, ft_atoi(tok[0]), pipe_fd[1], type);
+		call_exec(data, tok, ft_atoi(tok[0]), pipe_fd[1]);
 	else
-		call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
+		call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
 	close(pipe_fd[1]);
 	i++;
 	while (i < len - 2)
@@ -89,15 +89,14 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 		check = pipe(pipe_fd2);
 		//protection
 		tok = tokenisation(split_pipe[i], tok, data);
-		type = check_type(tok);
 		if (ft_atoi(tok[0]) == 0 && ft_atoi(tok[2]) == 1)
-			call_exec(data, tok, pipe_fd[0], pipe_fd2[1], type);
+			call_exec(data, tok, pipe_fd[0], pipe_fd2[1]);
 		else if (ft_atoi(tok[0]) == 0 && ft_atoi(tok[2]) != 1)
-			call_exec(data, tok, pipe_fd[0], ft_atoi(tok[2]), type);
+			call_exec(data, tok, pipe_fd[0], ft_atoi(tok[2]));
 		else if (ft_atoi(tok[0]) != 0 && ft_atoi(tok[2]) == 1)
-			call_exec(data, tok, ft_atoi(tok[0]), pipe_fd2[1], type);
+			call_exec(data, tok, ft_atoi(tok[0]), pipe_fd2[1]);
 		else
-			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
+			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
 		close(pipe_fd2[1]);
 		pipe_fd[0] = dup2(pipe_fd2[0], pipe_fd[0]);
 		pipe_fd[1] = dup2(pipe_fd2[1], pipe_fd[1]);
@@ -106,9 +105,8 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 		i++;
 	}
 	tok = tokenisation(split_pipe[i], tok, data);
-	type = check_type(tok);
 	if (ft_atoi(tok[0]) == 0)
-		call_exec(data, tok, pipe_fd[0], ft_atoi(tok[2]), type);
+		call_exec(data, tok, pipe_fd[0], ft_atoi(tok[2]));
 	else
-		call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]), type);
+		call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
 }
