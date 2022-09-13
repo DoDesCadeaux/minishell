@@ -52,7 +52,7 @@ t_struct	*update_envp(t_struct *data, char *type)
 	while (data->envp[i])
 	{
 		if (is_env_var(data, export, i))
-			data = update_var(data, export, i);	
+			data = update_var(data, export, i);
 		i++;
 	}
 	free(update_pwd);
