@@ -12,6 +12,46 @@
 
 #include "../../include/minishell.h"
 
+char	**path_list(char **envp)
+{
+	char	*path;
+	char	**full_path;
+	size_t	i;
+
+	i = 0;
+	while (ft_strncmp("PATH", envp[i], 4))
+		i++;
+	path = envp[i] + 5;
+	full_path = ft_split(path, ':');
+	return (full_path);
+}
+
+char	*get_cmd_path(char **paths, char *cmd)
+{
+	char	*tmp;
+	char	*path;
+	size_t	i;
+
+	i = 0;
+	while (paths[i])
+	{
+		tmp = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (access(path, X_OK) == 0)
+		{
+			ft_free_split(paths);
+			return (path);
+		}
+		else if (access(path, X_OK) == -1)
+			ft_error_exit("", errno);
+		free(path);
+		i++;
+	}
+	ft_free_split(paths);
+	return (NULL);
+}
+
 void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 {
 	int	check;
@@ -23,9 +63,7 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	if (check == -1)
 	{
 		ft_free_split(cmd_arg);
-		printf("ERROR EXEC 2\n");
-		system("leaks minishell");
-		exit(EXIT_SUCCESS);
+		ft_error_exit("ERROR EXEC 2", 127);
 	}
 }
 

@@ -23,12 +23,10 @@ static int	is_only_spaces(char *line)
 static int	open_quotes(char *line)
 {
 	int	i;
-	int	j;
 	int	count_quotes;
 
 	count_quotes = 0;
 	i = 0;
-	j = 0;
 	while (line[i])
 	{
 		if (line[i] == 39)

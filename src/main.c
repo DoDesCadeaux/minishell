@@ -11,7 +11,33 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <errno.h>
+
+void	ft_error_exit(char *message, int code)
+{
+	error_code = code;
+	write(2, message, ft_strlen(message));
+	write(2, "\n", 1);
+	exit(EXIT_FAILURE);
+}
+
+void	ft_error(char *message, int code)
+{
+	error_code = code;
+	write(2, message, ft_strlen(message));
+	write(2, "\n", 1);
+}
+char 	*ft_malloc(int size)
+{
+	char *str;
+
+	str = malloc(size + 1);
+	if (!str)
+	{
+		error_code = 1;
+		return (NULL);
+	}
+	return (str);
+}
 
 void	show_ghost()
 {
@@ -39,8 +65,9 @@ int	main(int argc, char **argv, char **envp)
 	char		**tok;
 
 	if (argc != 1)
-		return (1);
+		ft_error_exit("Number of arguments is different than 1", 1);
 	printf("ARGV[0] = %s\n", argv[0]);
+//	initializer(&data, envp);
 	data = malloc(sizeof(t_struct));
 	if (!data)
 		return (0);
@@ -51,12 +78,13 @@ int	main(int argc, char **argv, char **envp)
 		tok = malloc(sizeof(char *) * 4 + 1);
 		if (!tok)
 			return (0);
+
 		line = prompt();
 		if (!line)
-			exit(EXIT_FAILURE);
+			ft_error_exit("", 1);
 		if (syntax_errors(line))
 		{
-			printf("Syntax ERROR\n");
+			ft_error("Syntax error", 1);
 			continue;
 		}
 		add_history(line);

@@ -46,7 +46,7 @@ int	tok_fd_in(char **tok, char **line_split, int i)
 	{
 		info = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
 		if (!info)
-			printf("ERROR FD1\n"); ///youpi: No such file or directory
+			ft_error("ERROR FD1", 1); ///youpi: No such file or directory
 		i = 2;
 	}
 	else if (!ft_strcmp(line_split[i], DLESS))
@@ -78,9 +78,7 @@ char	*get_cmd(char *str, int i)
 	y = 0;
 	if (!str)
 		return (NULL);
-	line = malloc(sizeof(char) * i + 1);
-	if (!line)
-		return (NULL);
+	line = ft_malloc(i);
 	while (y < i)
 	{
 		line[y] = str[y];
@@ -115,7 +113,6 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 		i_end = ft_strpstr(tmp, end);
 	else
 		i_end = ft_strlen(line);
-	
 	info = get_cmd(tmp, i_end);
 	tok[1] = ft_strdup(info);
 	free(info);
