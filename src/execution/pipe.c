@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 13:59:46 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/05 13:59:52 by pamartin         ###   ########.fr       */
+/*   Created: 2022/09/13 14:49:30 by pamartin          #+#    #+#             */
+/*   Updated: 2022/09/13 14:49:32 by pamartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,3 +74,4 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	tok = tokenisation(split_pipe[i], tok, data);
 	run_last(data, tok, pipe_fd);
 }
+
