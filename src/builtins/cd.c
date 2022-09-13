@@ -84,20 +84,20 @@ void	cd_builtin(t_struct *data, char **tok)
 	check = access(full_cmd[1], F_OK);
 	if (check == 0)
 		data = change_directory(data, full_cmd[1]);
+	else if (!ft_strncmp(tok[1], "cd", ft_strlen(tok[1]))
+		|| !ft_strcmp(full_cmd[1], "~"))
+	{
+		tmp = ft_strjoin("/Users/", data->user);
+		data = change_directory(data, tmp);
+		free(tmp);
+	}
 	else if (!ft_strcmp(full_cmd[1], "-"))
 	{
 		tmp = ft_strdup(data->pwd[1]);
 		data = change_directory(data, tmp);
 		free(tmp);
-		printf("tok[2]= %s\n", tok[2]);
-		ft_putstr_fd(data->pwd[0],ft_atoi(tok[2]));
+		ft_putstr_fd(data->pwd[0], ft_atoi(tok[2]));
 		ft_putchar_fd('\n', ft_atoi(tok[2]));
-	}
-	else if (!ft_strcmp(full_cmd[1], "~"))
-	{
-		tmp = ft_strjoin("/Users/", data->user);
-		data = change_directory(data, tmp);
-		free(tmp);
 	}
 	else
 		printf(" ERROR CD\n");
