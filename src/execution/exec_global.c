@@ -12,46 +12,6 @@
 
 #include "../../include/minishell.h"
 
-char	**path_list(char **envp)
-{
-	char	*path;
-	char	**full_path;
-	size_t	i;
-
-	i = 0;
-	while (ft_strncmp("PATH", envp[i], 4))
-		i++;
-	path = envp[i] + 5;
-	full_path = ft_split(path, ':');
-	return (full_path);
-}
-
-char	*get_cmd_path(char **paths, char *cmd)
-{
-	char	*tmp;
-	char	*path;
-	size_t	i;
-
-	i = 0;
-	while (paths[i])
-	{
-		tmp = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(tmp, cmd);
-		free(tmp);
-		if (access(path, X_OK) == 0)
-		{
-			ft_free_split(paths);
-			return (path);
-		}
-		else if (access(path, X_OK) == -1)
-			ft_error_exit("", errno);
-		free(path);
-		i++;
-	}
-	ft_free_split(paths);
-	return (NULL);
-}
-
 void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 {
 	int	check;
@@ -114,7 +74,6 @@ void	run_exec(t_struct *data, char **tok)
 void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 {
 	pid_t	child;
-	int		check;
 
 	child = fork();
 	if (data->type == BU_EXIT)
@@ -125,9 +84,9 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 		unset_env(data, tok[1]);
 	if (child == 0)
 	{
-		check = dup2(fdin, 0);
-		//protect(check);
-		check = dup2(fdout, 1);
+		data->check = dup2(fdin, 0);
+		//protect(check) -> lire le man dup2;
+		data->check = dup2(fdout, 1);
 		// protect(check);
 		if (fdout != 1)
 			close(fdout);

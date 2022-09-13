@@ -64,21 +64,12 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	char		**tok;
 
-	if (argc != 1)
-		ft_error_exit("Number of arguments is different than 1", 1);
-	printf("ARGV[0] = %s\n", argv[0]);
-//	initializer(&data, envp);
-	data = malloc(sizeof(t_struct));
-	if (!data)
-		return (0);
-	welcome();
-	data = clone_env(envp, data);
+	data = initializer(envp, argc, argv);
 	while (19)
 	{
 		tok = malloc(sizeof(char *) * 4 + 1);
 		if (!tok)
 			return (0);
-
 		line = prompt();
 		if (!line)
 			ft_error_exit("", 1);

@@ -152,7 +152,7 @@ void		rl_replace_line(const char *text, int clear_undo);
 
 //TANGUY
 char 		*ft_malloc(int size);
-void		initializer(t_struct *data, char **envp);
+t_struct	*initializer(char **envp, int argc, char **argv);
 void		ft_error(char *message, int code);
 void		ft_error_exit(char *message, int code);
 

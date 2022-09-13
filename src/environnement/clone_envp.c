@@ -12,6 +12,20 @@
 
 #include "../../include/minishell.h"
 
+static void	allocate_and_protect(t_struct *data, char *pwd_tmp)
+{
+	data->pwd = malloc(sizeof(char *) * 3 + 1);
+	if (!data->pwd)
+		error_code = 1;
+	data->pwd[0] = ft_strdup(pwd_tmp);
+	if (!data->pwd[0])
+		error_code = 1;
+	data->pwd[1] = ft_strdup(pwd_tmp);
+	if (!data->pwd[1])
+		error_code = 1;
+	data->pwd[2] = 0;
+}
+
 void	*init_pwd(t_struct *data)
 {
 	char	*pwd_tmp;
@@ -23,25 +37,7 @@ void	*init_pwd(t_struct *data)
 		error_code = 1;
 		return (NULL);
 	}
-	data->pwd = malloc(sizeof(char *) * 3 + 1);
-	if (!data->pwd)
-	{
-		error_code = 1;
-		return (NULL);
-	}
-	data->pwd[0] = ft_strdup(pwd_tmp);
-	if (!data->pwd[0])
-	{
-		error_code = 1;
-		return (NULL);
-	}
-	data->pwd[1] = ft_strdup(pwd_tmp);
-	if (!data->pwd[1])
-	{
-		error_code = 1;
-		return (NULL);
-	}
-	data->pwd[2] = 0;
+	allocate_and_protect(data, pwd_tmp);
 	free(pwd_tmp);
 	return (NULL);
 }
