@@ -19,16 +19,28 @@ void	*init_pwd(t_struct *data)
 	pwd_tmp = NULL;
 	pwd_tmp = getcwd(pwd_tmp, 200);
 	if (!pwd_tmp)
+	{
+		error_code = 1;
 		return (NULL);
+	}
 	data->pwd = malloc(sizeof(char *) * 3 + 1);
 	if (!data->pwd)
+	{
+		error_code = 1;
 		return (NULL);
+	}
 	data->pwd[0] = ft_strdup(pwd_tmp);
 	if (!data->pwd[0])
+	{
+		error_code = 1;
 		return (NULL);
+	}
 	data->pwd[1] = ft_strdup(pwd_tmp);
 	if (!data->pwd[1])
+	{
+		error_code = 1;
 		return (NULL);
+	}
 	data->pwd[2] = 0;
 	free(pwd_tmp);
 	return (NULL);
