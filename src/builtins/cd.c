@@ -89,7 +89,6 @@ void	cd_builtin(t_struct *data, char **tok)
 		tmp = ft_strdup(data->pwd[1]);
 		data = change_directory(data, tmp);
 		free(tmp);
-		printf("tok[2]= %s\n", tok[2]);
 		ft_putstr_fd(data->pwd[0],ft_atoi(tok[2]));
 		ft_putchar_fd('\n', ft_atoi(tok[2]));
 	}
