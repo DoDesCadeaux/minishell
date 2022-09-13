@@ -18,7 +18,7 @@ void	update_pwd(t_struct *data, int status)
 
 	update_pwd = NULL;
 	update_pwd = getcwd(update_pwd, 200);
-	//protection malloc
+	protect_malloc(update_pwd);
 	free(data->pwd[status]);
 	data->pwd[status] = ft_strdup(update_pwd);
 	free(update_pwd);
@@ -31,8 +31,7 @@ t_struct	*update_var(t_struct *data, char *export, int i)
 	{
 		free(data->envp[i]);
 		data->envp[i] = malloc(sizeof(char) * ft_strlen(export) + 1);
-		if (!data->envp[i])
-			return (NULL);
+		protect_malloc(data->envp[i]);
 		ft_strcpy(data->envp[i], export);
 	}
 	return (data);
@@ -65,12 +64,15 @@ void	change_directory(t_struct *data, char *directory)
 {
 	int	check;
 
-	update_pwd(data, 1);
+	printf("coucocuuuuuuuuuuu8u\n");
+	//update_pwd(data, 1);
 	data = update_envp(data, "OLDPWD=");
+	printf("directoryyyyyy %s\n", directory);
 	check = chdir(directory);
+	printf("check ==== %d\n", check);
 	if (check < 0)
 		printf("merde\n");
-	update_pwd(data, 0);
+	//update_pwd(data, 0);
 	data = update_envp(data, "PWD=");
 }
 
@@ -93,6 +95,6 @@ void	cd_builtin(t_struct *data, char **tok)
 	}
 	else
 		printf(" ERROR CD\n");
-	system("leaks minishell");
+
 	exit(EXIT_SUCCESS);
 }

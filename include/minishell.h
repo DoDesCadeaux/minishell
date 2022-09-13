@@ -53,6 +53,8 @@
 # define OPTION	"-n "
 # define CMD	"echo "
 
+int	error_code;
+
 enum	e_redirection
 {
 	REDIR_STDIN,
@@ -123,7 +125,7 @@ void		unset_env(t_struct *data, char *cmd);
 void		echo(char **tok);
 void		pwd_builtin(void);
 void		cd_builtin(t_struct *data, char **tok);
-void		exit_builtins(t_struct *data, char **tok);
+void		exit_builtins(void);
 
 //Execve Utils
 void		execute(t_struct *data, char *cmd);
@@ -146,5 +148,8 @@ char		*remove_double_quotes(char *line);
 
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
+
+//MALLOC
+void		protect_malloc(void *element);
 
 #endif

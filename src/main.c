@@ -42,15 +42,13 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	printf("ARGV[0] = %s\n", argv[0]);
 	data = malloc(sizeof(t_struct));
-	if (!data)
-		return (0);
+	protect_malloc(data);
 	welcome();
 	data = clone_env(envp, data);
 	while (19)
 	{
 		tok = malloc(sizeof(char *) * 4 + 1);
-		if (!tok)
-			return (0);
+		protect_malloc(tok);
 		line = prompt();
 		if (!line)
 			exit(EXIT_FAILURE);
@@ -73,6 +71,6 @@ int	main(int argc, char **argv, char **envp)
 		else
 			pipe_exec(data, tok, line);
 	}
-	system("leaks minishell");
+
 	return (0);
 }

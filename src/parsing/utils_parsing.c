@@ -25,8 +25,7 @@ char	*str_dup_parts(char *src, int end, int start)
 	if ((end - start) <= 0)
 		return (ft_strdup(""));
 	duplicate = malloc(sizeof(char) * (end - start) + 1);
-	if (!duplicate)
-		return (NULL);
+	protect_malloc(duplicate);
 	i = 0;
 	while (src[i] && start - 1 < end)
 	{

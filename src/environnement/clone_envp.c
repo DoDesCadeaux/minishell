@@ -12,26 +12,21 @@
 
 #include "../../include/minishell.h"
 
-void	*init_pwd(t_struct *data)
+void	init_pwd(t_struct *data)
 {
 	char	*pwd_tmp;
 
 	pwd_tmp = NULL;
 	pwd_tmp = getcwd(pwd_tmp, 200);
-	if (!pwd_tmp)
-		return (NULL);
+	protect_malloc(pwd_tmp);
 	data->pwd = malloc(sizeof(char *) * 3 + 1);
-	if (!data->pwd)
-		return (NULL);
+	protect_malloc(data->pwd);
 	data->pwd[0] = ft_strdup(pwd_tmp);
-	if (!data->pwd[0])
-		return (NULL);
+	protect_malloc(data->pwd[0]);
 	data->pwd[1] = ft_strdup(pwd_tmp);
-	if (!data->pwd[1])
-		return (NULL);
+	protect_malloc(data->pwd[1]);
 	data->pwd[2] = 0;
 	free(pwd_tmp);
-	return (NULL);
 }
 
 t_struct	*update_lvl(t_struct *data, char *lvl)
@@ -64,14 +59,12 @@ t_struct	*clone_env(char **env, t_struct *data)
 	char	*lvl;
 
 	data->envp = malloc(sizeof(char *) * len_split(env) + 1);
-	if (!data->envp)
-		return (NULL);
+	protect_malloc(data->envp);
 	i = 0;
 	while (env[i])
 	{
 		data->envp[i] = malloc(sizeof(char) * ft_strlen(env[i]) + 1);
-		if (!data->envp[i])
-			return (NULL);
+		protect_malloc(data->envp[i]);
 		data->envp[i] = ft_strlcpy(data->envp[i], env[i],
 				ft_strlen(env[i]) + 1);
 		i++;

@@ -24,7 +24,6 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	{
 		ft_free_split(cmd_arg);
 		printf("ERROR EXEC 2\n");
-		system("leaks minishell");
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -80,7 +79,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 
 	child = fork();
 	if (data->type == BU_EXIT)
-		exit_builtins(data, tok);
+		exit_builtins();
 	else if (data->type == BU_EXPORT)
 		export_env(data, tok[1]);
 	else if (data->type == BU_UNSET)
