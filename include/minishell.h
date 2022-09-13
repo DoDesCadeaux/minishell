@@ -79,6 +79,7 @@ typedef struct s_struct
 	char	**envp;
 	int		shlvl;
 	char	**pwd;
+	char	*user;
 	char	*tmp_1;
 	char	*tmp_2;
 	char	*tmp_3;
@@ -126,7 +127,7 @@ void		unset_env(t_struct *data, char *cmd);
 void		echo(char **tok);
 void		pwd_builtin(void);
 void		cd_builtin(t_struct *data, char **tok);
-void		exit_builtins(t_struct *data, char **tok);
+void		exit_builtins(void);
 
 //Execve Utils
 void		execute(t_struct *data, char *cmd);
@@ -155,5 +156,7 @@ char 		*ft_malloc(int size);
 t_struct	*initializer(char **envp, int argc, char **argv);
 void		ft_error(char *message, int code);
 void		ft_error_exit(char *message, int code);
+//MALLOC
+void		protect_malloc(void *element);
 
 #endif

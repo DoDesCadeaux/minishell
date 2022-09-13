@@ -18,7 +18,7 @@ void	update_pwd(t_struct *data, int status)
 
 	update_pwd = NULL;
 	update_pwd = getcwd(update_pwd, 200);
-	//protection malloc
+	protect_malloc(update_pwd);
 	free(data->pwd[status]);
 	data->pwd[status] = ft_strdup(update_pwd);
 	free(update_pwd);
@@ -31,9 +31,9 @@ t_struct	*update_var(t_struct *data, char *export, int i)
 	{
 		free(data->envp[i]);
 		data->envp[i] = malloc(sizeof(char) * ft_strlen(export) + 1);
-		if (!data->envp[i])
-			return (NULL);
+		protect_malloc(data->envp[i]);
 		ft_strcpy(data->envp[i], export);
+		printf("update = %s\n", data->envp[i]);
 	}
 	return (data);
 }
@@ -53,7 +53,11 @@ t_struct	*update_envp(t_struct *data, char *type)
 	while (data->envp[i])
 	{
 		if (is_env_var(data, export, i))
+		{
 			data = update_var(data, export, i);
+			printf("lolilo\n");
+		}
+			
 		i++;
 	}
 	free(update_pwd);
@@ -61,17 +65,20 @@ t_struct	*update_envp(t_struct *data, char *type)
 	return (data);
 }
 
-void	change_directory(t_struct *data, char *directory)
+t_struct	*change_directory(t_struct *data, char *directory)
 {
 	int	check;
 
 	update_pwd(data, 1);
 	data = update_envp(data, "OLDPWD=");
+	printf("1\n");
 	check = chdir(directory);
 	if (check < 0)
 		printf("merde\n");
 	update_pwd(data, 0);
 	data = update_envp(data, "PWD=");
+	printf("2\n\n\n");
+	return (data);
 }
 
 void	cd_builtin(t_struct *data, char **tok)
@@ -83,16 +90,22 @@ void	cd_builtin(t_struct *data, char **tok)
 	full_cmd = ft_split(tok[1], ' ');
 	check = access(full_cmd[1], F_OK);
 	if (check == 0)
-		change_directory(data, full_cmd[1]);
+		data = change_directory(data, full_cmd[1]);
 	else if (!ft_strcmp(full_cmd[1], "-"))
 	{
 		tmp = ft_strdup(data->pwd[1]);
-		change_directory(data, tmp);
+		data = change_directory(data, tmp);
 		free(tmp);
-		printf("%s\n", data->pwd[0]);
+		printf("tok[2]= %s\n", tok[2]);
+		ft_putstr_fd(data->pwd[0],ft_atoi(tok[2]));
+		ft_putchar_fd('\n', ft_atoi(tok[2]));
+	}
+	else if (!ft_strcmp(full_cmd[1], "~"))
+	{
+		tmp = ft_strjoin("/Users/", data->user);
+		data = change_directory(data, tmp);
+		free(tmp);
 	}
 	else
 		printf(" ERROR CD\n");
-//	system("leaks minishell");
-	exit(EXIT_SUCCESS);
 }

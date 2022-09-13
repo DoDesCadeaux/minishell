@@ -23,7 +23,10 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	if (check == -1)
 	{
 		ft_free_split(cmd_arg);
-		ft_error_exit("ERROR EXEC 2", 127);
+		//ft_error_exit("ERROR EXEC 2", 127);
+		//a verifier on savait pas pdt le merge
+		printf("ERROR EXEC 2\n");
+		exit(EXIT_SUCCESS);
 	}
 }
 
@@ -61,8 +64,6 @@ void	run_exec(t_struct *data, char **tok)
 		execute(data, tok[1]);
 	else if (data->type == BU_ECHO)
 		echo(tok);
-	else if (data->type == BU_CD)
-		cd_builtin(data, tok);
 	else if (data->type == BU_PWD)
 		pwd_builtin();
 	else if (data->type == BU_ENV)
@@ -75,9 +76,11 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 {
 	pid_t	child;
 
+	if (data->type == BU_CD)
+		cd_builtin(data, tok);
 	child = fork();
 	if (data->type == BU_EXIT)
-		exit_builtins(data, tok);
+		exit_builtins();
 	else if (data->type == BU_EXPORT)
 		export_env(data, tok[1]);
 	else if (data->type == BU_UNSET)

@@ -5,7 +5,8 @@
 
 NAME	= minishell
 CC 		= gcc
-CFLAGS	= -Wall -Wextra -Werror -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -fsanitize=address
+##a 19 -> CFLAGS	= -Wall -Wextra -Werror -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 CFLAGS_WRL = -Wall -Wextra -Werror
 MAKE 	= make
 MAKE_CLEAN	= make clean
@@ -40,9 +41,13 @@ SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c \
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \
 				  $(PARS)parsing.c $(PARS)dollar.c $(PARS)single_quotes.c $(PARS)double_quotes.c $(PARS)utils_parsing.c $(PARS)syntax_errors.c\
 				  $(EXEC)exec_global.c $(EXEC)pipe.c $(EXEC)utils_exec.c\
+<<<<<<< HEAD
 				  welcome.c signals.c initializer.c
 
 
+=======
+				  welcome.c signals.c utils.c
+>>>>>>> parsing_pauline
 				 
 
 MAIN			= main.c
