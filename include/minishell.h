@@ -51,7 +51,7 @@
 # define EXPORT "export"
 # define UNSET  "unset"
 # define EXIT   "exit"
-# define OPTION	"-n "
+# define OPTION	"echo -n"
 # define CMD	"echo "
 
 int	error_code;
