@@ -55,6 +55,8 @@ char	*prompt(void)
 	run_signals(1);
 	show_ghost();
 	str = readline(G "|/\\_/\\/\\_/\\|	->" R);
+	if (!str)
+		ft_error_exit("", 1);
 	return (str);
 }
 
@@ -71,8 +73,6 @@ int	main(int argc, char **argv, char **envp)
 		if (!tok)
 			return (0);
 		line = prompt();
-		if (!line)
-			ft_error_exit("", 1);
 		if (syntax_errors(line))
 			continue;
 		if (!is_pipe(line))
