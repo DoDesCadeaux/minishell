@@ -62,8 +62,6 @@ void	run_exec(t_struct *data, char **tok)
 		execute(data, tok[1]);
 	else if (data->type == BU_ECHO)
 		echo(tok);
-	else if (data->type == BU_CD)
-		cd_builtin(data, tok);
 	else if (data->type == BU_PWD)
 		pwd_builtin();
 	else if (data->type == BU_ENV)
@@ -77,6 +75,8 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 	pid_t	child;
 	int		check;
 
+	if (data->type == BU_CD)
+		cd_builtin(data, tok);
 	child = fork();
 	if (data->type == BU_EXIT)
 		exit_builtins();

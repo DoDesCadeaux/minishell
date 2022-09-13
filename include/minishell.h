@@ -78,6 +78,7 @@ typedef struct s_struct
 	char	**envp;
 	int		shlvl;
 	char	**pwd;
+	char	*user;
 	char	*tmp_1;
 	char	*tmp_2;
 	char	*tmp_3;

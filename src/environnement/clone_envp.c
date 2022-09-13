@@ -12,9 +12,11 @@
 
 #include "../../include/minishell.h"
 
-void	init_pwd(t_struct *data)
+void	init_pwd_user(t_struct *data)
 {
 	char	*pwd_tmp;
+	char	*tmp;
+	int 	i;
 
 	pwd_tmp = NULL;
 	pwd_tmp = getcwd(pwd_tmp, 200);
@@ -26,6 +28,11 @@ void	init_pwd(t_struct *data)
 	data->pwd[1] = ft_strdup(pwd_tmp);
 	protect_malloc(data->pwd[1]);
 	data->pwd[2] = 0;
+	tmp = var_exist(data, "USER");
+	i = ft_strqstr(tmp, "USER=") + 1;
+	data->user = ft_strdup (tmp + i);
+	protect_malloc(data->user);
+	free(tmp);
 	free(pwd_tmp);
 }
 
@@ -75,6 +82,6 @@ t_struct	*clone_env(char **env, t_struct *data)
 		data = update_lvl(data, lvl);
 	else
 		data = export_global(data, "SHLVL=1");
-	init_pwd(data);
+	init_pwd_user(data);
 	return (data);
 }
