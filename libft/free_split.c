@@ -29,8 +29,7 @@ void	*ft_clear_split(char **split)
 
 void	*ft_free_split(char **split)
 {
-	if (!split)
-		ft_clear_split(split);
+	ft_clear_split(split);
 	free(split);
 	return (NULL);
 }

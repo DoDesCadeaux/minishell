@@ -16,76 +16,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7ac6da6-15e2-4f45-8bcf-c24258f61af9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/libft/free_split.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_abs.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_atoi.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_bzero.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_calloc.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_isalnum.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_isalpha.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_isascii.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_isdigit.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_isprint.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_itoa.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_memchr.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_memcmp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_memcpy.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_memmove.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_memset.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_putchar_fd.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_putendl_fd.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_putnbr_fd.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_putstr_fd.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_realloc_int.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_split.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strchr.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strcpy.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strdup.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strfchr.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_striteri.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strjoin.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strlcat.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strlcpy.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strlen.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strmapi.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strncmp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strnstr.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strrchr.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_strtrim.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_substr.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_tolower.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/ft_toupper.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/libft.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/minishell" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/builtins/cd.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/builtins/echo.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/builtins/env.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/builtins/exit.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/builtins/export.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/builtins/pwd.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/builtins/unset.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/environnement/clone_envp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/environnement/utils_envp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/execution/exec_global.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/execution/pipe.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/execution/utils_exec.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/gnl/gnl.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/gnl/gnl_utils.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/initializer.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/main.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/parsing/dollar.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/parsing/double_quotes.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/parsing/parsing.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/parsing/single_quotes.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/parsing/syntax_errors.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/parsing/utils_parsing.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/signals.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/tokenisation/tokenisation.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/tokenisation/utils_tokenisation.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs/welcome.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libft/free_split.c" beforeDir="false" afterPath="$PROJECT_DIR$/libft/free_split.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +111,7 @@
       <updated>1662987268292</updated>
       <workItem from="1662987275964" duration="1730000" />
       <workItem from="1662991607842" duration="4830000" />
-      <workItem from="1663062499016" duration="14574000" />
+      <workItem from="1663062499016" duration="15705000" />
     </task>
     <servers />
   </component>
