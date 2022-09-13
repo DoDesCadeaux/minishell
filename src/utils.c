@@ -12,12 +12,11 @@
 
 #include "../include/minishell.h"
 
-void protect_malloc(void *element)
+void	protect_malloc(void *element)
 {
 	if (!element)
 	{
 		error_code = 1;
-		printf("coucou rene\n");
 		exit(EXIT_FAILURE);
 	}
 }

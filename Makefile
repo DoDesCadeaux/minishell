@@ -41,7 +41,7 @@ SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c \
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \
 				  $(PARS)parsing.c $(PARS)dollar.c $(PARS)single_quotes.c $(PARS)double_quotes.c $(PARS)utils_parsing.c $(PARS)syntax_errors.c\
 				  $(EXEC)exec_global.c $(EXEC)pipe.c $(EXEC)utils_exec.c\
-				  welcome.c signals.c utils.c
+				  welcome.c signals.c utils.c initializer.c
 				 
 
 MAIN			= main.c

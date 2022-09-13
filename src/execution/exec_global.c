@@ -30,6 +30,14 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	}
 }
 
+void	close_fd(int fdin, int fdout)
+{
+	if (fdout != 1)
+		close(fdout);
+	if (fdin != 0)
+		close(fdin);
+}
+
 void	execute(t_struct *data, char *cmd)
 {
 	char	**paths;
@@ -91,10 +99,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 		//protect(check) -> lire le man dup2;
 		data->check = dup2(fdout, 1);
 		// protect(check);
-		if (fdout != 1)
-			close(fdout);
-		if (fdin != 0)
-			close(fdin);
+		close_fd(fdin, fdout);
 		run_exec(data, tok);
 	}
 	waitpid(child, NULL, 0);

@@ -16,7 +16,7 @@ void	init_pwd_user(t_struct *data)
 {
 	char	*pwd_tmp;
 	char	*tmp;
-	int 	i;
+	int		i;
 
 	pwd_tmp = NULL;
 	pwd_tmp = getcwd(pwd_tmp, 200);

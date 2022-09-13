@@ -74,4 +74,3 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	tok = tokenisation(split_pipe[i], tok, data);
 	run_last(data, tok, pipe_fd);
 }
-
