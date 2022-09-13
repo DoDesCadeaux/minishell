@@ -46,7 +46,7 @@ int	tok_fd_in(char **tok, char **line_split, int i)
 	{
 		info = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
 		if (!info)
-			ft_error("ERROR FD1", ); ///youpi: No such file or directory
+			ft_error("ERROR FD1", 1); ///youpi: No such file or directory
 		i = 2;
 	}
 	else if (!ft_strcmp(line_split[i], DLESS))
