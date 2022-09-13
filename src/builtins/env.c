@@ -22,7 +22,7 @@ void	env_builtin(t_struct *data)
 		printf("%s\n", data->envp[i]);
 		i++;
 	}
-	system("leaks minishell");
+//	system("leaks minishell");
 	exit(EXIT_SUCCESS);
 	//attention message d'erreur
 }

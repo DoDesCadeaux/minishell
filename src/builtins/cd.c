@@ -93,6 +93,6 @@ void	cd_builtin(t_struct *data, char **tok)
 	}
 	else
 		printf(" ERROR CD\n");
-	system("leaks minishell");
+//	system("leaks minishell");
 	exit(EXIT_SUCCESS);
 }

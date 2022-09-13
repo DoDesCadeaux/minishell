@@ -74,11 +74,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			ft_error_exit("", 1);
 		if (syntax_errors(line))
-		{
-			ft_error("Syntax error", 1);
 			continue;
-		}
-		add_history(line);
 		if (!is_pipe(line))
 		{
 			tok = tokenisation(line, tok, data);
@@ -92,6 +88,6 @@ int	main(int argc, char **argv, char **envp)
 		else
 			pipe_exec(data, tok, line);
 	}
-	system("leaks minishell");
+//	system("leaks minishell");
 	return (0);
 }
