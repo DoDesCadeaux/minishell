@@ -73,5 +73,6 @@ int	main(int argc, char **argv, char **envp)
 		else
 			pipe_exec(data, tok, line);
 	}
+	system("leaks minishell");
 	return (0);
 }

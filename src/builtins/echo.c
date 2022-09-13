@@ -29,5 +29,6 @@ void	echo(char **tok)
 	if (y == 0)
 		printf("\n");
 	free(line);
+	system("leaks minishell");
 	exit(EXIT_SUCCESS);
 }

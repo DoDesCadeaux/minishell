@@ -80,6 +80,7 @@ typedef struct s_struct
 	char	*tmp_2;
 	char	*tmp_3;
 	int		type;
+	int		check;
 }	t_struct;
 
 void		welcome(void);

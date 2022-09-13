@@ -25,7 +25,6 @@ void	unset_env(t_struct *data, char *cmd)
 		i++;
 	}
 	ft_free_split(full_cmd);
-	//exit(EXIT_SUCCESS);
 }
 
 t_struct	*unset_global(t_struct *data, char *unset)

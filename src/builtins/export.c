@@ -25,7 +25,6 @@ void	export_env(t_struct *data, char *cmd)
 		i++;
 	}
 	ft_free_split(full_cmd);
-	//exit(EXIT_SUCCESS);
 }
 
 char	**add_var(char **matrix, int len_matrix, int len_nline, char *n_line)
