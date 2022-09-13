@@ -10,8 +10,7 @@ t_struct 	*initializer(char **envp, int argc, char **argv)
 		ft_error_exit("Bad program name", 1);
 	welcome();
 	data = malloc(sizeof(t_struct));
-	if (!data)
-		ft_error("Malloc error", 1); //Que ecrire ??welcome();
-	 data = clone_env(envp, data);
-	 return (data);
+	protect_malloc(data);
+	data = clone_env(envp, data);
+	return (data);
  }

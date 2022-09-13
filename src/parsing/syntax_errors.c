@@ -76,6 +76,5 @@ int	syntax_errors(char *line)
 		ft_error("Syntax error : Begins or ends with a pipe", 1);
 		return (1);
 	}
-	add_history(line);
 	return (0);
 }
