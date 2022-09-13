@@ -78,6 +78,28 @@ int	ft_strpstr(const char *haystack, const char *needle)
 	return (-1);
 }
 
+int	ft_strqstr(const char *haystack, const char *needle)
+{
+	int	i;
+	int	y;
+
+	i = 0;
+	if (needle[i] == '\0')
+		return (-1);
+	while (haystack[i])
+	{
+		y = 0;
+		while ((haystack[i + y] == needle[y]))
+		{
+			if (needle[y + 1] == '\0')
+				return (i + y);
+			y++;
+		}
+		i++;
+	}
+	return (-1);
+}
+
 /*
 #include <stdio.h>
 #include <string.h>

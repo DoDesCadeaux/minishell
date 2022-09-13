@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	**path_list(char **envp)
 {
@@ -43,6 +43,8 @@ char	*get_cmd_path(char **paths, char *cmd)
 			ft_free_split(paths);
 			return (path);
 		}
+		else if (access(path, X_OK) == -1)
+			ft_error_exit("", errno);
 		free(path);
 		i++;
 	}
@@ -61,8 +63,7 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	if (check == -1)
 	{
 		ft_free_split(cmd_arg);
-		printf("ERROR EXEC 2\n");
-		exit(EXIT_SUCCESS);
+		ft_error_exit("ERROR EXEC 2", 127);
 	}
 }
 
@@ -94,3 +95,47 @@ void	execute(t_struct *data, char *cmd)
 	}
 }
 
+void	run_exec(t_struct *data, char **tok)
+{
+	if (data->type == BINARY)
+		execute(data, tok[1]);
+	else if (data->type == BU_ECHO)
+		echo(tok);
+	else if (data->type == BU_CD)
+		cd_builtin(data, tok);
+	else if (data->type == BU_PWD)
+		pwd_builtin();
+	else if (data->type == BU_ENV)
+		env_builtin(data);
+	else
+		exit(EXIT_SUCCESS);
+}
+
+void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
+{
+	pid_t	child;
+	int		check;
+
+	child = fork();
+	if (data->type == BU_EXIT)
+		exit_builtins(data, tok);
+	else if (data->type == BU_EXPORT)
+		export_env(data, tok[1]);
+	else if (data->type == BU_UNSET)
+		unset_env(data, tok[1]);
+	if (child == 0)
+	{
+		check = dup2(fdin, 0);
+		//protect(check);
+		check = dup2(fdout, 1);
+		// protect(check);
+		if (fdout != 1)
+			close(fdout);
+		if (fdin != 0)
+			close(fdin);
+		run_exec(data, tok);
+	}
+	waitpid(child, NULL, 0);
+	if (access(HERE_DOC, F_OK) == 0)
+		unlink(HERE_DOC);
+}

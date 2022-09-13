@@ -22,15 +22,15 @@ void	restore_prompt(int sig)
 	(void)sig;
 }
 
-void	ctrl_C(int sig)
+void	ctrl_c(int sig)
 {
 	write(1, "\n", 1);
 	(void)sig;
 }
 
-void	ctrl_D(int sig)
+void	ctrl_d(int sig)
 {
-	printf("^\\\n\nEXIT\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+	printf("^\\\n\nEXIT\n");
 	(void)sig;
 }
 
@@ -43,7 +43,7 @@ void	run_signals(int sig)
 	}
 	if (sig == 2)
 	{
-		signal(SIGINT, ctrl_C);
-		signal(SIGQUIT, ctrl_D);
+		signal(SIGINT, ctrl_c);
+		signal(SIGQUIT, ctrl_d);
 	}
 }

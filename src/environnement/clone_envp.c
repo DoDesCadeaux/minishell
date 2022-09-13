@@ -19,16 +19,28 @@ void	*init_pwd(t_struct *data)
 	pwd_tmp = NULL;
 	pwd_tmp = getcwd(pwd_tmp, 200);
 	if (!pwd_tmp)
+	{
+		error_code = 1;
 		return (NULL);
+	}
 	data->pwd = malloc(sizeof(char *) * 3 + 1);
 	if (!data->pwd)
+	{
+		error_code = 1;
 		return (NULL);
+	}
 	data->pwd[0] = ft_strdup(pwd_tmp);
 	if (!data->pwd[0])
+	{
+		error_code = 1;
 		return (NULL);
+	}
 	data->pwd[1] = ft_strdup(pwd_tmp);
 	if (!data->pwd[1])
+	{
+		error_code = 1;
 		return (NULL);
+	}
 	data->pwd[2] = 0;
 	free(pwd_tmp);
 	return (NULL);
@@ -63,15 +75,13 @@ t_struct	*clone_env(char **env, t_struct *data)
 	int		i;
 	char	*lvl;
 
-	data->envp = malloc(sizeof(char *) * len_split(env) + 1);
+	data->envp = malloc(len_split(env) + 1);
 	if (!data->envp)
 		return (NULL);
 	i = 0;
 	while (env[i])
 	{
-		data->envp[i] = malloc(sizeof(char) * ft_strlen(env[i]) + 1);
-		if (!data->envp[i])
-			return (NULL);
+		data->envp[i] = ft_malloc(sizeof(char) * ft_strlen(env[i]) + 1);
 		data->envp[i] = ft_strlcpy(data->envp[i], env[i],
 				ft_strlen(env[i]) + 1);
 		i++;
@@ -83,6 +93,5 @@ t_struct	*clone_env(char **env, t_struct *data)
 	else
 		data = export_global(data, "SHLVL=1");
 	init_pwd(data);
-	//Si old power existe il faut le free et adress a null
 	return (data);
 }
