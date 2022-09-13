@@ -33,7 +33,6 @@ t_struct	*update_var(t_struct *data, char *export, int i)
 		data->envp[i] = malloc(sizeof(char) * ft_strlen(export) + 1);
 		protect_malloc(data->envp[i]);
 		ft_strcpy(data->envp[i], export);
-		printf("update = %s\n", data->envp[i]);
 	}
 	return (data);
 }
@@ -53,11 +52,7 @@ t_struct	*update_envp(t_struct *data, char *type)
 	while (data->envp[i])
 	{
 		if (is_env_var(data, export, i))
-		{
-			data = update_var(data, export, i);
-			printf("lolilo\n");
-		}
-			
+			data = update_var(data, export, i);	
 		i++;
 	}
 	free(update_pwd);
@@ -71,13 +66,11 @@ t_struct	*change_directory(t_struct *data, char *directory)
 
 	update_pwd(data, 1);
 	data = update_envp(data, "OLDPWD=");
-	printf("1\n");
 	check = chdir(directory);
 	if (check < 0)
 		printf("merde\n");
 	update_pwd(data, 0);
 	data = update_envp(data, "PWD=");
-	printf("2\n\n\n");
 	return (data);
 }
 
