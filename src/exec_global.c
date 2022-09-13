@@ -43,6 +43,8 @@ char	*get_cmd_path(char **paths, char *cmd)
 			ft_free_split(paths);
 			return (path);
 		}
+		else if (access(path, X_OK) == -1)
+			ft_error_exit("", errno);
 		free(path);
 		i++;
 	}
@@ -61,8 +63,7 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	if (check == -1)
 	{
 		ft_free_split(cmd_arg);
-		printf("ERROR EXEC 2\n");
-		exit(EXIT_SUCCESS);
+		ft_error_exit("ERROR EXEC 2", 127);
 	}
 }
 
@@ -93,4 +94,3 @@ void	execute(t_struct *data, char *cmd)
 		protected_execve(path, cmd_arg, data->envp, 1);
 	}
 }
-

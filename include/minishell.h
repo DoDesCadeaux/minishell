@@ -21,6 +21,7 @@
 # include <readline/history.h>
 # include <limits.h>
 # include <signal.h>
+# include <errno.h>
 # include "../libft/libft.h"
 
 # define BLACK "\e[0;30m"
@@ -50,6 +51,8 @@
 # define EXPORT "export"
 # define UNSET  "unset"
 # define EXIT   "exit"
+
+int	error_code;
 
 enum	e_redirection
 {
@@ -153,5 +156,10 @@ void		rl_replace_line(const char *text, int clear_undo);
 //UTILS
 void		ft_putstr(char *str);
 
+
+char 		*ft_malloc(int size);
+void		initializer(t_struct *data, char **envp);
+void		ft_error(char *message, int code);
+void		ft_error_exit(char *message, int code);
 
 #endif

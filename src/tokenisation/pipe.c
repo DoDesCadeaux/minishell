@@ -15,8 +15,9 @@
 void	call_exec(t_struct *data, char **tok, int fdin, int fdout, int type)
 {
 	pid_t	child;
-	int		check;
-	
+	int		check = 0;
+	printf("effacer%i", check);
+
 	child = fork();
 	if (type == BU_EXIT)
 		exit_builtins(data, tok);
@@ -24,7 +25,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout, int type)
 	{
 //		printf("new exec with in: %i o:%i\n", fdin, fdout);
 		check = dup2(fdin, 0);
-		//protect(check);
+		// protect(check);
 		check = dup2(fdout, 1);
 		// protect(check);
 		if (fdout != 1)
@@ -68,8 +69,8 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	int		type;
 	//int		redir[2];
 
-
-	
+	check = 0;
+	printf("effacer%i", check);
 
 	split_pipe = ft_split(line, '|');
 	len = len_split(split_pipe);

@@ -63,15 +63,13 @@ t_struct	*clone_env(char **env, t_struct *data)
 	int		i;
 	char	*lvl;
 
-	data->envp = malloc(sizeof(char *) * len_split(env) + 1);
+	data->envp = malloc(len_split(env) + 1);
 	if (!data->envp)
 		return (NULL);
 	i = 0;
 	while (env[i])
 	{
-		data->envp[i] = malloc(sizeof(char) * ft_strlen(env[i]) + 1);
-		if (!data->envp[i])
-			return (NULL);
+		data->envp[i] = ft_malloc(sizeof(char) * ft_strlen(env[i]) + 1);
 		data->envp[i] = ft_strlcpy(data->envp[i], env[i],
 				ft_strlen(env[i]) + 1);
 		i++;
@@ -83,6 +81,6 @@ t_struct	*clone_env(char **env, t_struct *data)
 	else
 		data = export_global(data, "SHLVL=1");
 	init_pwd(data);
-	//Si old power existe il faut le free et adress a null
+	//Si old power existe il faut le free et address a null
 	return (data);
 }
