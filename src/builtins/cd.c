@@ -84,8 +84,7 @@ void	cd_builtin(t_struct *data, char **tok)
 	check = access(full_cmd[1], F_OK);
 	if (check == 0)
 		data = change_directory(data, full_cmd[1]);
-	else if (!ft_strncmp(tok[1], "cd", ft_strlen(tok[1]))
-		|| !ft_strcmp(full_cmd[1], "~"))
+	else if (!full_cmd[1]|| !ft_strcmp(full_cmd[1], "~"))
 	{
 		tmp = ft_strjoin("/Users/", data->user);
 		data = change_directory(data, tmp);
