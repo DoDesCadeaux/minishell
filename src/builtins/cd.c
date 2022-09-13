@@ -90,8 +90,6 @@ void	cd_builtin(t_struct *data, char **tok)
 		tmp = ft_strjoin("/Users/", data->user);
 		data = change_directory(data, tmp);
 		free(tmp);
-		ft_putstr_fd(data->pwd[0],ft_atoi(tok[2]));
-		ft_putchar_fd('\n', ft_atoi(tok[2]));
 	}
 	else if (!ft_strcmp(full_cmd[1], "-"))
 	{
