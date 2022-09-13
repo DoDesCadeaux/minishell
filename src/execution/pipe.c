@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-t_struct	*run_exec(t_struct *data, char **tok)
+void	run_exec(t_struct *data, char **tok)
 {
 	if (data->type == BINARY)
 		execute(data, tok[1]);
@@ -24,19 +24,11 @@ t_struct	*run_exec(t_struct *data, char **tok)
 		pwd_builtin();
 	else if (data->type == BU_ENV)
 		env_builtin(data);
-	else if (data->type == BU_EXPORT)
-	{
-		export_env(data, tok[1]);
-		//exit(EXIT_SUCCESS);
-	}
-	else if (data->type == BU_UNSET)
-	{
-		unset_env(data, tok[1]);
-		//exit(EXIT_SUCCESS);
-	}
-	//Quid de l'exit 
-	return (data);
+	else
+		exit(EXIT_SUCCESS);
 }
+
+
 
 void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 {
@@ -46,6 +38,10 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 	child = fork();
 	if (data->type == BU_EXIT)
 		exit_builtins(data, tok);
+	else if (data->type == BU_EXPORT)
+		export_env(data, tok[1]);
+	else if (data->type == BU_UNSET)
+		unset_env(data, tok[1]);
 	if (child == 0)
 	{
 		check = dup2(fdin, 0);
@@ -56,7 +52,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 			close(fdout);
 		if (fdin != 0)
 			close(fdin);
-		data = run_exec(data, tok);
+		run_exec(data, tok);
 	}
 	waitpid(child, NULL, 0);
 	if (access(HERE_DOC, F_OK) == 0)
