@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initializer.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 23:29:57 by pamartin          #+#    #+#             */
+/*   Updated: 2022/09/13 23:30:01 by pamartin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 t_struct 	*initializer(char **envp, int argc, char **argv)
@@ -10,8 +22,7 @@ t_struct 	*initializer(char **envp, int argc, char **argv)
 		ft_error_exit("Bad program name", 1);
 	welcome();
 	data = malloc(sizeof(t_struct));
-	if (!data)
-		ft_error("Malloc error", 1); //Que ecrire ??welcome();
-	 data = clone_env(envp, data);
-	 return (data);
+	protect_malloc(data);
+	data = clone_env(envp, data);
+	return (data);
  }

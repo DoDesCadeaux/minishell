@@ -78,7 +78,8 @@ char	*get_cmd(char *str, int i)
 	y = 0;
 	if (!str)
 		return (NULL);
-	line = ft_malloc(i);
+	line = malloc(sizeof(char) * i + 1);
+	protect_malloc(line);
 	while (y < i)
 	{
 		line[y] = str[y];

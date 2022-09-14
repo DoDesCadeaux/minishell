@@ -12,12 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	exit_builtins(t_struct *data, char **tok)
+void	exit_builtins(void)
 {
-	ft_free_split(data->envp);
-	ft_free_split(data->pwd);
-	free(data);
-	ft_free_split(tok);
-//	system("leaks minishell");
 	exit(EXIT_SUCCESS);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 23:12:38 by pamartin          #+#    #+#             */
+/*   Updated: 2022/09/13 23:12:41 by pamartin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static char	*add_space(char *side, char *line, int i)
@@ -74,11 +86,9 @@ static char	*check_spaces_redirections(char *line_to_pars)
 	return (line_to_pars);
 }
 
-
-
 char	*parsing(char *line, t_struct *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
@@ -87,14 +97,14 @@ char	*parsing(char *line, t_struct *data)
 		{
 			//Remove les quotes apres a tokenisation
 			line = parsing_dollar(data, line);
-			line = remove_double_quotes(line);
+			//line = remove_double_quotes(line);
 			line = check_spaces_redirections(line);
 			return (line);
 		}
 		else if (line[i] == 39)
 		{
 			//Remove les quotes apres a tokenisation
-			line = remove_single_quotes(line);
+			//line = remove_single_quotes(line);
 			line = check_spaces_redirections(line);
 			return (line);
 		}

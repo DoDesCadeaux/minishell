@@ -57,6 +57,7 @@ char	*prompt(void)
 	str = readline(G "|/\\_/\\/\\_/\\|	->" R);
 	if (!str)
 		ft_error_exit("", 1);
+	add_history(str);
 	return (str);
 }
 
@@ -70,8 +71,7 @@ int	main(int argc, char **argv, char **envp)
 	while (19)
 	{
 		tok = malloc(sizeof(char *) * 4 + 1);
-		if (!tok)
-			return (0);
+		protect_malloc(tok);
 		line = prompt();
 		if (syntax_errors(line))
 			continue;
@@ -88,6 +88,5 @@ int	main(int argc, char **argv, char **envp)
 		else
 			pipe_exec(data, tok, line);
 	}
-//	system("leaks minishell");
 	return (0);
 }
