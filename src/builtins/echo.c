@@ -24,8 +24,6 @@ void	echo(char **tok)
 	y = ft_strqstr(tok[1], OPTION) + 1;
 	if (ft_strncmp(tok[1], "echo", ft_strlen(tok[1])))
 	{
-		tok[1] = remove_single_quotes(tok[1]);
-		tok[1] = remove_double_quotes(tok[1]);
 		if (y == 0)
 			line = ft_strdup(tok[1] + i);
 		else

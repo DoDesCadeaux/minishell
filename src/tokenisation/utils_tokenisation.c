@@ -66,6 +66,8 @@ int	is_pipe(char *line)
 	i = 0;
 	while (line[i])
 	{
+		if (line[i] == 34 || line[i] == 39)
+			return 0;
 		if (line[i] == '|')
 			return (1);
 		i++;
