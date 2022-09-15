@@ -96,14 +96,37 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 	char	*start;
 	char	*end;
 	int		i_end;
+	int		quote;
+	int		quotes;
+
+	quote = 0;
+	quotes = 0;
 
 	end = NULL;
 	info = NULL;
 	start = ft_strdup(line_split[i]);
 	tmp = ft_strstr(line, start);
 	while (line_split[i])
-	{
+	{	
+		if (line_split[i][0] == 39)
+		{
+			if (quote == 1)
+				quote = 0;
+			else
+				quote = 1;
+			i++;
+		}
+		if (line_split[i][0] == 34)
+		{
+			if (quotes == 1)
+				quotes = 0;
+			else
+				quotes = 1;
+			i++;
+		}
 		if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT))
+			i++;
+		else if (quote == 1 || quotes == 1)
 			i++;
 		else
 			break ;
