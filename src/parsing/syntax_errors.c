@@ -52,17 +52,32 @@ static int	open_quotes(char *line)
 	return (0);
 }
 
-static int	begin_or_end_with_pipe(char *line)
+static int	bad_syntax_pipe(char *line)
 {
-	int	i;
-	int	max;
+	int		i;
+	int		max;
+	char	**split_pipe;
 
 	i = 0;
-	if (is_metachar(line[i]))
+	if (is_metachar(line[0]))
 		return (1);
 	max = ft_strlen(line);
-	if (is_metachar(line[max]))
+	if (is_metachar(line[max - 1]))
 		return (1);
+	split_pipe = ft_split_pipe(line, '|');
+	protect_malloc(split_pipe);
+	while (split_pipe[i])
+	{
+		split_pipe[i] = remove_double_quotes(split_pipe[i]);
+		split_pipe[i] = remove_single_quotes(split_pipe[i]);
+		if (is_only_spaces(split_pipe[i]))
+		{
+			ft_free_split(split_pipe);
+			return (1);
+		}
+		i++;
+	}
+	ft_free_split(split_pipe);
 	return (0);
 }
 
@@ -83,9 +98,9 @@ int	syntax_errors(char *line)
 		ft_error("Syntax error : open quotes", 1);
 		return (1);
 	}
-	if (begin_or_end_with_pipe(line))
+	if (bad_syntax_pipe(line))
 	{
-		ft_error("Syntax error : Begins or ends with a pipe", 258);
+		ft_error("Syntax error near unexpected token '|'", PIPE_ERROR);
 		return (1);
 	}
 	return (0);

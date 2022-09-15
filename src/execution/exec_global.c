@@ -73,6 +73,8 @@ void	run_exec(t_struct *data, char **tok)
 		pwd_builtin();
 	else if (data->type == BU_ENV)
 		env_builtin(data);
+	else if (data->type == BU_EXPORT_EMPTY)
+		export_empty(data);
 	else
 		exit(EXIT_SUCCESS);
 }

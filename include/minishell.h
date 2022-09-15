@@ -45,6 +45,7 @@
 # define CMD_ERROR 127
 # define PATH_ERROR 127
 # define FD_ERROR 1
+# define PIPE_ERROR 258
 
 # define LESS "<"
 # define DLESS "<<"
@@ -77,6 +78,7 @@ enum	e_type
 	BU_PWD,
 	BU_ENV,
 	BU_EXPORT,
+	BU_EXPORT_EMPTY,
 	BU_UNSET,
 	BU_EXIT,
 	BINARY,
@@ -97,28 +99,10 @@ typedef struct s_struct
 
 void		welcome(void);
 void		show_ghost(void);
+void		run_signals(int sig);
+t_struct	*initializer(char **envp, int argc, char **argv);
 
-//tokenisation and utils
-char		**tokenisation(char *line, char **tok, t_struct *data);
-int			ft_strcmp(char *s1, char *s2);
-char		*get_fd(char *file, int type, char *token);
-int			is_pipe(char *line);
-void		pipe_exec(t_struct *data, char **tok, char *line);
-char		*create_heredoc(char *delimiter);
-int			tok_1(char **tok, char **line_split, int i, char *line);
-void		call_exec(t_struct *data, char **tok, int fdin, int fdout);
-int			check_type(char **tok);
-
-//Global Utils
-int			len_split(char **split);
-
-//GNL
-char		*get_next_line(int fd);
-char		*ft_strjoin_gnl(char *s1, char *s2);
-char		*ft_strchr(char *s, int c);
-void		*ft_free(char *save);
-
-//Environment Path Clone and Utils
+//ENVIRONNEMENT PATH
 t_struct	*clone_env(char **env, t_struct *data);
 char		**add_var(char **matrix, int len_matrix, int len_nline,
 				char *n_line);
@@ -126,12 +110,46 @@ char		*var_exist(t_struct *data, char *variable);
 int			is_numeric(char *value);
 int			is_env_var(t_struct *data, char *export, int i);
 
+//TOKENISATION
+char		**tokenisation(char *line, char **tok, t_struct *data);
+int			tok_fd_in(char **tok, char **line_split, int i);
+int			tok_1(char **tok, char **line_split, int i, char *line);
+int			check_type(char **tok);
+
+//TOKENISATION UTILS
+int			ft_strcmp(char *s1, char *s2);
+char		*get_fd(char *file, int type, char *token);
+int			is_pipe(char *line);
+
+//GNL
+char		*get_next_line(int fd);
+char		*ft_strjoin_gnl(char *s1, char *s2);
+char		*ft_strchr(char *s, int c);
+void		*ft_free(char *save);
+
+//PARSING
+int			syntax_errors(char *line);
+int			is_metachar(char c);
+char		*parsing(char *line_to_pars, t_struct *data);
+char		*parsing_dollar(t_struct *data, char *line_to_pars);
+char		*str_dup_parts(char *src, int end, int start);
+int			skip_double_quotes(char *line, int i);
+int			skip_single_quotes(char *line, int i);
+int			skip_all_quotes(char *line, int i);
+char		*remove_single_quotes(char *line);
+
+char		*remove_double_quotes(char *line);
+
+//SIGNALS
+void		rl_replace_line(const char *text, int clear_undo);
+
 //BUILTINS
 t_struct	*unset_global(t_struct *data, char *unset);
 t_struct	*export_global(t_struct *data, char *export);
 void		env_builtin(t_struct *data);
 void		export_env(t_struct *data, char *cmd);
 void		unset_env(t_struct *data, char *cmd);
+void		export_empty(t_struct *data);
 void		echo(char **tok);
 void		pwd_builtin(void);
 void		cd_builtin(t_struct *data, char **tok);
@@ -141,7 +159,12 @@ void		exit_builtins(void);
 void		execute(t_struct *data, char *cmd);
 char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);
+
+//PAULINE
 void		run_signals(int sig);
+char		**ft_split_pipe(char *s, char c);
+void		pipe_exec(t_struct *data, char **tok, char *line);
+void		call_exec(t_struct *data, char **tok, int fdin, int fdout);
 
 //PARSING
 int			syntax_errors(char *line);
@@ -155,18 +178,15 @@ int			skip_all_quotes(char *line, int i);
 int			is_end_of_dollar(char c);
 int			update_i(char *line_pars, int i);
 
-char		*remove_single_quotes(char *line);
-char		*remove_double_quotes(char *line);
+//GLOBAL UTILS
+int			len_split(char **split);
 
-//SIGNALS
-void		rl_replace_line(const char *text, int clear_undo);
+//PROTECTION AND ALLOCATION
+void		protect_malloc(void *element);
+char		*ft_malloc(int size);
 
-//TANGUY
-char 		*ft_malloc(int size);
-t_struct	*initializer(char **envp, int argc, char **argv);
+//ERROR
 void		ft_error(char *message, int code);
 void		ft_error_exit(char *message, int code);
-//MALLOC
-void		protect_malloc(void *element);
 
 #endif

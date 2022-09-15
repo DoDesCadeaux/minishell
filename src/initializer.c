@@ -12,9 +12,9 @@
 
 #include "../include/minishell.h"
 
-t_struct 	*initializer(char **envp, int argc, char **argv)
- {
-	t_struct *data;
+t_struct	*initializer(char **envp, int argc, char **argv)
+{
+	t_struct	*data;
 
 	if (argc != 1)
 		 ft_error_exit("Number of arguments != 1", ERROR);
@@ -26,4 +26,4 @@ t_struct 	*initializer(char **envp, int argc, char **argv)
 	protect_malloc(data);
 	data = clone_env(envp, data);
 	return (data);
- }
+}

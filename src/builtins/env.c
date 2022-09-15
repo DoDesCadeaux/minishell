@@ -25,3 +25,17 @@ void	env_builtin(t_struct *data)
 	exit(EXIT_SUCCESS);
 	//attention message d'erreur
 }
+
+void	export_empty(t_struct *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->envp[i])
+	{
+		printf("declare -x ");
+		printf("%s\n", data->envp[i]);
+		i++;
+	}
+	exit(EXIT_SUCCESS);
+}
