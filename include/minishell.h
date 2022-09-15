@@ -35,8 +35,16 @@
 # define R "\e[0m"
 
 # define HERE_DOC "./here_doc"
-
 # define BUFFER_SIZE 100
+# define ERRNO errno
+
+# define ERROR 1
+# define SYNTAX_ERROR 1
+# define MALLOC 1
+# define EXEC_ERROR 126
+# define CMD_ERROR 127
+# define PATH_ERROR 127
+# define FD_ERROR 1
 
 # define LESS "<"
 # define DLESS "<<"

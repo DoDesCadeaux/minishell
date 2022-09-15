@@ -19,7 +19,7 @@ void	pwd_builtin(void)
 	pwd = NULL;
 	pwd = getcwd(pwd, 200);
 	if (!pwd)
-		printf("prout pwd\n");
+		ft_error_exit("ERROR : pwd", ERROR);
 	printf("%s\n", pwd);
 	free(pwd);
 	pwd = 0x0;

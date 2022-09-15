@@ -68,7 +68,7 @@ t_struct	*change_directory(t_struct *data, char *directory)
 	data = update_envp(data, "OLDPWD=");
 	check = chdir(directory);
 	if (check < 0)
-		printf("merde\n");
+		ft_error_exit("ERROR : cd : No such file or directory", 127);
 	update_pwd(data, 0);
 	data = update_envp(data, "PWD=");
 	return (data);
@@ -99,5 +99,5 @@ void	cd_builtin(t_struct *data, char **tok)
 		ft_putchar_fd('\n', ft_atoi(tok[2]));
 	}
 	else
-		printf(" ERROR CD\n");
+		ft_error("ERROR : cd : No such file or directory", 127);
 }

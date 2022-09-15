@@ -23,10 +23,7 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	if (check == -1)
 	{
 		ft_free_split(cmd_arg);
-		//ft_error_exit("ERROR EXEC 2", 127);
-		//a verifier on savait pas pdt le merge
-		printf("ERROR EXEC 2\n");
-		exit(EXIT_SUCCESS);
+		ft_error_exit("ERROR EXEC 2", 127);
 	}
 }
 
@@ -46,7 +43,7 @@ void	execute(t_struct *data, char *cmd)
 
 	cmd_arg = ft_split(cmd, ' ');
 	if (!cmd_arg)
-		printf("ERROR SPLIT ARG\n");
+		ft_error("ERROR SPLIT ARG", CMD_ERROR);
 	if (!ft_strncmp(cmd, "./", 2))
 	{
 		if (access(cmd, X_OK) == 0)
@@ -58,10 +55,10 @@ void	execute(t_struct *data, char *cmd)
 	{
 		paths = path_list(data->envp);
 		if (!paths)
-			printf("ERROR PATH\n");
+			ft_error("PATH ERROR", PATH_ERROR);
 		path = get_cmd_path(paths, cmd_arg[0]);
 		if (!path)
-			printf("ERROR PATH ARG\n");
+			ft_error("PATH ERROR", PATH_ERROR);
 		protected_execve(path, cmd_arg, data->envp, 1);
 	}
 }
@@ -96,9 +93,11 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 	if (child == 0)
 	{
 		data->check = dup2(fdin, 0);
-		//protect(check) -> lire le man dup2;
+		if (data->check == -1)
+			ft_error_exit("", ERRNO);
 		data->check = dup2(fdout, 1);
-		// protect(check);
+		if (data->check == -1)
+			ft_error_exit("", ERRNO);
 		close_fd(fdin, fdout);
 		run_exec(data, tok);
 	}
