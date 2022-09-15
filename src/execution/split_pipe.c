@@ -12,7 +12,24 @@
 
 #include "../../include/minishell.h"
 
-static char	**ft_count_words(char const *str, char c)
+static int	manage_special_char(char *str, int i)
+{
+	if (str[i] == 34)
+	{
+		i++;
+		while (str[i] != 34)
+			i++;
+	}
+	if (str[i] == 39)
+	{
+		i++;
+		while (str[i] != 39)
+			i++;
+	}
+	return (i);
+}
+
+static char	**ft_count_words(char *str, char c)
 {
 	int		count;
 	int		i;
@@ -27,18 +44,7 @@ static char	**ft_count_words(char const *str, char c)
 			count++;
 			while (str[i])
 			{
-				if (str[i] == 34)
-				{
-					i++;
-					while (str[i] != 34)
-						i++;
-				}
-				if (str[i] == 39)
-				{
-					i++;
-					while (str[i] != 39)
-						i++;
-				}
+				i = manage_special_char(str, i);
 				if (str[i] != c)
 					i++;
 				if (str[i] == c)
