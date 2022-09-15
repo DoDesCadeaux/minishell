@@ -55,16 +55,10 @@ void	execute(t_struct *data, char *cmd)
 	{
 		paths = path_list(data->envp);
 		if (!paths)
-		{
-			printf("1\n");
 			ft_error_exit("command not found", CMD_ERROR);
-		}
 		path = get_cmd_path(paths, cmd_arg[0]);
 		if (!path)
-		{
-			printf("2\n");
 			ft_error_exit("command not found", CMD_ERROR);
-		}
 		protected_execve(path, cmd_arg, data->envp, 1);
 	}
 }
