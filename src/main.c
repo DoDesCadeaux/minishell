@@ -26,9 +26,10 @@ void	ft_error(char *message, int code)
 	write(2, message, ft_strlen(message));
 	write(2, "\n", 1);
 }
-char 	*ft_malloc(int size)
+
+char	*ft_malloc(int size)
 {
-	char *str;
+	char	*str;
 
 	str = malloc(size + 1);
 	if (!str)
@@ -39,7 +40,7 @@ char 	*ft_malloc(int size)
 	return (str);
 }
 
-void	show_ghost()
+void	show_ghost(void)
 {
 	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);
 	printf(G "| ╭--╮╭--╮ | |BOO…|\n" R);
@@ -74,7 +75,7 @@ int	main(int argc, char **argv, char **envp)
 		protect_malloc(tok);
 		line = prompt();
 		if (syntax_errors(line))
-			continue;
+			continue ;
 		if (!is_pipe(line))
 		{
 			tok = tokenisation(line, tok, data);

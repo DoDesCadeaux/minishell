@@ -42,7 +42,7 @@ static char	**ft_count_words(char const *str, char c)
 				if (str[i] != c)
 					i++;
 				if (str[i] == c)
-					break;
+					break ;
 			}
 		}
 		else
@@ -54,8 +54,8 @@ static char	**ft_count_words(char const *str, char c)
 
 static int	ft_lenword(const char *str, char c, int i)
 {
-	int y;
-	int z;
+	int	y;
+	int	z;
 
 	y = i;
 	while (str[i])
@@ -75,7 +75,7 @@ static int	ft_lenword(const char *str, char c, int i)
 		if (str[i] != c)
 			i++;
 		else
-			break;
+			break ;
 	}
 	z = i - y;
 	return (z);
@@ -126,7 +126,7 @@ static int	ft_copy(char *dest, char *str, char c, int i)
 			j++;
 		}
 		else
-			break;
+			break ;
 	}
 	dest[j] = '\0';
 	return (i);
