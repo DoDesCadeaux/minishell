@@ -81,7 +81,14 @@ static int	ft_lenword(const char *str, char c, int i)
 	return (z);
 }
 
-static int	ft_copy(char *dest, const char *str, char c, int i)
+void	run_cpy(char *dest, char *str, int i, int j)
+{
+	dest[j] = str[i];
+	i++;
+	j++;
+}
+
+static int	ft_copy(char *dest, char *str, char c, int i)
 {
 	int	j;
 
@@ -120,13 +127,12 @@ static int	ft_copy(char *dest, const char *str, char c, int i)
 		}
 		else
 			break;
-		
 	}
 	dest[j] = '\0';
 	return (i);
 }
 
-char	**ft_split_pipe(char const *s, char c)
+char	**ft_split_pipe(char *s, char c)
 {
 	char	**split;
 	int		words;

@@ -91,16 +91,18 @@ typedef struct s_struct
 void		welcome(void);
 void		show_ghost(void);
 
-//tokenisation and utils
+//TOKENISATION
 char		**tokenisation(char *line, char **tok, t_struct *data);
-int			ft_strcmp(char *s1, char *s2);
-char		*get_fd(char *file, int type, char *token);
-int			is_pipe(char *line);
-void		pipe_exec(t_struct *data, char **tok, char *line);
-char		*create_heredoc(char *delimiter);
+int			tok_fd_in(char **tok, char **line_split, int i);
+//char		*create_heredoc(char *delimiter);
 int			tok_1(char **tok, char **line_split, int i, char *line);
 void		call_exec(t_struct *data, char **tok, int fdin, int fdout);
 int			check_type(char **tok);
+
+//TOKENISATION UTILS
+int			ft_strcmp(char *s1, char *s2);
+char		*get_fd(char *file, int type, char *token);
+int			is_pipe(char *line);
 
 //Global Utils
 int			len_split(char **split);
@@ -136,7 +138,8 @@ void		execute(t_struct *data, char *cmd);
 char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);
 void		run_signals(int sig);
-char		**ft_split_pipe(char const *s, char c);
+char		**ft_split_pipe(char *s, char c);
+void		pipe_exec(t_struct *data, char **tok, char *line);
 
 //PARSING
 int			syntax_errors(char *line);
