@@ -82,10 +82,16 @@ static int	bad_syntax_pipe(char *line)
 	protect_malloc(split_pipe);
 	while (split_pipe[i])
 	{
+		split_pipe[i] = remove_double_quotes(split_pipe[i]);
+		split_pipe[i] = remove_single_quotes(split_pipe[i]);
 		if (is_only_spaces(split_pipe[i]))
+		{
+			ft_free_split(split_pipe);
 			return (1);
+		}
 		i++;
 	}
+	ft_free_split(split_pipe);
 	return (0);
 }
 
