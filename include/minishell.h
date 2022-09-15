@@ -69,6 +69,7 @@ enum	e_type
 	BU_PWD,
 	BU_ENV,
 	BU_EXPORT,
+	BU_EXPORT_EMPTY,
 	BU_UNSET,
 	BU_EXIT,
 	BINARY,
@@ -124,6 +125,7 @@ t_struct	*export_global(t_struct *data, char *export);
 void		env_builtin(t_struct *data);
 void		export_env(t_struct *data, char *cmd);
 void		unset_env(t_struct *data, char *cmd);
+void		export_empty(t_struct *data);
 void		echo(char **tok);
 void		pwd_builtin(void);
 void		cd_builtin(t_struct *data, char **tok);

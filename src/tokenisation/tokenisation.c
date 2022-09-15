@@ -164,7 +164,12 @@ int	check_type(char **tok)
 	else if (!ft_strcmp(full_cmd[0], ENV))
 		type = BU_ENV;
 	else if (!ft_strcmp(full_cmd[0], EXPORT))
-		type = BU_EXPORT;
+	{
+		if (!full_cmd[1])
+			type = BU_EXPORT_EMPTY;
+		else
+			type = BU_EXPORT;
+	}
 	else if (!ft_strcmp(full_cmd[0], UNSET))
 		type = BU_UNSET;
 	else if (!ft_strcmp(full_cmd[0], EXIT))
