@@ -27,19 +27,6 @@ void	ft_error(char *message, int code)
 	write(2, "\n", 1);
 }
 
-char	*ft_malloc(int size)
-{
-	char	*str;
-
-	str = malloc(size + 1);
-	if (!str)
-	{
-		error_code = 1;
-		return (NULL);
-	}
-	return (str);
-}
-
 void	show_ghost(void)
 {
 	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);

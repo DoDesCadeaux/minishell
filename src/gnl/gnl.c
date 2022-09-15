@@ -31,7 +31,8 @@ char	*read_file(char *rest, int fd)
 	char	*reading;
 	int		rc;
 
-	reading = ft_malloc(sizeof(char) * BUFFER_SIZE + 1);
+	reading = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	protect_malloc(reading);
 	rc = 1;
 	while (rc && !ft_strchr(rest, '\n'))
 	{
@@ -52,7 +53,8 @@ char	*get_line(char *rest, size_t i)
 
 	if (!rest[0])
 		return (NULL);
-	line = ft_malloc(i);
+	line = malloc(sizeof (char) * i + 1);
+	protect_malloc(line);
 	i = 0;
 	y = 0;
 	while (rest[i] && rest[i] != '\n')
@@ -70,7 +72,8 @@ char	*recover_rest(char *rest, size_t i)
 
 	if (!rest[0])
 		return (ft_free(rest));
-	save = ft_malloc(ft_strlen(rest) - i);
+	save = malloc(sizeof (char) * ft_strlen(rest) - i + 1);
+	protect_malloc(save);
 	y = 0;
 	while (rest[i])
 		save[y++] = rest[i++];
