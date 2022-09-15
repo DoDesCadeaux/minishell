@@ -32,7 +32,7 @@ void	init_pwd_user(t_struct *data)
 	i = ft_strqstr(tmp, "USER=") + 1;
 	data->user = ft_strdup (tmp + i);
 	protect_malloc(data->user);
-	free(tmp);
+//	free(tmp); Si on free tmp, LEAKS -> ENV, EXPORT
 	free(pwd_tmp);
 }
 

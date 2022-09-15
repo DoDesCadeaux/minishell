@@ -97,14 +97,14 @@ char	*parsing(char *line, t_struct *data)
 		{
 			//Remove les quotes apres a tokenisation
 			line = parsing_dollar(data, line);
-			//line = remove_double_quotes(line);
+			line = remove_double_quotes(line);
 			line = check_spaces_redirections(line);
 			return (line);
 		}
 		else if (line[i] == 39)
 		{
 			//Remove les quotes apres a tokenisation
-			//line = remove_single_quotes(line);
+			line = remove_single_quotes(line);
 			line = check_spaces_redirections(line);
 			return (line);
 		}
