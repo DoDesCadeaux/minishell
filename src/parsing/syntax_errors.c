@@ -51,6 +51,20 @@ static int	open_quotes(char *line)
 		return (1);
 	return (0);
 }
+/*
+static int	begin_or_end_with_pipe(char *line)
+{
+	int	i;
+	int	max;
+
+	i = 0;
+	if (is_metachar(line[i]))
+		return (1);
+	max = ft_strlen(line);
+	if (is_metachar(line[max]))
+		return (1);
+	return (0);
+}*/
 
 static int	begin_or_end_with_pipe(char *line)
 {
@@ -85,7 +99,7 @@ int	syntax_errors(char *line)
 	}
 	if (begin_or_end_with_pipe(line))
 	{
-		ft_error("Syntax error : Begins or ends with a pipe", 1);
+		ft_error("Syntax error near unexpected token '|'", 1);
 		return (1);
 	}
 	return (0);

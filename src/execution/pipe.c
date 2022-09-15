@@ -57,7 +57,7 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	int		i;
 	int		pipe_fd[2];
 
-	split_pipe = ft_split(line, '|');
+	split_pipe = ft_split_pipe(line, '|');
 	len = len_split(split_pipe);
 	i = 0;
 	tok = tokenisation(split_pipe[i], tok, data);

@@ -134,6 +134,7 @@ void		execute(t_struct *data, char *cmd);
 char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);
 void		run_signals(int sig);
+char		**ft_split_pipe(char const *s, char c);
 
 //PARSING
 int			syntax_errors(char *line);
