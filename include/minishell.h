@@ -152,6 +152,8 @@ char		*str_dup_parts(char *src, int end, int start);
 int			skip_double_quotes(char *line, int i);
 int			skip_single_quotes(char *line, int i);
 int			skip_all_quotes(char *line, int i);
+int			is_end_of_dollar(char c);
+int			update_i(char *line_pars, int i);
 
 char		*remove_single_quotes(char *line);
 char		*remove_double_quotes(char *line);

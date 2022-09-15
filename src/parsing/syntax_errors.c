@@ -70,12 +70,12 @@ int	syntax_errors(char *line)
 {
 	if (empty_line(line))
 	{
-		ft_error("Syntax error : empty line", 1);
+		ft_error("Syntax error : empty line", 0);
 		return (1);
 	}
 	if (is_only_spaces(line))
 	{
-		ft_error("Syntax error : there's only spaces", 1);
+		ft_error("Syntax error : there's only spaces", 0);
 		return (1);
 	}
 	if (open_quotes(line))
@@ -85,7 +85,7 @@ int	syntax_errors(char *line)
 	}
 	if (begin_or_end_with_pipe(line))
 	{
-		ft_error("Syntax error : Begins or ends with a pipe", 1);
+		ft_error("Syntax error : Begins or ends with a pipe", 258);
 		return (1);
 	}
 	return (0);
