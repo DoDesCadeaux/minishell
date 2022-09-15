@@ -95,6 +95,7 @@ typedef struct s_struct
 	char	*tmp_3;
 	int		type;
 	int		check;
+	int		pipe;
 }	t_struct;
 
 void		welcome(void);

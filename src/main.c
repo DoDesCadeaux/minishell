@@ -65,6 +65,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (!is_pipe(line))
 		{
+			data->pipe = 0;
 			tok = tokenisation(line, tok, data);
 			if (tok)
 			{
@@ -74,7 +75,10 @@ int	main(int argc, char **argv, char **envp)
 			free(tok);
 		}
 		else
+		{
+			data->pipe = 1;
 			pipe_exec(data, tok, line);
+		}
 	}
 	return (0);
 }

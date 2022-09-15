@@ -74,13 +74,11 @@ t_struct	*change_directory(t_struct *data, char *directory)
 	return (data);
 }
 
-void	cd_builtin(t_struct *data, char **tok)
+void	cd_solo(t_struct *data, char **tok, char **full_cmd)
 {
 	int		check;
 	char	*tmp;
-	char	**full_cmd;
 
-	full_cmd = ft_split(tok[1], ' ');
 	check = access(full_cmd[1], F_OK);
 	if (check == 0)
 		data = change_directory(data, full_cmd[1]);
@@ -100,4 +98,22 @@ void	cd_builtin(t_struct *data, char **tok)
 	}
 	else
 		ft_error("ERROR : cd : No such file or directory", 127);
+}
+
+void	cd_builtin(t_struct *data, char **tok)
+{
+	char	**full_cmd;
+
+	full_cmd = ft_split(tok[1], ' ');
+	if (data->pipe == 0)
+		cd_solo(data, tok, full_cmd);
+	else
+	{
+		if (!ft_strcmp(full_cmd[1], "-"))
+		{
+			ft_putstr_fd(data->pwd[1], ft_atoi(tok[2]));
+			ft_putchar_fd('\n', ft_atoi(tok[2]));
+		}
+	}
+	ft_free_split(full_cmd);
 }
