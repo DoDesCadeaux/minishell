@@ -25,6 +25,7 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 		return (NULL);
 	i = tok_1(tok, line_split, i, line);
 	tok[1] = parsing(tok[1], data);
+	printf("line_split[i] = %s\n", line_split[i]);
 	if (line_split[i] && !ft_strcmp(line_split[i], GREAT))
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT);
 	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT))

@@ -49,19 +49,19 @@ int	manage_redirection_with_quotes(char **line_split, int i)
 	quote_double = 0;
 	while (line_split[i])
 	{	
-		if (line_split[i][0] == 39)
+		if (line_split[i][0] == 39 && line_split[i + 1])
 		{
 			quote_simple = manage_quote_status(quote_simple);
 			i++;
 		}
-		if (line_split[i][0] == 34)
+		if (line_split[i][0] == 34 && line_split[i + 1])
 		{
 			quote_double = manage_quote_status(quote_double);
 			i++;
 		}
-		if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT))
+		if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT) && line_split[i + 1])
 			i++;
-		else if (quote_simple == 1 || quote_double == 1)
+		else if ((quote_simple == 1 || quote_double == 1) && line_split[i + 1])
 			i++;
 		else
 			break ;
@@ -92,5 +92,6 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 	tok[1] = ft_strdup(info);
 	free(info);
 	tok[1] = remove_multi_space(tok[1]);
+	printf("tok[1], %s\n", tok[1]);
 	return (i);
 }

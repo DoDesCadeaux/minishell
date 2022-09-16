@@ -14,16 +14,16 @@
 
 static int	manage_special_char(char *str, int i)
 {
-	if (str[i] == 34)
+	if (str[i] == 34 && str[i + 1])
 	{
 		i++;
-		while (str[i] != 34)
+		while (str[i] != 34  && str[i + 1])
 			i++;
 	}
-	if (str[i] == 39)
+	if (str[i] == 39  && str[i + 1])
 	{
 		i++;
-		while (str[i] != 39)
+		while (str[i] != 39  && str[i + 1])
 			i++;
 	}
 	return (i);
@@ -66,32 +66,25 @@ static int	ft_lenword(const char *str, char c, int i)
 	y = i;
 	while (str[i])
 	{
-		if (str[i] == 34)
+		if (str[i] == 34 && str[i + 1])
 		{
 			i++;
-			while (str[i] != 34)
+			while (str[i] != 34 && str[i + 1])
 				i++;
 		}
-		if (str[i] == 39)
+		if (str[i] == 39 && str[i + 1])
 		{
 			i++;
-			while (str[i] != 39)
+			while (str[i] != 39 && str[i + 1])
 				i++;
 		}
-		if (str[i] != c)
+		if (str[i] != c && str[i + 1])
 			i++;
 		else
 			break ;
 	}
 	z = i - y;
 	return (z);
-}
-
-void	run_cpy(char *dest, char *str, int i, int j)
-{
-	dest[j] = str[i];
-	i++;
-	j++;
 }
 
 static int	ft_copy(char *dest, char *str, char c, int i)
