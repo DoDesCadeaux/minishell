@@ -91,5 +91,6 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 	info = get_cmd(tmp, i_end);
 	tok[1] = ft_strdup(info);
 	free(info);
+	tok[1] = remove_multi_space(tok[1]);
 	return (i);
 }
