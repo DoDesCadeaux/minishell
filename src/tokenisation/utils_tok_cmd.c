@@ -33,6 +33,8 @@ char	*remove_multi_space(char *line)
 	tmp = NULL;
 	if (split_space[i])
 		tmp = add_space(tmp, new_line);
+	else
+		return (new_line);
 	while (split_space[i])
 	{
 		new_line = ft_strjoin(tmp, split_space[i]);
