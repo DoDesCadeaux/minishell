@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {
@@ -57,4 +57,30 @@ char	*get_fd(char *file, int type, char *token)
 		return (NULL);
 	fd_tok = ft_itoa(fd);
 	return (fd_tok);
+}
+
+int	is_pipe(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == 34)
+		{
+			i++;
+			while (line[i] != 34)
+				i++;
+		}
+		if (line[i] == 39)
+		{
+			i++;
+			while (line[i] != 39)
+				i++;
+		}
+		if (line[i] == '|')
+			return (1);
+		i++;
+	}
+	return (0);
 }

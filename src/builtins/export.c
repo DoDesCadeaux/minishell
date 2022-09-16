@@ -10,19 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-t_struct	*export_env(t_struct *data, char **full_cmd)
+void	export_env(t_struct *data, char *cmd)
 {
-	int	i;
+	int		i;
+	char	**full_cmd;
 
 	i = 1;
+	full_cmd = ft_split(cmd, ' ');
 	while (full_cmd[i])
 	{
 		data = export_global(data, full_cmd[i]);
 		i++;
 	}
-	return (data);
+	ft_free_split(full_cmd);
 }
 
 char	**add_var(char **matrix, int len_matrix, int len_nline, char *n_line)
@@ -33,20 +35,17 @@ char	**add_var(char **matrix, int len_matrix, int len_nline, char *n_line)
 	if (len_matrix == 0)
 		len_matrix++;
 	new_matrix = malloc(sizeof(char *) * (len_matrix + 1));
-	if (!new_matrix)
-		return (NULL);
+	protect_malloc(new_matrix);
 	i = 0;
 	while (matrix[i] && i <= len_matrix)
 	{
 		new_matrix[i] = malloc(sizeof(char) * ft_strlen(matrix[i]) + 1);
-		if (!new_matrix[i])
-			return (NULL);
+		protect_malloc(new_matrix[i]);
 		ft_strcpy(new_matrix[i], matrix[i]);
 		i++;
 	}
 	new_matrix[i] = malloc(sizeof(char) * len_nline + 1);
-	if (!new_matrix[i])
-		return (NULL);
+	protect_malloc(new_matrix[i]);
 	ft_strcpy(new_matrix[i], n_line);
 	new_matrix[i + 1] = 0;
 	ft_free_split(matrix);
@@ -66,8 +65,7 @@ t_struct	*export_global(t_struct *data, char *export)
 			{
 				free(data->envp[i]);
 				data->envp[i] = malloc(sizeof(char) * ft_strlen(export) + 1);
-				if (!data->envp[i])
-					return (NULL);
+				protect_malloc(data->envp[i]);
 				ft_strcpy(data->envp[i], export);
 				return (data);
 			}

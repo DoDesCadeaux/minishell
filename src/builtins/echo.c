@@ -10,35 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
-int	option_n(char **split_cmd)
-{
-	int	check;
-
-	check = ft_strncmp("-n", split_cmd[1], 2);
-	if (!check)
-		return (1);
-	return (0);
-}
+#include "../../include/minishell.h"
 
 void	echo(char **tok)
 {
-	char	**split_cmd;
+	char	*line;
 	int		i;
+	int		y;
 
-	i = 1;
-	split_cmd = ft_split(tok[1], ' ');
-	if (option_n(split_cmd) == 1)
-		i++;
-	while (split_cmd[i])
+	if (!ft_strcmp(tok[1], "echo -n"))
+		exit(EXIT_SUCCESS);
+	i = ft_strqstr(tok[1], CMD) + 1;
+	y = ft_strqstr(tok[1], OPTION) + 1;
+	if (ft_strncmp(tok[1], "echo", ft_strlen(tok[1])))
 	{
-		ft_putstr_fd(split_cmd[i], ft_atoi(tok[2]));
-		i++;
-		if (i != len_split(split_cmd))
-			ft_putchar_fd(' ', ft_atoi(tok[2]));
+		if (y == 0)
+			line = ft_strdup(tok[1] + i);
+		else
+			line = ft_strdup(tok[1] + y + 1);
+		printf("%s", line);
+		free(line);
 	}
-	if (option_n(split_cmd) == 0)
-		ft_putchar_fd('\n', ft_atoi(tok[2]));
-	ft_free_split(split_cmd);
+	if (y == 0)
+		printf("\n");
+	exit(EXIT_SUCCESS);
 }

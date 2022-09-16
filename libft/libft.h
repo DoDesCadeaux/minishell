@@ -36,6 +36,8 @@ int		ft_strfchr(char *str, char c);
 
 void	*ft_free_split(char **split);
 
+void	*ft_clear_split(char **split);
+
 int		ft_isprint(int c);
 
 int		ft_isalpha(int c);
@@ -67,6 +69,12 @@ void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_memset(void *b, int c, size_t len);
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+
+char	*ft_strstr(const char *haystack, const char *needle);
+
+int		ft_strpstr(const char *haystack, const char *needle);
+
+int		ft_strqstr(const char *haystack, const char *needle);
 
 void	ft_bzero(void *s, size_t n);
 

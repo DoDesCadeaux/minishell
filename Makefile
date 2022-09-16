@@ -5,12 +5,15 @@
 
 NAME	= minishell
 CC 		= gcc
-CFLAGS	= -Wall -Wextra -Werror -lreadline ##-fsanitize=address
+
+#CFLAGS	= -Wall -Wextra -Werror -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
+
 CFLAGS_WRL = -Wall -Wextra -Werror
 MAKE 	= make
 MAKE_CLEAN	= make clean
 MAKE_FCLEAN = make fclean
-AUTHOR	= dduraku tverdood pamartin algaspar
+AUTHOR	= Dorian, Pauline, Tanguy, Alex
 DATE	= 17/08/2022
 
 NOVISU 	= 1 # 1 = no progress bar usefull when tty is not available
@@ -31,12 +34,16 @@ TOK 			= ./tokenisation/
 GNL 			= ./gnl/
 BUILTINS 		= ./builtins/
 ENV 			= ./environnement/
+PARS			= ./parsing/
+EXEC 			= ./execution/
 
-SRCS			= $(TOK)tokenisation.c	$(TOK)utils_tokenisation.c \
+SRCS			= $(TOK)tokenisation.c	$(TOK)tok_cmd.c $(TOK)tok_stdin.c $(TOK)utils_tokenisation.c $(TOK)check_type.c $(TOK)utils_tok_cmd.c\
  				  $(GNL)gnl.c	$(GNL)gnl_utils.c \
 				  $(BUILTINS)echo.c $(BUILTINS)pwd.c $(BUILTINS)export.c $(BUILTINS)cd.c $(BUILTINS)env.c $(BUILTINS)unset.c $(BUILTINS)exit.c\
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \
-				  exec_global.c welcome.c
+				  $(PARS)parsing.c $(PARS)dollar.c $(PARS)single_quotes.c $(PARS)double_quotes.c $(PARS)utils_parsing.c $(PARS)syntax_errors.c \
+				  $(EXEC)exec_global.c $(EXEC)pipe.c $(EXEC)utils_exec.c $(EXEC)split_pipe.c \
+				  welcome.c signals.c utils.c initializer.c
 				 
 
 MAIN			= main.c
@@ -95,7 +102,6 @@ else
 endif
 
 ifeq ($(shell git rev-parse HEAD &>/dev/null; echo $$?),0)
-	AUTHOR	:= $(shell git log --format='%aN' | sort -u | awk '{printf "%s, ", $$0}' | rev | cut -c 3- | rev)
 	DATE	:= $(shell git log -1 --date=format:"%d/%m/%Y %T" --format="%ad")
 	HASH	:= $(shell git rev-parse --short HEAD)
 endif
@@ -211,12 +217,17 @@ all: header setup $(NAME)
 	@rm -rf .files_changed
 
 header:
-	@echo "MINISHELLLLLL"
-ifneq ($(HASH),)
+		@printf "%b" "$(OBJ_COLOR)"
+		@echo
+		@echo
+		@echo "    __  ___ _         _    _____  __           __ __"
+		@echo "   /  |/  /(_)____   (_)  / ___/ / /_   ___   / // /"
+		@echo "  / /|_/ // // __ \ / /   \__ \ / __ \ / _ \ / // / "
+		@echo " / /  / // // / / // /   ___/ // / / //  __// // /  "
+		@echo "/_/  /_//_//_/ /_//_/   /____//_/ /_/ \___//_//_/   "
+		@echo "                                                    "
+
 	@printf "%b" "$(OBJ_COLOR)Name:	$(WARN_COLOR)$(NAME)\n"
-else
-	@printf "%b" "$(OBJ_COLOR)Name:	$(WARN_COLOR)$(NAME)\n"
-endif
 	@printf "%b" "$(OBJ_COLOR)Author:	$(WARN_COLOR)$(AUTHOR)\n"
 	@printf "%b" "$(OBJ_COLOR)Date: 	$(WARN_COLOR)$(DATE)\n\033[m"
 	@printf "%b" "$(OBJ_COLOR)CC: 	$(WARN_COLOR)$(CC)\n\033[m"
@@ -225,7 +236,7 @@ endif
 
 
 -include $(DEPS) $(DEPS_MAIN)
-$(NAME):	${OBJS} ${OBJ_MAIN}
+$(NAME):	$(OBJS) $(OBJ_MAIN)
 			@$(MAKE) -C Libft
 			@$(call display_progress_bar)
 			@$(call run_and_test,$(CC) $(CFLAGS) -I$(INCLUDE_PATH) $(LIB) -o $@ ${COMPIL} ${OBJS} ${OBJ_MAIN})

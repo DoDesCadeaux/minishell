@@ -10,45 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
-char	**path_list(char **envp)
-{
-	char	*path;
-	char	**full_path;
-	size_t	i;
-
-	i = 0;
-	while (ft_strncmp("PATH", envp[i], 4))
-		i++;
-	path = envp[i] + 5;
-	full_path = ft_split(path, ':');
-	return (full_path);
-}
-
-char	*get_cmd_path(char **paths, char *cmd)
-{
-	char	*tmp;
-	char	*path;
-	size_t	i;
-
-	i = 0;
-	while (paths[i])
-	{
-		tmp = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(tmp, cmd);
-		free(tmp);
-		if (access(path, X_OK) == 0)
-		{
-			ft_free_split(paths);
-			return (path);
-		}
-		free(path);
-		i++;
-	}
-	ft_free_split(paths);
-	return (NULL);
-}
+#include "../../include/minishell.h"
 
 void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 {
@@ -61,8 +23,16 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	if (check == -1)
 	{
 		ft_free_split(cmd_arg);
-		printf("ERROR EXEC 2\n");
+		ft_error_exit("ERROR EXEC 2", 127);
 	}
+}
+
+void	close_fd(int fdin, int fdout)
+{
+	if (fdout != 1)
+		close(fdout);
+	if (fdin != 0)
+		close(fdin);
 }
 
 void	execute(t_struct *data, char *cmd)
@@ -73,7 +43,7 @@ void	execute(t_struct *data, char *cmd)
 
 	cmd_arg = ft_split(cmd, ' ');
 	if (!cmd_arg)
-		printf("ERROR SPLIT ARG\n");
+		ft_error("ERROR SPLIT ARG", CMD_ERROR);
 	if (!ft_strncmp(cmd, "./", 2))
 	{
 		if (access(cmd, X_OK) == 0)
@@ -85,37 +55,58 @@ void	execute(t_struct *data, char *cmd)
 	{
 		paths = path_list(data->envp);
 		if (!paths)
-			printf("ERROR PATH\n");
+			ft_error_exit("command not found", CMD_ERROR);
 		path = get_cmd_path(paths, cmd_arg[0]);
 		if (!path)
-			printf("ERROR PATH ARG\n");
+			ft_error_exit("command not found", CMD_ERROR);
 		protected_execve(path, cmd_arg, data->envp, 1);
 	}
 }
 
-void	exec_global(t_struct *data, char **tok, char *cmd)
+void	run_exec(t_struct *data, char **tok)
+{
+	if (data->type == BINARY)
+		execute(data, tok[1]);
+	else if (data->type == BU_ECHO)
+		echo(tok);
+	else if (data->type == BU_PWD)
+		pwd_builtin();
+	else if (data->type == BU_ENV)
+		env_builtin(data);
+	else if (data->type == BU_EXPORT_EMPTY)
+		export_empty(data);
+	else
+		exit(EXIT_SUCCESS);
+}
+
+void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 {
 	pid_t	child;
-	int		check;
 
+	if (data->type == BU_CD)
+		cd_builtin(data, tok);
 	child = fork();
+	if (data->pipe == 0)
+	{
+		if (data->type == BU_EXIT)
+			exit_builtins();
+		else if (data->type == BU_UNSET)
+			unset_env(data, tok[1]);
+		else if (data->type == BU_EXPORT)
+			export_env(data, tok[1]);
+	}
 	if (child == 0)
 	{
-		if (ft_strcmp(tok[0], "0"))
-		{
-			check = dup2(ft_atoi(tok[0]), 0);
-			if (check == -1)
-				printf("nuuuuul\n");
-			close(ft_atoi(tok[0]));
-		}
-		if (ft_strcmp(tok[2], "1"))
-		{
-			check = dup2(ft_atoi(tok[2]), 1);
-			if (check == -1)
-				printf("merdouille\n");
-			close(ft_atoi(tok[2]));
-		}
-		execute(data, cmd);
+		data->check = dup2(fdin, 0);
+		if (data->check == -1)
+			ft_error_exit("", ERRNO);
+		data->check = dup2(fdout, 1);
+		if (data->check == -1)
+			ft_error_exit("", ERRNO);
+		close_fd(fdin, fdout);
+		run_exec(data, tok);
 	}
-	waitpid(-1, NULL, 0);
+	waitpid(child, NULL, 0);
+	if (access(HERE_DOC, F_OK) == 0)
+		unlink(HERE_DOC);
 }

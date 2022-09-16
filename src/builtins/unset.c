@@ -10,19 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-t_struct	*unset_env(t_struct *data, char **full_cmd)
+void	unset_env(t_struct *data, char *cmd)
 {
-	int	i;
+	int		i;
+	char	**full_cmd;
 
 	i = 1;
+	full_cmd = ft_split(cmd, ' ');
 	while (full_cmd[i])
 	{
 		data = unset_global(data, full_cmd[i]);
 		i++;
 	}
-	return (data);
+	ft_free_split(full_cmd);
 }
 
 t_struct	*unset_global(t_struct *data, char *unset)
