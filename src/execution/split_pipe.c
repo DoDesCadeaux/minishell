@@ -17,13 +17,13 @@ static int	manage_special_char(char *str, int i)
 	if (str[i] == 34 && str[i + 1])
 	{
 		i++;
-		while (str[i] != 34  && str[i + 1])
+		while (str[i] != 34 && str[i + 1])
 			i++;
 	}
-	if (str[i] == 39  && str[i + 1])
+	if (str[i] == 39 && str[i + 1])
 	{
 		i++;
-		while (str[i] != 39  && str[i + 1])
+		while (str[i] != 39 && str[i + 1])
 			i++;
 	}
 	return (i);
@@ -94,35 +94,17 @@ static int	ft_copy(char *dest, char *str, char c, int i)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == 34)
+		if (str[i] == 34 || str[i] == 39)
 		{
-			dest[j] = str[i];
-			j++;
-			i++;
-			while (str[i] != 34)
-			{
-				dest[j] = str[i];
-				j++;
-				i++;
-			}
-		}
-		if (str[i] == 39)
-		{
-			dest[j] = str[i];
-			j++;
-			i++;
-			while (str[i] != 39)
-			{
-				dest[j] = str[i];
-				j++;
-				i++;
-			}
+			dest = cpy_dest(i, j, str, dest);
+			j = increment_j(i, j, str);
+			i = increment_i(i, str);
 		}
 		if (str[i] != c)
 		{
 			dest[j] = str[i];
-			i++;
 			j++;
+			i++;
 		}
 		else
 			break ;

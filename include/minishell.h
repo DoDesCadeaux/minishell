@@ -160,6 +160,9 @@ void		exit_builtins(void);
 void		execute(t_struct *data, char *cmd);
 char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);
+int			increment_j(int i, int j, char *str);
+int 		increment_i(int i, char *str);
+char		*cpy_dest(int i, int j, char *str, char *dest);
 
 //PAULINE
 void		run_signals(int sig);
