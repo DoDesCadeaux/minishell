@@ -193,5 +193,6 @@ char		*ft_malloc(int size);
 //ERROR
 void		ft_error(char *message, int code);
 void		ft_error_exit(char *message, int code);
+char		*msg_error(char *cmd, char *element, char *msg);
 
 #endif

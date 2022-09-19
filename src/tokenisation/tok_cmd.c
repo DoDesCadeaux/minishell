@@ -88,6 +88,5 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 		i_end = ft_strlen(line);
 	tok[1] = get_cmd(tmp, i_end);
 	tok[1] = remove_multi_space(tok[1]);
-	printf("tok[1], %s\n", tok[1]);
 	return (i);
 }
