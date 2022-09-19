@@ -1,0 +1,51 @@
+test random :
+    ls | 
+    ls | ls
+    echo bonjour
+    echo "bonjour"
+    ls | | ls
+    >
+    >>
+    <
+    <<
+    echo $?
+    export
+    export > file
+    ls |
+    ls                    |       "   "
+
+a la suite (vérification quand unset PATH)
+    unset PATH
+    env
+    ls | ls | env
+    cd ..
+    cd - 
+    pwd
+    exit
+
+a la suite (vérification cas spécifiques pipes)
+    cd - | ls
+    cd - > file | ls
+    cd .. | ls
+    export popo=lol | ls
+    echo $popo
+    export popo=lol
+    echo $popo
+    unset popo | ls
+    echo $popo
+
+a la suite (vérification quand unset les pwd et user)
+    unset PWD OLDPWD
+    env
+    cd ..
+    pwd
+    unset USER
+    cd -
+
+a la suite (vérification redirection)
+    echo bonjour > coucou
+    echo bordel >> coucou
+    < coucou grep bonjour >> coucou
+    << youpi grep hello 
+    << youpi grep hello >> coucou
+    << youpi grep hello > coucou

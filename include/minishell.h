@@ -62,6 +62,8 @@
 # define EXIT   "exit"
 # define OPTION	"echo -n"
 # define CMD	"echo "
+# define MSG_PIPE "pipe> "
+# define MSG_HERE "heredoc> "
 
 int	error_code;
 
@@ -123,7 +125,7 @@ char		*get_fd(char *file, int type, char *token);
 int			is_pipe(char *line);
 
 //GNL
-char		*get_next_line(int fd);
+char		*get_next_line(int fd, char *msg);
 char		*ft_strjoin_gnl(char *s1, char *s2);
 char		*ft_strchr(char *s, int c);
 void		*ft_free(char *save);

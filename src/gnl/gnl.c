@@ -26,7 +26,7 @@ size_t	is_line(char *str)
 	return (i);
 }
 
-char	*read_file(char *rest, int fd)
+char	*read_file(char *rest, int fd, char *msg)
 {
 	char	*reading;
 	int		rc;
@@ -36,6 +36,7 @@ char	*read_file(char *rest, int fd)
 	rc = 1;
 	while (rc && !ft_strchr(rest, '\n'))
 	{
+		ft_putstr_fd(msg, 0);
 		rc = read(fd, reading, BUFFER_SIZE);
 		if (rc < 0)
 			return (ft_free(reading));
@@ -82,14 +83,14 @@ char	*recover_rest(char *rest, size_t i)
 	return (save);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, char *msg)
 {
 	char static	*rest;
 	char		*line;
 
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd > OPEN_MAX)
 		return (NULL);
-	rest = read_file(rest, fd);
+	rest = read_file(rest, fd, msg);
 	if (!rest)
 		return (NULL);
 	line = get_line(rest, is_line(rest));

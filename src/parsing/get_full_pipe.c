@@ -17,7 +17,7 @@ char    *get_full_pipe(char *line)
     char    *tmp;
     char    *tmp2;  
 
-    tmp = get_next_line(0);
+    tmp = get_next_line(0, MSG_PIPE);
     tmp2 = ft_strjoin(line, " ");
     free(line);
     line = ft_strjoin(tmp2, tmp);
