@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 18:50:40 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/19 08:41:00 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/09/19 15:31:57 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 	i = manage_redirection_with_quotes(line_split, i);
 	if (line_split[i])
 		end = ft_strdup(line_split[i]);
-	printf("tmp = |%s| && end = |%s| && i = %d\n", tmp, end, i);
 	if (end && i != 0)
 		i_end = ft_strpstr(tmp, end);
 	else
