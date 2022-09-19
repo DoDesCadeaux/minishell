@@ -21,7 +21,7 @@ void	protect_malloc(void *element)
 	}
 }
 
-char	*msg_error(char *cmd, char *element, char *msg)
+char	*msg(char *cmd, char *element, char *msg)
 {
 	char 	*tmp;
 	char	*message;

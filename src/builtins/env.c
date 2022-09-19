@@ -17,7 +17,7 @@ void	env_builtin(t_struct *data)
 	int	i;
 
 	if (!var_exist(data, "PATH"))
-		ft_error_exit(msg_error("env", NULL, "No such file or directory"), CMD_ERROR);
+		ft_error_exit(msg("env", NULL, "No such file or directory"), CMD_ERROR);
 	i = 0;
 	while (data->envp[i])
 	{
