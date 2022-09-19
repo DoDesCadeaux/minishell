@@ -59,7 +59,7 @@ int	manage_redirection_with_quotes(char **line_split, int i)
 			quote_double = manage_quote_status(quote_double);
 			i++;
 		}
-		if (!ft_strcmp(line_split[i], GREAT) || !ft_strcmp(line_split[i], DGREAT) || !ft_strcmp(line_split[i], LESS) || !ft_strcmp(line_split[i], DLESS))
+		if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT) && ft_strcmp(line_split[i], LESS) && ft_strcmp(line_split[i], DLESS))
 			i++;
 		else if ((quote_simple == 1 || quote_double == 1) && line_split[i + 1])
 			i++;
