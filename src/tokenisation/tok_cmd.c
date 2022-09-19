@@ -31,37 +31,23 @@ char	*get_cmd(char *str, int i)
 	return (line);
 }
 
-int	manage_quote_status(int quote)
-{
-	if (quote == 1)
-		quote = 0;
-	else
-		quote = 1;
-	return (quote);
-}
-
 int	manage_redirection_with_quotes(char **line_split, int i)
 {
-	int		quote_simple;
-	int		quote_double;
-
-	quote_simple = 0;
-	quote_double = 0;
 	while (line_split[i])
 	{	
 		if (line_split[i][0] == 39 && line_split[i + 1])
 		{
-			quote_simple = manage_quote_status(quote_simple);
 			i++;
+			while (line_split[i][0] == 39 && line_split[i + 1])
+				i++;
 		}
 		if (line_split[i][0] == 34 && line_split[i + 1])
 		{
-			quote_double = manage_quote_status(quote_double);
 			i++;
+			while (line_split[i][0] == 34 && line_split[i + 1])
+				i++;
 		}
 		if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT) && ft_strcmp(line_split[i], LESS) && ft_strcmp(line_split[i], DLESS))
-			i++;
-		else if ((quote_simple == 1 || quote_double == 1) && line_split[i + 1])
 			i++;
 		else
 			break ;
