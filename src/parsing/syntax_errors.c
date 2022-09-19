@@ -62,8 +62,8 @@ static int	bad_syntax_pipe(char *line)
 	if (is_metachar(line[0]))
 		return (1);
 	max = ft_strlen(line);
-	if (is_metachar(line[max - 1]))
-		return (1);
+	//if (is_metachar(line[max - 1]))
+	//	return (1);
 	split_pipe = ft_split_pipe(line, '|');
 	protect_malloc(split_pipe);
 	while (split_pipe[i])

@@ -61,6 +61,8 @@ int	main(int argc, char **argv, char **envp)
 		tok = malloc(sizeof(char *) * 4 + 1);
 		protect_malloc(tok);
 		line = prompt();
+		if (is_metachar(line[ft_strlen(line) - 1]))
+			line = get_full_pipe(line);
 		if (syntax_errors(line))
 			continue ;
 		if (!is_pipe(line))

@@ -194,5 +194,6 @@ char		*ft_malloc(int size);
 void		ft_error(char *message, int code);
 void		ft_error_exit(char *message, int code);
 char		*msg(char *cmd, char *element, char *msg);
+char		*get_full_pipe(char *line);
 
 #endif
