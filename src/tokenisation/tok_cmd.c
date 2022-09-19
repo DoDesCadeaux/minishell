@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 18:50:40 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/15 18:50:42 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/09/19 06:38:38 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	manage_redirection_with_quotes(char **line_split, int i)
 			quote_double = manage_quote_status(quote_double);
 			i++;
 		}
-		if (ft_strcmp(line_split[i], GREAT) && ft_strcmp(line_split[i], DGREAT))
+		if (!ft_strcmp(line_split[i], GREAT) && !ft_strcmp(line_split[i], DGREAT))
 			i++;
 		else if (quote_simple == 1 || quote_double == 1)
 			i++;
@@ -84,7 +84,7 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 	i = manage_redirection_with_quotes(line_split, i);
 	if (line_split[i])
 		end = ft_strdup(line_split[i]);
-	if (end)
+	if (end && i != 0)
 		i_end = ft_strpstr(tmp, end);
 	else
 		i_end = ft_strlen(line);

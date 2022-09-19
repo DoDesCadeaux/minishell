@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_tok_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 13:51:25 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/16 13:51:28 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/09/19 06:35:50 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*remove_multi_space(char *line)
 	tmp = NULL;
 	if (split_space[i])
 		tmp = add_space(tmp, new_line);
+	else
+		return (new_line);
 	while (split_space[i])
 	{
 		new_line = ft_strjoin(tmp, split_space[i]);
