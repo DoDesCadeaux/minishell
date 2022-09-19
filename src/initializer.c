@@ -21,7 +21,6 @@ t_struct	*initializer(char **envp, int argc, char **argv)
 	if (ft_strcmp(argv[0], "./minishell"))
 		ft_error_exit("Bad program name", ERROR);
 	welcome();
-	error_code = 0;
 	data = malloc(sizeof(t_struct));
 	protect_malloc(data);
 	data = clone_env(envp, data);
