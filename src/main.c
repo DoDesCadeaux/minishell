@@ -63,7 +63,6 @@ int	main(int argc, char **argv, char **envp)
 		line = prompt();
 		if (syntax_errors(line))
 			continue ;
-		line = remove_multi_space(line);
 		if (is_metachar(line[ft_strlen(line) - 1]))
 			line = get_full_pipe(line);
 		if (!is_pipe(line))
