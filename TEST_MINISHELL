@@ -14,6 +14,7 @@ test random :
     ls |
     ls                    |       "   "
     ls | "   " | ls
+    echo 'ok' "ok"
 
 a la suite (verification pipe incomplet et signaux)
     ls |
@@ -54,3 +55,4 @@ a la suite (vérification redirection)
     << youpi grep hello 
     << youpi grep hello >> coucou
     << youpi grep hello > coucou
+
