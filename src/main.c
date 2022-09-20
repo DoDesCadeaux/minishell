@@ -23,8 +23,8 @@ void	ft_error_exit(char *message, int code)
 void	ft_error(char *message, int code)
 {
 	error_code = code;
-	write(2, message, ft_strlen(message));
-	write(2, "\n", 1);
+	write(1, message, ft_strlen(message));
+	write(1, "\n", 1);
 }
 
 void	show_ghost(void)
@@ -61,6 +61,9 @@ int	main(int argc, char **argv, char **envp)
 		tok = malloc(sizeof(char *) * 4 + 1);
 		protect_malloc(tok);
 		line = prompt();
+		line = remove_multi_space(line);
+		if (is_metachar(line[ft_strlen(line) - 1]))
+			line = get_full_pipe(line);
 		if (syntax_errors(line))
 			continue ;
 		if (!is_pipe(line))

@@ -20,3 +20,23 @@ void	protect_malloc(void *element)
 		exit(EXIT_FAILURE);
 	}
 }
+
+char	*msg(char *cmd, char *element, char *msg)
+{
+	char 	*tmp;
+	char	*message;
+
+	tmp = ft_strjoin("minishell: ", cmd);
+	message = ft_strjoin(tmp, ": ");
+	free(tmp);
+	if (element)
+	{
+		tmp = ft_strjoin(message, element);
+		free(message);
+		message = ft_strjoin(tmp, ": ");
+		free(tmp);
+	}
+	tmp = ft_strjoin(message, msg);
+	free(message);
+	return (tmp);
+}

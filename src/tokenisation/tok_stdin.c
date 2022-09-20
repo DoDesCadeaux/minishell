@@ -24,12 +24,12 @@ char	*create_heredoc(char *delimiter)
 	here_doc = open("here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (here_doc < 0)
 		printf("ERROR HERE DOC");
-	line = get_next_line(0);
+	line = get_next_line(0, MSG_HERE);
 	while (line && (ft_strncmp(line, delimiter, ft_strlen(delimiter))
 			|| ft_strlen(delimiter) + 1 != ft_strlen(line)))
 	{
 		write(here_doc, line, ft_strlen(line));
-		line = get_next_line(0);
+		line = get_next_line(0, MSG_HERE);
 	}
 	free(line);
 	fd = open("here_doc", O_RDONLY);

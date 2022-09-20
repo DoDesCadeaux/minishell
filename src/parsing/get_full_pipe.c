@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   get_full_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/18 13:14:33 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/18 13:14:35 by pamartin         ###   ########.fr       */
+/*   Created: 2022/09/19 18:06:00 by pamartin          #+#    #+#             */
+/*   Updated: 2022/09/19 18:06:05 by pamartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	env_builtin(t_struct *data)
+char    *get_full_pipe(char *line)
 {
-	int	i;
+    char    *tmp;
+    char    *tmp2;  
 
-	if (!var_exist(data, "PATH"))
-		ft_error_exit(msg("env", NULL, "No such file or directory"), CMD_ERROR);
-	i = 0;
-	while (data->envp[i])
-	{
-		printf("%s\n", data->envp[i]);
-		i++;
-	}
-	exit(EXIT_SUCCESS);
-}
-
-void	export_empty(t_struct *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->envp[i])
-	{
-		printf("declare -x ");
-		printf("%s\n", data->envp[i]);
-		i++;
-	}
-	exit(EXIT_SUCCESS);
+    tmp = get_next_line(0, MSG_PIPE);
+    tmp2 = ft_strjoin(line, " ");
+    free(line);
+    line = ft_strjoin(tmp2, tmp);
+    line[ft_strlen(line) - 1] = '\0';
+    free(tmp);
+    free(tmp2);
+    add_history(line);
+    if (is_metachar(line[ft_strlen(line) - 1]))
+		line = get_full_pipe(line);
+    return (line);
 }

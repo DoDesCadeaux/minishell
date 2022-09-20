@@ -23,7 +23,7 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	if (check == -1)
 	{
 		ft_free_split(cmd_arg);
-		ft_error_exit("ERROR EXEC 2", 127);
+		ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 	}
 }
 
@@ -41,9 +41,13 @@ void	execute(t_struct *data, char *cmd)
 	char	**cmd_arg;
 	char	*path;
 
-	cmd_arg = ft_split(cmd, ' ');
+	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg)
 		ft_error("ERROR SPLIT ARG", CMD_ERROR);
+	if (!cmd_arg[0])
+		ft_error_exit(msg(cmd, NULL, "Command not found"), CMD_ERROR);
+	if (!var_exist(data, "PATH"))
+		ft_error_exit(msg(cmd_arg[0], NULL, "No such file or directory"), CMD_ERROR);
 	if (!ft_strncmp(cmd, "./", 2))
 	{
 		if (access(cmd, X_OK) == 0)
@@ -55,10 +59,10 @@ void	execute(t_struct *data, char *cmd)
 	{
 		paths = path_list(data->envp);
 		if (!paths)
-			ft_error_exit("command not found", CMD_ERROR);
+			ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 		path = get_cmd_path(paths, cmd_arg[0]);
 		if (!path)
-			ft_error_exit("command not found", CMD_ERROR);
+			ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 		protected_execve(path, cmd_arg, data->envp, 1);
 	}
 }
