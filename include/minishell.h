@@ -46,6 +46,7 @@
 # define PATH_ERROR 127
 # define FD_ERROR 1
 # define PIPE_ERROR 258
+# define SUCCES	0
 
 # define LESS "<"
 # define DLESS "<<"

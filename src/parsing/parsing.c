@@ -91,6 +91,7 @@ char	*parsing(char *line, t_struct *data)
 	int	i;
 
 	i = 0;
+	line= remove_multi_space(line);
 	while (line[i])
 	{
 		if (line[i] == 34)
