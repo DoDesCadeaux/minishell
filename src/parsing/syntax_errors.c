@@ -43,17 +43,17 @@ static int	open_quotes(char *line)
 	{
 		if (line[i] == 39)
 		{
-			count_quotes += 1;
+			count_quotes++;
 			i = skip_single_quotes(line, i);
 			if (line[i] == 39)
-				count_quotes += 1;
+				count_quotes++;
 		}
 		else if (line[i] == 34)
 		{
-			count_quotes += 1;
+			count_quotes++;
 			i = skip_double_quotes(line, i);
 			if (line[i] == 34)
-				count_quotes += 1;
+				count_quotes++;
 		}
 		i++;
 	}
