@@ -41,9 +41,11 @@ void	execute(t_struct *data, char *cmd)
 	char	**cmd_arg;
 	char	*path;
 
-	cmd_arg = ft_split(cmd, ' ');
+	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg)
 		ft_error("ERROR SPLIT ARG", CMD_ERROR);
+	if (!cmd_arg[0])
+		ft_error_exit(msg(cmd, NULL, "Command not found"), CMD_ERROR);
 	if (!var_exist(data, "PATH"))
 		ft_error_exit(msg(cmd_arg[0], NULL, "No such file or directory"), CMD_ERROR);
 	if (!ft_strncmp(cmd, "./", 2))

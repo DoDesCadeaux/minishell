@@ -35,6 +35,7 @@ void	run_multi_pipe(t_struct *data, char **tok, int *pipe_fd1)
 
 	data->check = pipe(pipe_fd2);
 	//protection
+	
 	if (ft_atoi(tok[0]) == 0 && ft_atoi(tok[2]) == 1)
 		call_exec(data, tok, pipe_fd1[0], pipe_fd2[1]);
 	else if (ft_atoi(tok[0]) == 0 && ft_atoi(tok[2]) != 1)

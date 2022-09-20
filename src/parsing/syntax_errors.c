@@ -56,15 +56,13 @@ static int	bad_syntax_pipe(char *line)
 {
 	int		i;
 	int		max;
-	char	**split_pipe;
+	//char	**split_pipe;
 
 	i = 0;
 	if (is_metachar(line[0]))
 		return (1);
 	max = ft_strlen(line);
-	//if (is_metachar(line[max - 1]))
-	//	return (1);
-	split_pipe = ft_split_pipe(line, '|');
+	/*split_pipe = ft_split_pipe(line, '|');
 	protect_malloc(split_pipe);
 	while (split_pipe[i])
 	{
@@ -77,7 +75,7 @@ static int	bad_syntax_pipe(char *line)
 		}
 		i++;
 	}
-	ft_free_split(split_pipe);
+	ft_free_split(split_pipe);*/
 	return (0);
 }
 

@@ -13,6 +13,11 @@ test random :
     export > file
     ls |
     ls                    |       "   "
+    ls | "   " | ls
+
+a la suite (verification pipe incomplet et signaux)
+    ls |
+    ctrl-d
 
 a la suite (vérification quand unset PATH)
     unset PATH
