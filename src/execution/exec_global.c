@@ -16,6 +16,8 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 {
 	int	check;
 
+	printf("bordel de cul\n");
+	//printf("cmd arg = %s\n", path);
 	if (status == 1)
 		check = execve(path, cmd_arg, envp);
 	else
@@ -45,15 +47,22 @@ void	execute(t_struct *data, char *cmd)
 	if (!cmd_arg)
 		ft_error("ERROR SPLIT ARG", CMD_ERROR);
 	if (!cmd_arg[0])
-		ft_error_exit(msg(cmd, NULL, "Command not found"), CMD_ERROR);
+		ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 	if (!var_exist(data, "PATH"))
 		ft_error_exit(msg(cmd_arg[0], NULL, "No such file or directory"), CMD_ERROR);
 	if (!ft_strncmp(cmd, "./", 2))
 	{
-		if (access(cmd, X_OK) == 0)
-			protected_execve(cmd, cmd_arg, data->envp, 1);
+		if (access(cmd, X_OK) != 0)
+			ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 		else
-			protected_execve(NULL, cmd_arg, NULL, 0);
+			protected_execve(cmd_arg[0], cmd_arg, data->envp, 1);
+	}
+	if (!ft_strncmp(cmd, "/", 1))
+	{
+		if (access(cmd, X_OK) != 0)
+			ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
+		else
+			protected_execve(cmd_arg[0], cmd_arg, data->envp, 1);
 	}
 	else
 	{
