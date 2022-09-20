@@ -23,8 +23,8 @@ void	ft_error_exit(char *message, int code)
 void	ft_error(char *message, int code)
 {
 	error_code = code;
-	write(1, message, ft_strlen(message));
-	write(1, "\n", 1);
+	write(2, message, ft_strlen(message));
+	write(2, "\n", 1);
 }
 
 void	show_ghost(void)

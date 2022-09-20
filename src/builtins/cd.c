@@ -68,10 +68,30 @@ t_struct	*change_directory(t_struct *data, char *directory)
 	data = update_envp(data, "OLDPWD=");
 	check = chdir(directory);
 	if (check < 0)
-		ft_error_exit(msg("cd", directory, "No such file or directory"), 127);
+		ft_error(msg("cd", directory, "No such file or directory"), 127);
 	update_pwd(data, 0);
 	data = update_envp(data, "PWD=");
 	return (data);
+}
+
+char	*cd_tilde(t_struct *data, char **full_cmd)
+{
+	char	*tmp;
+	char	*line;
+
+	tmp = ft_strjoin("/Users/", data->user);
+	line = NULL;
+	if (!full_cmd[1] || !ft_strcmp(full_cmd[1], "~"))
+		return (tmp);
+	else
+	{
+		if (full_cmd[1])
+		{
+			line = ft_strjoin(tmp, full_cmd[1] + 1);
+			free(tmp);
+		}
+	}
+	return (line);
 }
 
 void	cd_solo(t_struct *data, char **tok, char **full_cmd)
@@ -82,9 +102,9 @@ void	cd_solo(t_struct *data, char **tok, char **full_cmd)
 	check = access(full_cmd[1], F_OK);
 	if (check == 0)
 		data = change_directory(data, full_cmd[1]);
-	else if (!full_cmd[1] || !ft_strcmp(full_cmd[1], "~"))
+	else if (!full_cmd[1] || !ft_strncmp(full_cmd[1], "~", 1))
 	{
-		tmp = ft_strjoin("/Users/", data->user);
+		tmp = cd_tilde(data, full_cmd);
 		data = change_directory(data, tmp);
 		free(tmp);
 	}
@@ -97,7 +117,7 @@ void	cd_solo(t_struct *data, char **tok, char **full_cmd)
 		ft_putchar_fd('\n', ft_atoi(tok[2]));
 	}
 	else
-		ft_error_exit(msg("cd", full_cmd[1], "No such file or directory"), 127);
+		ft_error(msg("cd", full_cmd[1], "No such file or directory"), 127);
 }
 
 void	cd_builtin(t_struct *data, char **tok)
