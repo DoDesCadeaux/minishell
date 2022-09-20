@@ -58,10 +58,12 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	int		i;
 	int		pipe_fd[2];
 
+	//line = remove_multi_space(line);
 	split_pipe = ft_split_pipe(line, '|');
 	len = len_split(split_pipe);
 	i = 0;
 	tok = tokenisation(split_pipe[i], tok, data);
+	//tok[1] = remove_multi_space(tok[1]);
 	data->check = pipe(pipe_fd);
 	//protection
 	run_first(data, tok, pipe_fd);
