@@ -15,6 +15,10 @@
 void	ft_error_exit(char *message, int code)
 {
 	error_code = code;
+	if (code == ERRNO)
+	{
+		perror("minishell: ");
+	}
 	write(2, message, ft_strlen(message));
 	write(2, "\n", 1);
 	exit(code);

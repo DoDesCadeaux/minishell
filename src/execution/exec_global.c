@@ -87,6 +87,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 {
 	pid_t	child;
 
+	error_code = 0;
 	if (data->type == BU_CD)
 		cd_builtin(data, tok);
 	child = fork();
