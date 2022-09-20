@@ -36,6 +36,6 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	free(tmp);
 	free(line);
 	ft_free_split(line_split);
-	data->type = check_type(tok);
+	data->type = check_type(tok, data);
 	return (tok);
 }

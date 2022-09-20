@@ -68,8 +68,7 @@ void	echo(char **tok)
 	if (!ft_strcmp(tok[1], "echo") || (!ft_strcmp(tok[1], "echo ")))
 	{
 		write(1, "\n", 1);
-		error_code = 0;
-		exit(error_code);
+		exit(EXIT_SUCCESS);
 	}
 	if (!ft_strncmp(tok[1], "echo -n", 7))
 		i += skip_n(tok[1] + 5);
@@ -77,6 +76,5 @@ void	echo(char **tok)
 		printf("%s\n", tok[1] + i);
 	else
 		printf("%s", tok[1] + i);
-	error_code = 0;
-	exit(error_code);
+	exit(EXIT_SUCCESS);
 }

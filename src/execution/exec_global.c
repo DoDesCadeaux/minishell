@@ -24,7 +24,7 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	{
 		ft_putstr_fd("bordel", 2);
 		ft_free_split(cmd_arg);
-		ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
+		//ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 	}
 }
 
@@ -45,36 +45,36 @@ void	execute(t_struct *data, char *cmd)
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg)
 		ft_error("???", CMD_ERROR);	// que écrire dans l'error??
-	if (!cmd_arg[0])
-		ft_error_exit(msg(cmd, NULL, "Command not found"), CMD_ERROR);
-	if (!var_exist(data, "PATH"))
-		ft_error_exit(msg(cmd_arg[0], NULL, "No such file or directory"), CMD_ERROR);
 	if (!ft_strncmp(cmd, "./", 2))
-	{
-		if (access(cmd, X_OK) != 0)
-			ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
-		else
-			protected_execve(cmd_arg[0], cmd_arg, data->envp, 1);
-	}
+		protected_execve(cmd_arg[0], cmd_arg, data->envp, 1);
 	if (!ft_strncmp(cmd, "/", 1))
-	{
-		if (access(cmd, X_OK) != 0)
-			ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
-		else
-			protected_execve(cmd_arg[0], cmd_arg, data->envp, 1);
-	}
+		protected_execve(cmd_arg[0], cmd_arg, data->envp, 1);
 	else
 	{
 		paths = path_list(data->envp);
-		if (!paths)
-			ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 		path = get_cmd_path(paths, cmd_arg[0]);
-		if (!path)
-			ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
-		if (access(path, X_OK) != 0)
-			ft_error_exit(msg(path, NULL, "Command not found"), CMD_ERROR);
 		protected_execve(path, cmd_arg, data->envp, 1);
 	}
+}
+
+void	run_bad_binary(t_struct *data, char *cmd)
+{
+	char	**cmd_arg;
+
+	cmd_arg = ft_split_pipe(cmd, ' ');
+	if (!cmd_arg)
+		ft_error("???", CMD_ERROR);	// que écrire dans l'error??
+	if (!cmd_arg[0])
+		ft_error(msg(cmd, NULL, "Command not found"), CMD_ERROR);
+	if (!var_exist(data, "PATH"))
+		ft_error(msg(cmd_arg[0], NULL, "No such file or directory"), CMD_ERROR);
+	if (!ft_strncmp(cmd, "./", 2))
+		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
+	if (!ft_strncmp(cmd, "/", 1))
+		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
+	else
+		ft_error(msg(cmd, NULL, "Command not found"), CMD_ERROR);
+	ft_free_split(cmd_arg);
 }
 
 void	run_exec(t_struct *data, char **tok)
@@ -100,6 +100,8 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 	error_code = 0;
 	if (data->type == BU_CD)
 		cd_builtin(data, tok);
+	if (data->type == BAD_BINARY)
+		run_bad_binary(data, tok[1]);
 	child = fork();
 	if (data->pipe == 0)
 	{

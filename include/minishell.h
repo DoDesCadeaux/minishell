@@ -85,6 +85,7 @@ enum	e_type
 	BU_UNSET,
 	BU_EXIT,
 	BINARY,
+	BAD_BINARY,
 };
 
 typedef struct s_struct
@@ -99,6 +100,7 @@ typedef struct s_struct
 	int		type;
 	int		check;
 	int		pipe;
+	int 	father_code;
 }	t_struct;
 
 void		welcome(void);
@@ -118,7 +120,7 @@ int			is_env_var(t_struct *data, char *export, int i);
 char		**tokenisation(char *line, char **tok, t_struct *data);
 int			tok_fd_in(char **tok, char **line_split, int i);
 int			tok_1(char **tok, char **line_split, int i, char *line);
-int			check_type(char **tok);
+int			check_type(char **tok, t_struct *data);
 
 //TOKENISATION UTILS
 int			ft_strcmp(char *s1, char *s2);

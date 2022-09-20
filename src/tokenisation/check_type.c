@@ -23,7 +23,45 @@ int	export_type(char *line)
 	return (type);
 }
 
-int	check_type(char **tok)
+int	is_good_binary(t_struct *data, char *cmd)
+{
+	char	**paths;
+	char	**cmd_arg;
+	char	*path;
+
+	cmd_arg = ft_split_pipe(cmd, ' ');
+	if (!cmd_arg)
+		ft_error("???", CMD_ERROR);	// que écrire dans l'error??
+	if (!cmd_arg[0])
+		return (0);
+	if (!var_exist(data, "PATH"))
+		return (0);
+	if (!ft_strncmp(cmd, "./", 2))
+	{
+		if (access(cmd, X_OK) != 0)
+			return (0);
+		else
+			return (1);
+	}
+	if (!ft_strncmp(cmd, "/", 1))
+	{
+		if (access(cmd, X_OK) != 0)
+			return (0);
+		else
+			return (1);
+	}
+	else
+	{
+		paths = path_list(data->envp);
+		path = get_cmd_path(paths, cmd_arg[0]);
+		if (access(path, X_OK) != 0)
+			return (0);
+		else
+			return (1);
+	}
+}
+
+int	check_type(char **tok, t_struct *data)
 {
 	char	**full_cmd;
 	int		type;
@@ -46,5 +84,10 @@ int	check_type(char **tok)
 		type = BU_EXIT;
 	else
 		type = BINARY;
+	if (type == BINARY)
+	{
+		if (!is_good_binary(data, tok[1]))
+			type = BAD_BINARY;
+	}
 	return (type);
 }
