@@ -38,7 +38,7 @@ ENV 			= ./environnement/
 PARS			= ./parsing/
 EXEC 			= ./execution/
 
-SRCS			= $(TOK)tokenisation.c	$(TOK)tok_cmd.c $(TOK)tok_stdin.c $(TOK)utils_tokenisation.c $(TOK)check_type.c $(TOK)utils_tok_cmd.c\
+SRCS			= $(TOK)tokenisation.c	$(TOK)tok_cmd.c $(TOK)tok_stdin.c $(TOK)utils_tokenisation.c $(TOK)check_type.c $(TOK)utils_tok_cmd.c $(TOK)check_status_binary.c\
  				  $(GNL)gnl.c	$(GNL)gnl_utils.c \
 				  $(BUILTINS)echo.c $(BUILTINS)pwd.c $(BUILTINS)export.c $(BUILTINS)cd.c $(BUILTINS)env.c $(BUILTINS)unset.c $(BUILTINS)exit.c\
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \

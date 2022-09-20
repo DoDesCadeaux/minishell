@@ -12,20 +12,20 @@
 
 #include "../../include/minishell.h"
 
-char    *get_full_pipe(char *line)
+char	*get_full_pipe(char *line)
 {
-    char    *tmp;
-    char    *tmp2;  
+	char	*tmp;
+	char	*tmp2;
 
-    tmp = get_next_line(0, MSG_PIPE);
-    tmp2 = ft_strjoin(line, " ");
-    free(line);
-    line = ft_strjoin(tmp2, tmp);
-    line[ft_strlen(line) - 1] = '\0';
-    free(tmp);
-    free(tmp2);
-    add_history(line);
-    if (is_metachar(line[ft_strlen(line) - 1]))
+	tmp = get_next_line(0, MSG_PIPE);
+	tmp2 = ft_strjoin(line, " ");
+	free(line);
+	line = ft_strjoin(tmp2, tmp);
+	line[ft_strlen(line) - 1] = '\0';
+	free(tmp);
+	free(tmp2);
+	add_history(line);
+	if (is_metachar(line[ft_strlen(line) - 1]))
 		line = get_full_pipe(line);
-    return (line);
+	return (line);
 }
