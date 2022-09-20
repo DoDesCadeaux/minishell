@@ -70,7 +70,6 @@ static char	*check_spaces_redirections(char *line_to_pars)
 	int	i;
 	int	len;
 
-	len = ft_strlen(line_to_pars);
 	i = 0;
 	len = ft_strlen(line_to_pars);
 	while (line_to_pars[i])

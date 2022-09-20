@@ -24,7 +24,6 @@ void	env_builtin(t_struct *data)
 		printf("%s\n", data->envp[i]);
 		i++;
 	}
-	error_code = SUCCES;
 	exit(EXIT_SUCCESS);
 }
 

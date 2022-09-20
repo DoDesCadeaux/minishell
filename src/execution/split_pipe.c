@@ -120,7 +120,7 @@ char	**ft_split_pipe(char *s, char c)
 	int		i;
 
 	if (!s)
-		return (0);
+		return (NULL);
 	split = ft_count_words(s, c);
 	if (!split)
 		return (0);
@@ -141,22 +141,3 @@ char	**ft_split_pipe(char *s, char c)
 	split[words] = 0;
 	return (split);
 }
-/*
-#include <stdio.h>
-
-int main(void)
-{
-	int i;
-	char **pipe;
-	char c = '|';
-	char *str="echo bonjour | '|' | 'echo blabla' | '|||'";
-
-	pipe = ft_split(str, c);
-	i = 0;
-	while (pipe[i])
-	{
-		printf("line %d : -%s-\n", i, pipe[i]);
-		i++;
-	}
-}
-*/
