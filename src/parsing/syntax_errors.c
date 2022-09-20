@@ -76,7 +76,7 @@ int	syntax_errors(char *line)
 	}
 	if (open_quotes(line))
 	{
-		ft_error("Syntax error : open quotes", 1);
+		ft_error("Syntax error : open quotes", SYNTAX_ERROR);
 		return (1);
 	}
 	if (is_metachar(line[0]))

@@ -17,7 +17,7 @@ void	protect_malloc(void *element)
 	if (!element)
 	{
 		error_code = MALLOC;
-		exit(EXIT_FAILURE);
+		exit(error_code);
 	}
 }
 

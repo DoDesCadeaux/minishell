@@ -44,7 +44,7 @@ void	execute(t_struct *data, char *cmd)
 
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg)
-		ft_error("ERROR SPLIT ARG", CMD_ERROR);
+		ft_error("???", CMD_ERROR);	// que écrire dans l'error??
 	if (!cmd_arg[0])
 		ft_error_exit(msg(cmd, NULL, "Command not found"), CMD_ERROR);
 	if (!var_exist(data, "PATH"))
@@ -97,6 +97,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 {
 	pid_t	child;
 
+	error_code = 0;
 	if (data->type == BU_CD)
 		cd_builtin(data, tok);
 	child = fork();
