@@ -42,9 +42,19 @@ static int	open_quotes(char *line)
 	while (line[i])
 	{
 		if (line[i] == 39)
+		{
+			count_quotes += 1;
 			i = skip_single_quotes(line, i);
+			if (line[i] == 39)
+				count_quotes += 1;
+		}
 		else if (line[i] == 34)
+		{
+			count_quotes += 1;
 			i = skip_double_quotes(line, i);
+			if (line[i] == 39)
+				count_quotes += 1;
+		}
 		i++;
 	}
 	if (count_quotes % 2 != 0)

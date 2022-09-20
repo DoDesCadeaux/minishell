@@ -25,7 +25,6 @@ int	skip_single_quotes(char *line, int i)
 		i++;
 		while (line[i] != 39 && line[i])
 			i++;
-		i++;
 	}
 	return (i);
 }
@@ -37,7 +36,6 @@ int	skip_double_quotes(char *line, int i)
 		i++;
 		while (line[i] != 34 && line[i])
 			i++;
-		i++;
 	}
 	return (i);
 }
