@@ -60,6 +60,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		tok = malloc(sizeof(char *) * 4 + 1);
 		protect_malloc(tok);
+		run_signals(1);
 		line = prompt();
 		if (syntax_errors(line))
 			continue ;
