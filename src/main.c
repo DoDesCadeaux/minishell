@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:32:28 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/19 15:31:29 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:00:53 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	main(int argc, char **argv, char **envp)
 		line = prompt();
 		if (syntax_errors(line))
 			continue ;
+		line = preparsing(line);
 		line = remove_multi_space(line);
 		if (is_metachar(line[ft_strlen(line) - 1]))
 			line = get_full_pipe(line);

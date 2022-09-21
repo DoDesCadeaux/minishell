@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:15:06 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/19 10:13:14 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:59:46 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ int			is_end_of_dollar(char c);
 int			update_i(char *line_pars, int i);
 char		*remove_multi_space(char *line);
 char		*get_full_pipe(char *line);
+char		*preparsing(char *line);
 
 //Main
 void		show_ghost(void);
