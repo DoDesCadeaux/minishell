@@ -214,6 +214,6 @@ char		*get_full_pipe(char *line);
 
 
 
-void	ft_error(char *message, int code);
+void	error_perror(void);
 
 #endif
