@@ -32,8 +32,19 @@ void	init_pwd_user(t_struct *data)
 	i = ft_strqstr(tmp, "USER=") + 1;
 	data->user = ft_strdup (tmp + i);
 	protect_malloc(data->user);
-//	free(tmp); Si on free tmp, LEAKS -> ENV, EXPORT
 	free(pwd_tmp);
+}
+
+void	call_warning(int new_lvl)
+{
+	char *tmp;
+	char *msg;
+
+	tmp = ft_strjoin("minishell: warning: shell level (", ft_itoa(new_lvl));
+	msg = ft_strjoin(tmp, ") too high, resseting to 1\n");
+	printf("%s", msg);
+	free(tmp);
+	free(msg);
 }
 
 t_struct	*update_lvl(t_struct *data, char *lvl)
@@ -45,9 +56,11 @@ t_struct	*update_lvl(t_struct *data, char *lvl)
 	if (is_numeric(lvl + 1))
 	{
 		new_lvl = ft_atoi(lvl + 1) + 1;
-		//warning: shell level (1501) too high, resetting to 1
 		if (new_lvl > 1000)
+		{
+			call_warning(new_lvl);
 			new_lvl = 1;
+		}
 		tmp = ft_itoa(new_lvl);
 		lvl = ft_strjoin("SHLVL=", tmp);
 		if (new_lvl == 1000)

@@ -19,7 +19,11 @@ void	pwd_builtin(void)
 	pwd = NULL;
 	pwd = getcwd(pwd, 200);
 	if (!pwd)
-		ft_error_exit("???", ERRNO);	// que écrire dans l'error??
+	{
+		perror("minishell");
+		error_code = ERRNO;
+		exit(EXIT_FAILURE);
+	}
 	printf("%s\n", pwd);
 	free(pwd);
 	pwd = 0x0;
