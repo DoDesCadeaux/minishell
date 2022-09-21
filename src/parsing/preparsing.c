@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:58:23 by algaspar          #+#    #+#             */
-/*   Updated: 2022/09/21 17:58:59 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:07:46 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,10 @@ char	*preparsing(char *line)
 	skip_spaces(&lineptr);
 	while (*lineptr)
 	{
-		if (*lineptr == 34)
-			ignore_quote(&lineptr, &bufptr, 34);
-		else if (*lineptr == 39)
-			ignore_quote(&lineptr, &bufptr, 39);
-		else if (*lineptr == '<')
-			check_chevron(&lineptr, &bufptr, '<', buffer);
-		else if (*lineptr == '>')
-			check_chevron(&lineptr, &bufptr, '>', buffer);
+		if (*lineptr == 34 || *lineptr == 39)
+			ignore_quote(&lineptr, &bufptr, *lineptr);
+		else if (*lineptr == '<' || *lineptr == '>')
+			check_chevron(&lineptr, &bufptr, *lineptr, buffer);
 		else if (*lineptr == '|')
 			check_pipe(&lineptr, &bufptr, buffer);
 		else if (*lineptr == ' ')
