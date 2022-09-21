@@ -23,7 +23,7 @@ void	protect_malloc(void *element)
 
 char	*msg(char *cmd, char *element, char *msg)
 {
-	char 	*tmp;
+	char	*tmp;
 	char	*message;
 
 	tmp = ft_strjoin("minishell: ", cmd);

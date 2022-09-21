@@ -135,6 +135,9 @@ void		echo(char **tok);
 void		pwd_builtin(void);
 void		cd_builtin(t_struct *data, char **tok);
 void		exit_builtins(void);
+void		update_pwd(t_struct *data, int status);
+t_struct	*update_var(t_struct *data, char *export, int i);
+t_struct	*update_envp(t_struct *data, char *type);
 
 //ENV
 int			len_split(char **split);

@@ -47,9 +47,4 @@ void	run_signals(int sig)
 		signal(SIGINT, ctrl_c);
 		signal(SIGQUIT, ctrl_d);
 	}
-	if (sig == 3)
-	{
-		//signal(SIGINT, restore_prompt);
-		//signal(SIGQUIT, SIG_IGN);
-	}
 }
