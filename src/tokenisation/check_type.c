@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	export_type(char *line)
+static int	export_type(char *line)
 {
 	int	type;
 
@@ -23,7 +23,7 @@ int	export_type(char *line)
 	return (type);
 }
 
-int	check_binary(t_struct *data, char **tok, int type)
+static int	check_binary(t_struct *data, char **tok, int type)
 {
 	if (type == BINARY)
 	{

@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	part_1(void)
+static void	part_1(void)
 {
 	printf(Y "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
 	printf(Y " = = = = = = = = = = = = = = = = = \n" R);
@@ -32,7 +32,7 @@ void	part_1(void)
 	printf(Y "=  |  |'.'|  |  |  |" G"(_/" Y "|  .     |" G "/" Y " |  |" );
 }
 
-void	part_2(void)
+static void	part_2(void)
 {
 	printf(G "(_/" Y "       '..`''." G ")" Y "|       |" G "(" );
 	printf(Y "|  '--. |  |" G "`-' |" Y " |  |" G "`-' |"Y"  =\n" R);

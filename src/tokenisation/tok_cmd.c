@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-char	*get_cmd(char *str, int i)
+static char	*get_cmd(char *str, int i)
 {
 	int		y;
 	char	*line;
@@ -31,7 +31,7 @@ char	*get_cmd(char *str, int i)
 	return (line);
 }
 
-int	manage_redirection_with_quotes(char **line_split, int i)
+static int	manage_redirection_with_quotes(char **line_split, int i)
 {
 	while (line_split[i])
 	{	

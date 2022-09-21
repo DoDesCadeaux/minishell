@@ -43,7 +43,7 @@ void	show_ghost(void)
 	printf(G "|    ╰╯    | \n" R);
 }
 
-char	*prompt(void)
+static char	*prompt(void)
 {
 	char	*str;
 
