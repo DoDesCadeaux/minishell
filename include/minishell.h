@@ -190,4 +190,7 @@ t_struct	*initializer(char **envp, int argc, char **argv);
 //Signals
 void		run_signals(int sig);
 
+//Welcome
+void		welcome(void);
+
 #endif
