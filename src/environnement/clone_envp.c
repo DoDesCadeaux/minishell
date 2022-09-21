@@ -70,6 +70,8 @@ t_struct	*update_lvl(t_struct *data, char *lvl)
 		free(lvl);
 		free(tmp);
 	}
+	else
+		data = export_global(data, "SHLVL=1");
 	return (data);
 }
 

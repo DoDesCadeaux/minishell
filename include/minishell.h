@@ -183,6 +183,7 @@ void		show_ghost(void);
 void		protect_malloc(void *element);
 void		ft_error(char *message, int code);
 void		ft_error_exit(char *message, int code);
+void		error_perror(void);
 
 //Utils
 char		*msg(char *cmd, char *element, char *msg);
