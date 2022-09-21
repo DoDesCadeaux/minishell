@@ -32,13 +32,11 @@ static int	is_only_spaces(char *line)
 	return (0);
 }
 
-static int	open_quotes(char *line)
+static int	open_quotes(char *line, int i)
 {
-	int	i;
 	int	count_quotes;
 
 	count_quotes = 0;
-	i = 0;
 	while (line[i])
 	{
 		if (line[i] == 39)
@@ -64,6 +62,9 @@ static int	open_quotes(char *line)
 
 int	syntax_errors(char *line)
 {
+	int	i;
+
+	i = 0;
 	if (empty_line(line))
 	{
 		ft_error("Syntax error : empty line", 0);
@@ -74,7 +75,7 @@ int	syntax_errors(char *line)
 		ft_error("Syntax error : there's only spaces", 0);
 		return (1);
 	}
-	if (open_quotes(line))
+	if (open_quotes(line, i))
 	{
 		ft_error("Syntax error : open quotes", SYNTAX_ERROR);
 		return (1);
