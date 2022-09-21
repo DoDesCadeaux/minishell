@@ -12,44 +12,11 @@
 
 #include "../../include/minishell.h"
 
-//UTILS SYNTAX ERRORS
 int	is_metachar(char c)
 {
 	return (c == '|');
 }
 
-int	skip_single_quotes(char *line, int i)
-{
-	if (line[i] == 39)
-	{
-		i++;
-		while (line[i] != 39 && line[i])
-			i++;
-	}
-	return (i);
-}
-
-int	skip_double_quotes(char *line, int i)
-{
-	if (line[i] == 34)
-	{
-		i++;
-		while (line[i] != 34 && line[i])
-			i++;
-	}
-	return (i);
-}
-
-int	skip_all_quotes(char *line, int i)
-{
-	i++;
-	while (line[i] != 39 && line[i] != 34 && line[i])
-		i++;
-	i++;
-	return (i);
-}
-
-//UTILS DOLLAR
 int	is_end_of_dollar(char c)
 {
 	if (c == ' ')
