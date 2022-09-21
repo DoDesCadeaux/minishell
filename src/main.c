@@ -20,6 +20,13 @@ void	ft_error_exit(char *message, int code)
 	exit(error_code);
 }
 
+void	error_perror(void)
+{
+	perror("minishell");
+	error_code = ERRNO;
+	exit(EXIT_FAILURE);
+}
+
 void	ft_error(char *message, int code)
 {
 	error_code = code;

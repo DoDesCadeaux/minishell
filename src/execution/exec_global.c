@@ -12,19 +12,15 @@
 
 #include "../../include/minishell.h"
 
-static void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
+static void	protected_execve(char *path, char **cmd_arg, char **envp)
 {
 	int	check;
 
-	if (status == 1)
-		check = execve(path, cmd_arg, envp);
-	else
-		check = -1;
+	check = execve(path, cmd_arg, envp);
 	if (check == -1)
 	{
-		ft_putstr_fd("bordel", 2);
 		ft_free_split(cmd_arg);
-		//ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
+		ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 	}
 }
 
@@ -46,14 +42,14 @@ void	execute(t_struct *data, char *cmd)
 	if (!cmd_arg)
 		ft_error("minishell: error malloc", MALLOC);
 	if (!ft_strncmp(cmd, "./", 2))
-		protected_execve(cmd_arg[0], cmd_arg, data->envp, 1);
+		protected_execve(cmd_arg[0], cmd_arg, data->envp);
 	if (!ft_strncmp(cmd, "/", 1))
-		protected_execve(cmd_arg[0], cmd_arg, data->envp, 1);
+		protected_execve(cmd_arg[0], cmd_arg, data->envp);
 	else
 	{
 		paths = path_list(data->envp);
 		path = get_cmd_path(paths, cmd_arg[0]);
-		protected_execve(path, cmd_arg, data->envp, 1);
+		protected_execve(path, cmd_arg, data->envp);
 	}
 }
 
