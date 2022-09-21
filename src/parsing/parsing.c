@@ -85,32 +85,83 @@ static char	*check_spaces_redirections(char *line_to_pars)
 	return (line_to_pars);
 }
 
+int		quote(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == 34 || line[i] == 39)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+// char	*parsing(char *line, t_struct *data)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	line = remove_multi_space(line);
+// 	if (!quote(line))
+// 	{
+// 		line = parsing_dollar(data, line, ft_strlen(line));
+// 		return (line);
+// 	}
+// 	while (line[i])
+// 	{
+// 		if (line[i] == 34)
+// 		{
+// 			i++;
+// 			while (line[i] && line[i] != 34)
+// 				i++;
+// 			if (line[i])
+// 				i++;
+// 			line = remove_double_quotes(line);
+// 			line = parsing_dollar(data, line, i);
+// 		}
+// 		else if (line[i] && line[i] == 39)
+// 		{
+// 			i++;
+// 			while (line[i] && line[i] != 39)
+// 				i++;
+// 			if (line[i])
+// 				i++;
+// 			line = remove_single_quotes(line);
+// 		}
+// 		i++;
+// 	}
+// 	line = check_spaces_redirections(line);
+// 	return (line);
+// }
+
+
 char	*parsing(char *line, t_struct *data)
 {
 	int	i;
 
 	i = 0;
-	line= remove_multi_space(line);
+	line = remove_multi_space(line);
 	while (line[i])
 	{
-		if (line[i] == 34)
+		if (line[i] == 39)
 		{
-			//Remove les quotes apres a tokenisation
-			line = parsing_dollar(data, line);
-			line = remove_double_quotes(line);
-			line = check_spaces_redirections(line);
-			return (line);
+			i++;
+			while (line[i] != 39)
+				i++;
+			i++;
 		}
-		else if (line[i] == 39)
+		if (line[i] == '$')
 		{
-			//Remove les quotes apres a tokenisation
-			line = remove_single_quotes(line);
-			line = check_spaces_redirections(line);
-			return (line);
+			line = parsing_dollar(data, line, i);
+			i = 0;
 		}
 		i++;
 	}
-	line = parsing_dollar(data, line);
+	line = remove_double_quotes(line);
+	line = remove_single_quotes(line);
 	line = check_spaces_redirections(line);
 	return (line);
 }

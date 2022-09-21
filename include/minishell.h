@@ -163,7 +163,7 @@ void		*ft_free(char *save);
 int			syntax_errors(char *line);
 int			is_metachar(char c);
 char		*parsing(char *line_to_pars, t_struct *data);
-char		*parsing_dollar(t_struct *data, char *line_to_pars);
+char		*parsing_dollar(t_struct *data, char *line_to_pars, int i);
 char		*str_dup_parts(char *src, int end, int start);
 int			skip_double_quotes(char *line, int i);
 int			skip_single_quotes(char *line, int i);

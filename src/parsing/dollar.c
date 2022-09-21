@@ -72,12 +72,11 @@ static	int	is_error_code(char *line, int i)
 	return (0);
 }
 
-char	*parsing_dollar(t_struct *data, char *line_pars)
+char	*parsing_dollar(t_struct *data, char *line_pars, int i)
 {
-	int	i;
 	int	y;
 
-	i = 0;
+	
 	while (line_pars[i])
 	{
 		if (is_error_code(line_pars, i))
@@ -94,7 +93,7 @@ char	*parsing_dollar(t_struct *data, char *line_pars)
 				i++;
 			data->tmp_3 = str_dup_parts(line_pars, i, y);
 			line_pars = replace_or_erase(line_pars, data);
-			i = -1;
+			i = ft_strlen(line_pars) - 1;
 		}
 		i++;
 	}
