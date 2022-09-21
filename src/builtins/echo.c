@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	skip_n(char *tok)
+static int	skip_n(char *tok)
 {
 	int	i;
 

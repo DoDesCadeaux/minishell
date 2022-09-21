@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	run_first(t_struct *data, char **tok, int *pipe_fd)
+static void	run_first(t_struct *data, char **tok, int *pipe_fd)
 {
 	if (ft_atoi(tok[2]) == 1)
 		call_exec(data, tok, ft_atoi(tok[0]), pipe_fd[1]);
@@ -21,7 +21,7 @@ void	run_first(t_struct *data, char **tok, int *pipe_fd)
 	close(pipe_fd[1]);
 }
 
-void	run_last(t_struct *data, char **tok, int *pipe_fd)
+static void	run_last(t_struct *data, char **tok, int *pipe_fd)
 {
 	if (ft_atoi(tok[0]) == 0)
 		call_exec(data, tok, pipe_fd[0], ft_atoi(tok[2]));
@@ -29,7 +29,7 @@ void	run_last(t_struct *data, char **tok, int *pipe_fd)
 		call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
 }
 
-void	run_multi_pipe(t_struct *data, char **tok, int *pipe_fd1)
+static void	run_multi_pipe(t_struct *data, char **tok, int *pipe_fd1)
 {
 	int		pipe_fd2[2];
 

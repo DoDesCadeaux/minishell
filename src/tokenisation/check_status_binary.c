@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	check_access(char *cmd, char **cmd_arg)
+static int	check_access(char *cmd, char **cmd_arg)
 {
 	if (access(cmd, X_OK) != 0)
 	{

@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	restore_prompt(int sig)
+static void	restore_prompt(int sig)
 {
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -22,14 +22,14 @@ void	restore_prompt(int sig)
 	(void)sig;
 }
 
-void	ctrl_c(int sig)
+static void	ctrl_c(int sig)
 {
 	error_code = 1;
 	write(1, "\n", 1);
 	(void)sig;
 }
 
-void	ctrl_d(int sig)
+static void	ctrl_d(int sig)
 {
 	printf("^\\\n\nEXIT\n");
 	(void)sig;
@@ -46,10 +46,5 @@ void	run_signals(int sig)
 	{
 		signal(SIGINT, ctrl_c);
 		signal(SIGQUIT, ctrl_d);
-	}
-	if (sig == 3)
-	{
-		//signal(SIGINT, restore_prompt);
-		//signal(SIGQUIT, SIG_IGN);
 	}
 }

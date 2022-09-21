@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-char	*create_heredoc(char *delimiter)
+static char	*create_heredoc(char *delimiter)
 {
 	char	*line;
 	char	*info;
@@ -39,7 +39,7 @@ char	*create_heredoc(char *delimiter)
 	return (info);
 }
 
-char	*manage_info_stdin(char *info, char **line_split, int i)
+static char	*manage_info_stdin(char *info, char **line_split, int i)
 {
 	if (!ft_strcmp(line_split[i], LESS))
 	{

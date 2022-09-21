@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-char	*join_and_replace(t_struct *data, char *tmp1, char *replace, char *tmp3)
+static char	*join_and_replace(t_struct *data, char *tmp1, char *replace, char *tmp3)
 {
 	char	*dst;
 	char	*tmp_dollar;

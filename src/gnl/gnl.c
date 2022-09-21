@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-size_t	is_line(char *str)
+static size_t	is_line(char *str)
 {
 	size_t	i;
 
@@ -26,7 +26,7 @@ size_t	is_line(char *str)
 	return (i);
 }
 
-char	*read_file(char *rest, int fd, char *msg)
+static char	*read_file(char *rest, int fd, char *msg)
 {
 	char	*reading;
 	int		rc;
@@ -47,7 +47,7 @@ char	*read_file(char *rest, int fd, char *msg)
 	return (rest);
 }
 
-char	*get_line(char *rest, size_t i)
+static char	*get_line(char *rest, size_t i)
 {
 	char	*line;
 	size_t	y;
@@ -66,7 +66,7 @@ char	*get_line(char *rest, size_t i)
 	return (line);
 }
 
-char	*recover_rest(char *rest, size_t i)
+static char	*recover_rest(char *rest, size_t i)
 {
 	char	*save;
 	size_t	y;

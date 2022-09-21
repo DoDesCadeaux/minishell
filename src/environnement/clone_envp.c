@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	init_pwd_user(t_struct *data)
+static void	init_pwd_user(t_struct *data)
 {
 	char	*pwd_tmp;
 	char	*tmp;
@@ -35,10 +35,10 @@ void	init_pwd_user(t_struct *data)
 	free(pwd_tmp);
 }
 
-void	call_warning(int new_lvl)
+static void	call_warning(int new_lvl)
 {
-	char *tmp;
-	char *msg;
+	char	*tmp;
+	char	*msg;
 
 	tmp = ft_strjoin("minishell: warning: shell level (", ft_itoa(new_lvl));
 	msg = ft_strjoin(tmp, ") too high, resseting to 1\n");

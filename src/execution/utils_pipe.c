@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-static char	*copy_src_to_dst_single_quote(char *str, int i, char *dst, int j)
+static char	*copy_src_to_dst_double_quote(char *str, int i, char *dst, int j)
 {
 	dst[j] = str[i];
 	j++;
@@ -26,7 +26,7 @@ static char	*copy_src_to_dst_single_quote(char *str, int i, char *dst, int j)
 	return (dst);
 }
 
-static char	*copy_src_to_dst_double_quote(char *str, int i, char *dst, int j)
+static char	*copy_src_to_dst_single_quote(char *str, int i, char *dst, int j)
 {
 	dst[j] = str[i];
 	j++;
@@ -44,11 +44,11 @@ char	*cpy_dest(int i, int j, char *str, char *dest)
 {
 	if (str[i] == 34)
 	{
-		dest = copy_src_to_dst_single_quote(str, i, dest, j);
+		dest = copy_src_to_dst_double_quote(str, i, dest, j);
 	}
 	if (str[i] == 39)
 	{
-		dest = copy_src_to_dst_double_quote(str, i, dest, j);
+		dest = copy_src_to_dst_single_quote(str, i, dest, j);
 	}
 	return (dest);
 }
