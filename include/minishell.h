@@ -162,13 +162,16 @@ void		pwd_builtin(void);
 void		cd_builtin(t_struct *data, char **tok);
 void		exit_builtins(void);
 
-//Execve Utils
+//Execve
 void		execute(t_struct *data, char *cmd);
 char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);
 int			increment_j(int i, int j, char *str);
 int 		increment_i(int i, char *str);
 char		*cpy_dest(int i, int j, char *str, char *dest);
+void		run_without_pipe(t_struct *data, char **tok);
+void		run_exec(t_struct *data, char **tok);
+void		run_bad_binary(t_struct *data, char *cmd);
 
 //PAULINE
 void		run_signals(int sig);

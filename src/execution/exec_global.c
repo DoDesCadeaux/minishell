@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
+static void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 {
 	int	check;
 
@@ -28,7 +28,7 @@ void	protected_execve(char *path, char **cmd_arg, char **envp, int status)
 	}
 }
 
-void	close_fd(int fdin, int fdout)
+static void	close_fd(int fdin, int fdout)
 {
 	if (fdout != 1)
 		close(fdout);
@@ -44,7 +44,7 @@ void	execute(t_struct *data, char *cmd)
 
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg)
-		ft_error("???", CMD_ERROR);	// que écrire dans l'error??
+		ft_error("minishell: error malloc", MALLOC);
 	if (!ft_strncmp(cmd, "./", 2))
 		protected_execve(cmd_arg[0], cmd_arg, data->envp, 1);
 	if (!ft_strncmp(cmd, "/", 1))
@@ -55,42 +55,6 @@ void	execute(t_struct *data, char *cmd)
 		path = get_cmd_path(paths, cmd_arg[0]);
 		protected_execve(path, cmd_arg, data->envp, 1);
 	}
-}
-
-void	run_bad_binary(t_struct *data, char *cmd)
-{
-	char	**cmd_arg;
-
-	cmd_arg = ft_split_pipe(cmd, ' ');
-	if (!cmd_arg)
-		ft_error("???", CMD_ERROR);	// que écrire dans l'error??
-	if (!cmd_arg[0])
-		ft_error(msg(cmd, NULL, "Command not found"), CMD_ERROR);
-	if (!var_exist(data, "PATH"))
-		ft_error(msg(cmd_arg[0], NULL, "No such file or directory"), CMD_ERROR);
-	if (!ft_strncmp(cmd, "./", 2))
-		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
-	if (!ft_strncmp(cmd, "/", 1))
-		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
-	else
-		ft_error(msg(cmd, NULL, "Command not found"), CMD_ERROR);
-	ft_free_split(cmd_arg);
-}
-
-void	run_exec(t_struct *data, char **tok)
-{
-	if (data->type == BINARY)
-		execute(data, tok[1]);
-	else if (data->type == BU_ECHO)
-		echo(tok);
-	else if (data->type == BU_PWD)
-		pwd_builtin();
-	else if (data->type == BU_ENV)
-		env_builtin(data);
-	else if (data->type == BU_EXPORT_EMPTY)
-		export_empty(data);
-	else
-		exit(EXIT_SUCCESS);
 }
 
 void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
@@ -104,14 +68,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 		run_bad_binary(data, tok[1]);
 	child = fork();
 	if (data->pipe == 0)
-	{
-		if (data->type == BU_EXIT)
-			exit_builtins();
-		else if (data->type == BU_UNSET)
-			unset_env(data, tok[1]);
-		else if (data->type == BU_EXPORT)
-			export_env(data, tok[1]);
-	}
+		run_without_pipe(data, tok);
 	if (child == 0)
 	{
 		data->check = dup2(fdin, 0);
