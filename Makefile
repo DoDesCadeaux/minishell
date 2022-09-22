@@ -7,8 +7,8 @@ NAME	= minishell
 CC 		= gcc
 
 #CFLAGS	= -Wall -Wextra -Werror -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -fsanitize=address
-CFLAGS	= -Wall -Wextra -Werror -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
-#CFLAGS	= -Wall -Wextra -Werror -lreadline -L/Users/algaspar/.brew/opt/readline/lib -I/Users/algaspar/.brew/opt/readline/include -fsanitize=address
+#CFLAGS	= -Wall -Wextra -Werror -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 
 CFLAGS_WRL = -Wall -Wextra -Werror
 MAKE 	= make
@@ -38,12 +38,12 @@ ENV 			= ./environnement/
 PARS			= ./parsing/
 EXEC 			= ./execution/
 
-SRCS			= $(TOK)tokenisation.c	$(TOK)tok_cmd.c $(TOK)tok_stdin.c $(TOK)utils_tokenisation.c $(TOK)check_type.c $(TOK)utils_tok_cmd.c $(TOK)check_status_binary.c\
+SRCS			= $(TOK)tokenisation.c	$(TOK)tok_cmd.c $(TOK)tok_stdin.c $(TOK)utils_tokenisation.c $(TOK)check_type.c $(TOK)utils_tok_cmd.c $(TOK)check_status_binary.c \
  				  $(GNL)gnl.c	$(GNL)gnl_utils.c \
-				  $(BUILTINS)echo.c $(BUILTINS)pwd.c $(BUILTINS)export.c $(BUILTINS)cd.c $(BUILTINS)env.c $(BUILTINS)unset.c $(BUILTINS)exit.c $(BUILTINS)utils_builtins.c\
+				  $(BUILTINS)echo.c $(BUILTINS)pwd.c $(BUILTINS)export.c $(BUILTINS)cd.c $(BUILTINS)env.c $(BUILTINS)unset.c $(BUILTINS)exit.c $(BUILTINS)utils_builtins.c \
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \
-				  $(PARS)parsing.c $(PARS)dollar.c $(PARS)utils_quotes.c $(PARS)utils_parsing.c $(PARS)syntax_errors.c $(PARS)get_full_pipe.c\
-				  $(EXEC)exec_global.c $(EXEC)pipe.c $(EXEC)get_path.c $(EXEC)split_pipe.c $(EXEC)utils_pipe.c $(EXEC)utils_run_exec.c\
+				  $(PARS)parsing.c $(PARS)dollar.c $(PARS)utils_quotes.c $(PARS)utils_parsing.c $(PARS)syntax_errors.c $(PARS)get_full_pipe.c $(PARS)remove_quotes.c \
+				  $(EXEC)exec_global.c $(EXEC)pipe.c $(EXEC)get_path.c $(EXEC)split_pipe.c $(EXEC)utils_pipe.c $(EXEC)utils_run_exec.c \
 				  welcome.c signals.c utils.c initializer.c
 				 
 

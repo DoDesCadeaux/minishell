@@ -99,69 +99,44 @@ int		quote(char *line)
 	return (0);
 }
 
-// char	*parsing(char *line, t_struct *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	line = remove_multi_space(line);
-// 	if (!quote(line))
-// 	{
-// 		line = parsing_dollar(data, line, ft_strlen(line));
-// 		return (line);
-// 	}
-// 	while (line[i])
-// 	{
-// 		if (line[i] == 34)
-// 		{
-// 			i++;
-// 			while (line[i] && line[i] != 34)
-// 				i++;
-// 			if (line[i])
-// 				i++;
-// 			line = remove_double_quotes(line);
-// 			line = parsing_dollar(data, line, i);
-// 		}
-// 		else if (line[i] && line[i] == 39)
-// 		{
-// 			i++;
-// 			while (line[i] && line[i] != 39)
-// 				i++;
-// 			if (line[i])
-// 				i++;
-// 			line = remove_single_quotes(line);
-// 		}
-// 		i++;
-// 	}
-// 	line = check_spaces_redirections(line);
-// 	return (line);
-// }
-
-
 char	*parsing(char *line, t_struct *data)
 {
 	int	i;
 
-	i = 0;
+	char quote = 0;
 	line = remove_multi_space(line);
+	i = 0;
 	while (line[i])
 	{
-		if (line[i] == 39)
+		if (quote == '\'')
 		{
-			i++;
-			while (line[i] != 39)
-				i++;
-			i++;
+			if (line[i] == '\'') {
+				quote = 0;
+			}
 		}
-		if (line[i] == '$')
+		else if (quote == '\"')
+		{
+			if (line[i] == '\"') {
+				quote = 0;
+			}
+		}
+		else
+		{
+			if (line[i] == '\"' || line[i] == '\'') {
+				quote = line[i];
+			}
+		}
+
+		if (line[i] == '$' && (quote == 0 || quote == '\"'))
 		{
 			line = parsing_dollar(data, line, i);
 			i = 0;
+			quote = 0;
+			continue;
 		}
 		i++;
 	}
-	line = remove_double_quotes(line);
-	line = remove_single_quotes(line);
+	line = remove_quotes(line);
 	line = check_spaces_redirections(line);
 	return (line);
 }
