@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_run_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 13:59:44 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/15 13:59:46 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:06:55 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	run_exec(t_struct *data, char **tok)
 	else if (data->type == BU_ECHO)
 		echo(tok);
 	else if (data->type == BU_PWD)
-		pwd_builtin();
+		pwd_builtin(data);
 	else if (data->type == BU_ENV)
 		env_builtin(data);
 	else if (data->type == BU_EXPORT_EMPTY)
