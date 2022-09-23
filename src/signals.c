@@ -28,12 +28,12 @@ static void	restore_prompt(int sig)
 	write(1, "\n", 1);
 	(void)sig;
 }*/
-
+/*
 static void	ctrl_d(int sig)
 {
 	printf("^\\\n\nEXIT\n");
 	(void)sig;
-}
+}*/
 
 void	run_signals(int sig)
 {
