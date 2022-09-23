@@ -95,21 +95,7 @@ char	*parsing(char *line, t_struct *data)
 	i = 0;
 	while (line[i])
 	{
-		if (quote == 39)
-		{
-			if (line[i] == 39)
-				quote = 0;
-		}
-		else if (quote == 34)
-		{
-			if (line[i] == 34)
-				quote = 0;
-		}
-		else
-		{
-			if (line[i] == 34 || line[i] == 39)
-				quote = line[i];
-		}
+		quote = get_value_of_quote(quote, line, i);
 		if (line[i] == '$' && (quote == 0 || quote == 34))
 		{
 			line = parsing_dollar(data, line, i);

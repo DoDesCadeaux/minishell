@@ -12,6 +12,26 @@
 
 #include "../../include/minishell.h"
 
+char	get_value_of_quote(char quote, char *line, int i)
+{
+	if (quote == 39)
+	{
+		if (line[i] == 39)
+			quote = 0;
+	}
+	else if (quote == 34)
+	{
+		if (line[i] == 34)
+			quote = 0;
+	}
+	else
+	{
+		if (line[i] == 34 || line[i] == 39)
+			quote = line[i];
+	}
+	return (quote);
+}
+
 int	skip_single_quotes(char *line, int i)
 {
 	if (line[i] == 39)

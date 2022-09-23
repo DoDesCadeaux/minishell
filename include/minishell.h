@@ -179,6 +179,7 @@ char		*remove_multi_space(char *line);
 char		*get_full_pipe(char *line);
 int			is_error_code(char *line, int i);
 char		*remove_quotes(char *line);
+char 		get_value_of_quote(char quote, char *line, int i);
 
 //Main
 void		show_ghost(void);
