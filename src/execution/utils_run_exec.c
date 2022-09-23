@@ -28,7 +28,7 @@ void	run_bad_binary(t_struct *data, char *cmd)
 	if (!ft_strncmp(cmd, "/", 1))
 		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 	else
-		ft_error(msg(cmd, NULL, "Command not found"), CMD_ERROR);
+		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 	ft_free_split(cmd_arg);
 }
 
