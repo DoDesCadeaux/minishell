@@ -80,3 +80,23 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 	if (access(HERE_DOC, F_OK) == 0)
 		unlink(HERE_DOC);
 }
+
+void	run_program(t_struct *data, char **tok, char *line)
+{
+	if (!is_pipe(line))
+	{
+		data->pipe = 0;
+		tok = tokenisation(line, tok, data);
+		if (tok)
+		{
+			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
+			ft_clear_split(tok);
+		}
+		free(tok);
+	}
+	else
+	{
+		data->pipe = 1;
+		pipe_exec(data, tok, line);
+	}
+}
