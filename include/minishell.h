@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:15:06 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/19 10:13:14 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:08:43 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void		export_env(t_struct *data, char *cmd);
 void		unset_env(t_struct *data, char *cmd);
 void		export_empty(t_struct *data);
 void		echo(char **tok);
-void		pwd_builtin(void);
+void		pwd_builtin(t_struct *data);
 void		cd_builtin(t_struct *data, char **tok);
 void		exit_builtins(void);
 void		update_pwd(t_struct *data, int status);
@@ -182,6 +182,7 @@ char		*get_full_pipe(char *line);
 int			is_error_code(char *line, int i);
 char		*remove_quotes(char *line);
 char		get_value_of_quote(char quote, char *line, int i);
+char		*preparsing(char *line);
 
 //Main
 void		show_ghost(void);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_builtin.c                                    :+:      :+:    :+:   */
+/*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:10:37 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/18 13:10:40 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:59:41 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ void	update_pwd(t_struct *data, int status)
 
 	update_pwd = NULL;
 	update_pwd = getcwd(update_pwd, 200);
-	protect_malloc(update_pwd);
-	free(data->pwd[status]);
-	data->pwd[status] = ft_strdup(update_pwd);
-	free(update_pwd);
+	if (update_pwd)
+	{
+		free(data->pwd[status]);
+		data->pwd[status] = ft_strdup(update_pwd);
+		free(update_pwd);
+	}
 }
 
 t_struct	*update_var(t_struct *data, char *export, int i)
@@ -45,17 +47,18 @@ t_struct	*update_envp(t_struct *data, char *type)
 
 	update_pwd = NULL;
 	update_pwd = getcwd(update_pwd, 200);
-	if (!update_pwd)
-		return (NULL);
-	export = ft_strjoin(type, update_pwd);
-	i = 0;
-	while (data->envp[i])
+	if (update_pwd)
 	{
-		if (is_env_var(data, export, i))
-			data = update_var(data, export, i);
-		i++;
+		export = ft_strjoin(type, update_pwd);
+		i = 0;
+		while (data->envp[i])
+		{
+			if (is_env_var(data, export, i))
+				data = update_var(data, export, i);
+			i++;
+		}
+		free(update_pwd);
+		free(export);
 	}
-	free(update_pwd);
-	free(export);
 	return (data);
 }
