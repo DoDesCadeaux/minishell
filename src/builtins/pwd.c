@@ -21,7 +21,7 @@ void	pwd_builtin(void)
 	if (!pwd)
 	{
 		perror("minishell");
-		error_code = ERRNO;
+		g_error_code = errno;
 		exit(EXIT_FAILURE);
 	}
 	printf("%s\n", pwd);

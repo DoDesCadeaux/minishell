@@ -12,28 +12,6 @@
 
 #include "../include/minishell.h"
 
-void	ft_error_exit(char *message, int code)
-{
-	error_code = code;
-	write(2, message, ft_strlen(message));
-	write(2, "\n", 1);
-	exit(error_code);
-}
-
-void	error_perror(void)
-{
-	perror("minishell");
-	error_code = ERRNO;
-	exit(EXIT_FAILURE);
-}
-
-void	ft_error(char *message, int code)
-{
-	error_code = code;
-	ft_putstr_fd(message, 2);
-	ft_putchar_fd('\n', 2);
-}
-
 void	show_ghost(void)
 {
 	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);

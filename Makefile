@@ -44,7 +44,7 @@ SRCS			= $(TOK)tokenisation.c	$(TOK)tok_cmd.c $(TOK)tok_stdin.c $(TOK)utils_toke
 				  $(ENV)clone_envp.c $(ENV)utils_envp.c \
 				  $(PARS)parsing.c $(PARS)dollar.c $(PARS)utils_quotes.c $(PARS)remove_quotes.c $(PARS)utils_parsing.c $(PARS)syntax_errors.c $(PARS)get_full_pipe.c\
 				  $(EXEC)exec_global.c $(EXEC)pipe.c $(EXEC)get_path.c $(EXEC)split_pipe.c $(EXEC)utils_pipe.c $(EXEC)utils_run_exec.c\
-				  welcome.c signals.c utils.c initializer.c
+				  welcome.c signals.c utils.c initializer.c errors.c
 				 
 
 MAIN			= main.c

@@ -24,7 +24,7 @@ static void	restore_prompt(int sig)
 
 static void	ctrl_c(int sig)
 {
-	error_code = 1;
+	g_error_code = 1;
 	write(1, "\n", 1);
 	(void)sig;
 }

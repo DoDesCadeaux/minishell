@@ -23,7 +23,7 @@ static char	*create_heredoc(char *delimiter)
 		return (NULL);
 	here_doc = open("here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (here_doc < 0)
-		ft_error("???", ERRNO);	// que écrire dans l'erreur??
+		ft_error("???", errno);	// que écrire dans l'erreur??
 	line = get_next_line(0, MSG_HERE);
 	while (line && (ft_strncmp(line, delimiter, ft_strlen(delimiter))
 			|| ft_strlen(delimiter) + 1 != ft_strlen(line)))
@@ -34,7 +34,7 @@ static char	*create_heredoc(char *delimiter)
 	free(line);
 	fd = open("here_doc", O_RDONLY);
 	if (fd < 0)
-		ft_error_exit("???", ERRNO); // que écrire dans l'erreur??
+		ft_error_exit("???", errno); // que écrire dans l'erreur??
 	info = ft_itoa(fd);
 	return (info);
 }

@@ -51,7 +51,7 @@ static char	*replace_error_code(t_struct *data, char *line_pars, int i)
 
 	data->tmp_1 = str_dup_parts(line_pars, i - 1, 0);
 	i++;
-	data->tmp_2 = ft_itoa(error_code);
+	data->tmp_2 = ft_itoa(g_error_code);
 	y = i + 1;
 	while (line_pars[i])
 		i++;
