@@ -6,6 +6,7 @@ test random :
     ls | | ls
     >
     >>
+    >> yo
     <
     <<
     echo $?

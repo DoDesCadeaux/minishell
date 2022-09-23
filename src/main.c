@@ -45,29 +45,12 @@ int	main(int argc, char **argv, char **envp)
 	{
 		tok = malloc(sizeof(char *) * 4 + 1);
 		protect_malloc(tok);
-		run_signals(1);
 		line = prompt();
 		if (syntax_errors(line))
 			continue ;
-//		line = remove_multi_space(line); //se fait dans le parsing
 		if (is_metachar(line[ft_strlen(line) - 1]))
 			line = get_full_pipe(line);
-		if (!is_pipe(line))
-		{
-			data->pipe = 0;
-			tok = tokenisation(line, tok, data);
-			if (tok)
-			{
-				call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
-				ft_clear_split(tok);
-			}
-			free(tok);
-		}
-		else
-		{
-			data->pipe = 1;
-			pipe_exec(data, tok, line);
-		}
+		run_program(data, tok, line);
 	}
 	return (0);
 }

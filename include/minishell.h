@@ -154,6 +154,7 @@ void		run_bad_binary(t_struct *data, char *cmd);
 char		**ft_split_pipe(char *s, char c);
 void		pipe_exec(t_struct *data, char **tok, char *line);
 void		call_exec(t_struct *data, char **tok, int fdin, int fdout);
+void		run_program(t_struct *data, char **tok, char *line);
 
 //GNL
 char		*get_next_line(int fd, char *msg);

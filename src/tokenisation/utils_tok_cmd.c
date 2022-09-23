@@ -34,10 +34,7 @@ char	*remove_multi_space(char *line)
 	if (split_space[i])
 		tmp = add_space(tmp, new_line);
 	else
-	{
-		//printf("%s-\n", new_line);
 		return (new_line);
-	}
 	while (split_space[i])
 	{
 		new_line = ft_strjoin(tmp, split_space[i]);
@@ -45,10 +42,7 @@ char	*remove_multi_space(char *line)
 		if (split_space[i + 1])
 			tmp = add_space(tmp, new_line);
 		else
-		{
-			//printf("%s-\n", new_line);
 			return (new_line);
-		}
 		i++;
 	}
 	return (tmp);
