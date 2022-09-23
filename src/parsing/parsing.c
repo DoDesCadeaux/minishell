@@ -85,54 +85,23 @@ static char	*check_spaces_redirections(char *line_to_pars)
 	return (line_to_pars);
 }
 
-int		quote(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == 34 || line[i] == 39)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 char	*parsing(char *line, t_struct *data)
 {
-	int	i;
+	int		i;
+	char	quote;
 
-	char quote = 0;
 	line = remove_multi_space(line);
+	quote = 0;
 	i = 0;
 	while (line[i])
 	{
-		if (quote == '\'')
-		{
-			if (line[i] == '\'') {
-				quote = 0;
-			}
-		}
-		else if (quote == '\"')
-		{
-			if (line[i] == '\"') {
-				quote = 0;
-			}
-		}
-		else
-		{
-			if (line[i] == '\"' || line[i] == '\'') {
-				quote = line[i];
-			}
-		}
-
-		if (line[i] == '$' && (quote == 0 || quote == '\"'))
+		quote = get_value_of_quote(quote, line, i);
+		if (line[i] == '$' && (quote == 0 || quote == 34))
 		{
 			line = parsing_dollar(data, line, i);
 			i = 0;
 			quote = 0;
-			continue;
+			continue ;
 		}
 		i++;
 	}

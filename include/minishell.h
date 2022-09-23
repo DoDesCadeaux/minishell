@@ -36,7 +36,6 @@
 
 # define HERE_DOC "./here_doc"
 # define BUFFER_SIZE 100
-# define ERRNO errno
 
 # define ERROR 1
 # define SYNTAX_ERROR 1
@@ -66,7 +65,7 @@
 # define MSG_PIPE "pipe> "
 # define MSG_HERE "heredoc> "
 
-int	error_code;
+int	g_error_code;
 
 enum	e_redirection
 {
@@ -100,7 +99,7 @@ typedef struct s_struct
 	int		type;
 	int		check;
 	int		pipe;
-	int 	father_code;
+	int		father_code;
 }	t_struct;
 
 //ENVIRONNEMENT
@@ -147,7 +146,7 @@ void		execute(t_struct *data, char *cmd);
 char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);
 int			increment_j(int i, int j, char *str);
-int 		increment_i(int i, char *str);
+int			increment_i(int i, char *str);
 char		*cpy_dest(int i, int j, char *str, char *dest);
 void		run_without_pipe(t_struct *data, char **tok);
 void		run_exec(t_struct *data, char **tok);
@@ -177,11 +176,9 @@ int			is_end_of_dollar(char c);
 int			update_i(char *line_pars, int i);
 char		*remove_multi_space(char *line);
 char		*get_full_pipe(char *line);
+int			is_error_code(char *line, int i);
 char		*remove_quotes(char *line);
-char	 	*remove_single(char *line, int i);
-char	 	*remove_double(char *line, int i);
-int			increment_i_single(char *line, int i);
-int			increment_i_double(char *line, int i);
+char		get_value_of_quote(char quote, char *line, int i);
 
 //Main
 void		show_ghost(void);

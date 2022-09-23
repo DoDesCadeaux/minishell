@@ -12,13 +12,13 @@
 
 #include "../../include/minishell.h"
 
-static char	*join_and_replace(t_struct *data, char *tmp1, char *replace, char *tmp3)
+static char	*join_and_replace(t_struct *data, char *tmp1, char *rpl, char *tmp3)
 {
 	char	*dst;
 	char	*tmp_dollar;
 	int		i;
 
-	tmp_dollar = var_exist(data, replace);
+	tmp_dollar = var_exist(data, rpl);
 	if (tmp_dollar)
 	{
 		i = 0;
@@ -51,7 +51,7 @@ static char	*replace_error_code(t_struct *data, char *line_pars, int i)
 
 	data->tmp_1 = str_dup_parts(line_pars, i - 1, 0);
 	i++;
-	data->tmp_2 = ft_itoa(error_code);
+	data->tmp_2 = ft_itoa(g_error_code);
 	y = i + 1;
 	while (line_pars[i])
 		i++;
@@ -61,41 +61,28 @@ static char	*replace_error_code(t_struct *data, char *line_pars, int i)
 	return (dst);
 }
 
-static	int	is_error_code(char *line, int i)
+char	*replace_dollar(t_struct *data, char *line, int i)
 {
-	if (line[i] == '$' && line[i + 1] == '?')
-	{
-		i += 2;
-		if (is_end_of_dollar(line[i]) || line[i] == '\0')
-			return (1);
-	}
-	return (0);
+	int	y;
+
+	data->tmp_1 = str_dup_parts(line, i - 1, 0);
+	i++;
+	y = i;
+	i = update_i(line, i);
+	data->tmp_2 = str_dup_parts(line, i - 1, y);
+	y = i;
+	while (line[i])
+		i++;
+	data->tmp_3 = str_dup_parts(line, i, y);
+	line = replace_or_erase(line, data);
+	return (line);
 }
 
 char	*parsing_dollar(t_struct *data, char *line_pars, int i)
 {
-	int	y;
-
-	
-	while (line_pars[i])
-	{
-		if (is_error_code(line_pars, i))
-			line_pars = replace_error_code(data, line_pars, i);
-		if (line_pars[i] == '$')
-		{
-			data->tmp_1 = str_dup_parts(line_pars, i - 1, 0);
-			i++;
-			y = i;
-			i = update_i(line_pars, i);
-			data->tmp_2 = str_dup_parts(line_pars, i - 1, y);
-			y = i;
-			while (line_pars[i])
-				i++;
-			data->tmp_3 = str_dup_parts(line_pars, i, y);
-			line_pars = replace_or_erase(line_pars, data);
-			i = ft_strlen(line_pars) - 1;
-		}
-		i++;
-	}
+	if (is_error_code(line_pars, i))
+		line_pars = replace_error_code(data, line_pars, i);
+	if (line_pars[i] == '$')
+		line_pars = replace_dollar(data, line_pars, i);
 	return (line_pars);
 }
