@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
+/*
 static char	*add_space(char *side, char *line, int i)
 {
 	char	*tmp1;
@@ -35,8 +35,8 @@ static char	*add_space(char *side, char *line, int i)
 	free(tmp1);
 	free(tmp2);
 	return (str);
-}
-
+}*/
+/*
 static char	*left_redirection(char *line, int i)
 {
 	if (line[i - 1] != ' ' && line[i - 1] != '<')
@@ -63,8 +63,8 @@ static char	*right_redirection(char *line, int i)
 	if (line[i + 1] != ' ' && line[i + 1] != '>')
 		line = add_space("after", line, i);
 	return (line);
-}
-
+}*/
+/*
 static char	*check_spaces_redirections(char *line_to_pars)
 {
 	int	i;
@@ -83,7 +83,7 @@ static char	*check_spaces_redirections(char *line_to_pars)
 		i++;
 	}
 	return (line_to_pars);
-}
+}*/
 
 char	*parsing(char *line, t_struct *data)
 {
@@ -106,6 +106,6 @@ char	*parsing(char *line, t_struct *data)
 		i++;
 	}
 	line = remove_quotes(line);
-	line = check_spaces_redirections(line);
+	//line = check_spaces_redirections(line);
 	return (line);
 }
