@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_quotes.c                                     :+:      :+:    :+:   */
+/*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,33 +12,31 @@
 
 #include "../../include/minishell.h"
 
-int	skip_single_quotes(char *line, int i)
+char	*remove_quotes(char *line)
 {
-	if (line[i] == 39)
-	{
-		i++;
-		while (line[i] != 39 && line[i])
-			i++;
-	}
-	return (i);
-}
+	char	*new_line;
+	int		i;
+	int		j;
+	char	quote;
 
-int	skip_double_quotes(char *line, int i)
-{
-	if (line[i] == 34)
+	i = 0;
+	j = 0;
+	quote = 0;
+	new_line = ft_strdup(line);
+	while (line[i])
 	{
+		if (line[i] == quote)
+			quote = 0;
+		else if (!quote && (line[i] == 39 || line[i] == 34))
+			quote = line[i];
+		else
+		{
+			new_line[j] = line[i];
+			j++;
+		}
 		i++;
-		while (line[i] != 34 && line[i])
-			i++;
 	}
-	return (i);
-}
-
-int	skip_all_quotes(char *line, int i)
-{
-	i++;
-	while (line[i] != 39 && line[i] != 34 && line[i])
-		i++;
-	i++;
-	return (i);
+	new_line[j] = 0;
+	free(line);
+	return (new_line);
 }

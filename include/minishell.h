@@ -177,6 +177,8 @@ int			is_end_of_dollar(char c);
 int			update_i(char *line_pars, int i);
 char		*remove_multi_space(char *line);
 char		*get_full_pipe(char *line);
+int			is_error_code(char *line, int i);
+char		*remove_quotes(char *line);
 
 //Main
 void		show_ghost(void);
