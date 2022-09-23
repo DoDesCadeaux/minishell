@@ -64,6 +64,8 @@
 # define CMD	"echo "
 # define MSG_PIPE "pipe> "
 # define MSG_HERE "heredoc> "
+# define MSG_STDOUT_EMPTY "minishell: Syntax error near unexpected token 'newline'"
+# define MSG_PIPE_ERROR "minishell: Syntax error near unexpected token '|'"
 
 int	g_error_code;
 

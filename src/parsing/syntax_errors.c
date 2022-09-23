@@ -68,24 +68,14 @@ int	stdout_empty(char *line)
 	line = remove_multi_space(line);
 	while (line[i])
 	{
-		if (line[i] == 34)
-		{
-			i++;
-			while (line[i] && line[i] != 34)
-				i++;
-		}
-		if (line[i] == 39)
-		{
-			i++;
-			while (line[i] && line[i] != 39)
-				i++;
-		}
+		i = skip_double_quotes(line, i);
+		i = skip_single_quotes(line, i);
 		if (line[i] && line[i] == '>')
 		{
 			i++;
 			if (!line[i])
 				return (1);
-			else if (line[i] == '>' && !line[i+1])
+			else if (line[i] == '>' && !line[i + 1])
 				return (1);
 			else
 				return (0);
@@ -94,6 +84,7 @@ int	stdout_empty(char *line)
 	}
 	return (0);
 }
+
 int	syntax_errors(char *line)
 {
 	int	i;
@@ -116,12 +107,12 @@ int	syntax_errors(char *line)
 	}
 	if (is_metachar(line[0]))
 	{
-		ft_error("minishell: Syntax error near unexpected token '|'", PIPE_ERROR);
+		ft_error(MSG_PIPE_ERROR, PIPE_ERROR);
 		return (1);
 	}
 	if (stdout_empty(line))
 	{
-		ft_error("minishell: Syntax error near unexpected token 'newline'", 258);
+		ft_error(MSG_STDOUT_EMPTY, 258);
 		return (1);
 	}
 	return (0);
