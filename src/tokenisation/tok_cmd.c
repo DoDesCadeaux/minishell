@@ -65,6 +65,11 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 	int		i_end;
 
 	end = NULL;
+	if (!ft_strcmp(line_split[i], DGREAT) || !ft_strcmp(line_split[i], GREAT))
+	{
+		tok[1] = ft_strdup("echo -n");
+		return (i);
+	}
 	start = ft_strdup(line_split[i]);
 	tmp = ft_strstr(line, start);
 	i = manage_redirection_with_quotes(line_split, i);

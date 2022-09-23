@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:15:06 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/19 10:13:14 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:08:43 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@
 
 # define HERE_DOC "./here_doc"
 # define BUFFER_SIZE 100
-# define ERRNO errno
 
 # define ERROR 1
 # define SYNTAX_ERROR 1
@@ -65,8 +64,10 @@
 # define CMD	"echo "
 # define MSG_PIPE "pipe> "
 # define MSG_HERE "heredoc> "
+# define MSG_STDOUT_EMPTY "minishell: Syntax error near unexpected token 'newline'"
+# define MSG_PIPE_ERROR "minishell: Syntax error near unexpected token '|'"
 
-int	error_code;
+int	g_error_code;
 
 enum	e_redirection
 {
@@ -100,7 +101,7 @@ typedef struct s_struct
 	int		type;
 	int		check;
 	int		pipe;
-	int 	father_code;
+	int		father_code;
 }	t_struct;
 
 //ENVIRONNEMENT
@@ -132,7 +133,7 @@ void		export_env(t_struct *data, char *cmd);
 void		unset_env(t_struct *data, char *cmd);
 void		export_empty(t_struct *data);
 void		echo(char **tok);
-void		pwd_builtin(void);
+void		pwd_builtin(t_struct *data);
 void		cd_builtin(t_struct *data, char **tok);
 void		exit_builtins(void);
 void		update_pwd(t_struct *data, int status);
@@ -147,7 +148,7 @@ void		execute(t_struct *data, char *cmd);
 char		**path_list(char **envp);
 char		*get_cmd_path(char **paths, char *cmd);
 int			increment_j(int i, int j, char *str);
-int 		increment_i(int i, char *str);
+int			increment_i(int i, char *str);
 char		*cpy_dest(int i, int j, char *str, char *dest);
 void		run_without_pipe(t_struct *data, char **tok);
 void		run_exec(t_struct *data, char **tok);
@@ -155,6 +156,7 @@ void		run_bad_binary(t_struct *data, char *cmd);
 char		**ft_split_pipe(char *s, char c);
 void		pipe_exec(t_struct *data, char **tok, char *line);
 void		call_exec(t_struct *data, char **tok, int fdin, int fdout);
+void		run_program(t_struct *data, char **tok, char *line);
 
 //GNL
 char		*get_next_line(int fd, char *msg);
@@ -177,6 +179,10 @@ int			is_end_of_dollar(char c);
 int			update_i(char *line_pars, int i);
 char		*remove_multi_space(char *line);
 char		*get_full_pipe(char *line);
+int			is_error_code(char *line, int i);
+char		*remove_quotes(char *line);
+char		get_value_of_quote(char quote, char *line, int i);
+char		*preparsing(char *line);
 
 //Main
 void		show_ghost(void);

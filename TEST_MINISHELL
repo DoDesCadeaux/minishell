@@ -6,6 +6,7 @@ test random :
     ls | | ls
     >
     >>
+    >> yo
     <
     <<
     echo $?
@@ -16,6 +17,7 @@ test random :
     ls | "   " | ls
     echo 'ok' "ok"
     enter sans rien
+    echo 'hey"hey' 'hey'
 
 a la suite (verification pipe incomplet et signaux)
     ls |

@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/18 13:08:46 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/22 16:08:19 by algaspar         ###   ########.fr       */
+/*   Created: 2022/08/18 13:32:28 by pamartin          #+#    #+#             */
+/*   Updated: 2022/09/19 15:31:29 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
-void	pwd_builtin(t_struct *data)
+void	ft_error_exit(char *message, int code)
 {
-	char	*pwd;
+	g_error_code = code;
+	write(2, message, ft_strlen(message));
+	write(2, "\n", 1);
+	exit(g_error_code);
+}
 
-	pwd = NULL;
-	pwd = getcwd(pwd, 200);
-	if (!pwd)
-		pwd = ft_strdup(data->pwd[0]);
-	printf("%s\n", pwd);
-	free(pwd);
-	pwd = 0x0;
-	exit(EXIT_SUCCESS);
+void	error_perror(void)
+{
+	perror("minishell");
+	g_error_code = errno;
+	exit(EXIT_FAILURE);
+}
+
+void	ft_error(char *message, int code)
+{
+	g_error_code = code;
+	ft_putstr_fd(message, 2);
+	ft_putchar_fd('\n', 2);
 }

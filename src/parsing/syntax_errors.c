@@ -60,6 +60,31 @@ static int	open_quotes(char *line, int i)
 	return (0);
 }
 
+int	stdout_empty(char *line)
+{
+	int	i;
+
+	i = 0;
+	line = remove_multi_space(line);
+	while (line[i])
+	{
+		i = skip_double_quotes(line, i);
+		i = skip_single_quotes(line, i);
+		if (line[i] && line[i] == '>')
+		{
+			i++;
+			if (!line[i])
+				return (1);
+			else if (line[i] == '>' && !line[i + 1])
+				return (1);
+			else
+				return (0);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	syntax_errors(char *line)
 {
 	int	i;
@@ -67,22 +92,27 @@ int	syntax_errors(char *line)
 	i = 0;
 	if (empty_line(line))
 	{
-		ft_error("Syntax error : empty line", 0);
+		ft_error("minishell: Syntax error : empty line", 0);
 		return (1);
 	}
 	if (is_only_spaces(line))
 	{
-		ft_error("Syntax error : there's only spaces", 0);
+		ft_error("minishell: Syntax error : there's only spaces", 0);
 		return (1);
 	}
 	if (open_quotes(line, i))
 	{
-		ft_error("Syntax error : open quotes", SYNTAX_ERROR);
+		ft_error("minishell: Syntax error : open quotes", SYNTAX_ERROR);
 		return (1);
 	}
 	if (is_metachar(line[0]))
 	{
-		ft_error("Syntax error near unexpected token '|'", PIPE_ERROR);
+		ft_error(MSG_PIPE_ERROR, PIPE_ERROR);
+		return (1);
+	}
+	if (stdout_empty(line))
+	{
+		ft_error(MSG_STDOUT_EMPTY, 258);
 		return (1);
 	}
 	return (0);

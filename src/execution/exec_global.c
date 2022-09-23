@@ -57,7 +57,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 {
 	pid_t	child;
 
-	error_code = 0;
+	g_error_code = 0;
 	if (data->type == BU_CD)
 		cd_builtin(data, tok);
 	if (data->type == BAD_BINARY)
@@ -69,14 +69,34 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 	{
 		data->check = dup2(fdin, 0);
 		if (data->check == -1)
-			ft_error_exit("", ERRNO);
+			ft_error_exit("", errno);
 		data->check = dup2(fdout, 1);
 		if (data->check == -1)
-			ft_error_exit("", ERRNO);
+			ft_error_exit("", errno);
 		close_fd(fdin, fdout);
 		run_exec(data, tok);
 	}
 	waitpid(child, NULL, 0);
 	if (access(HERE_DOC, F_OK) == 0)
 		unlink(HERE_DOC);
+}
+
+void	run_program(t_struct *data, char **tok, char *line)
+{
+	if (!is_pipe(line))
+	{
+		data->pipe = 0;
+		tok = tokenisation(line, tok, data);
+		if (tok)
+		{
+			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
+			ft_clear_split(tok);
+		}
+		free(tok);
+	}
+	else
+	{
+		data->pipe = 1;
+		pipe_exec(data, tok, line);
+	}
 }
