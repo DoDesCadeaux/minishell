@@ -17,7 +17,7 @@ static char	*copy_src_to_dst_double_quote(char *str, int i, char *dst, int j)
 	dst[j] = str[i];
 	j++;
 	i++;
-	while (str[i] != 34)
+	while (str[i] != 34 && str[i])
 	{
 		dst[j] = str[i];
 		j++;
@@ -31,7 +31,7 @@ static char	*copy_src_to_dst_single_quote(char *str, int i, char *dst, int j)
 	dst[j] = str[i];
 	j++;
 	i++;
-	while (str[i] != 39)
+	while (str[i] != 39 && str[i])
 	{
 		dst[j] = str[i];
 		j++;
@@ -59,7 +59,7 @@ int	increment_j(int i, int j, char *str)
 	{
 		i++;
 		j++;
-		while (str[i] != 34)
+		while (str[i] != 34 && str[i])
 		{
 			j++;
 			i++;
@@ -69,7 +69,7 @@ int	increment_j(int i, int j, char *str)
 	{
 		i++;
 		j++;
-		while (str[i] != 39)
+		while (str[i] != 39 && str[i])
 		{
 			j++;
 			i++;
@@ -83,13 +83,13 @@ int	increment_i(int i, char *str)
 	if (str[i] == 34)
 	{
 		i++;
-		while (str[i] != 34)
+		while (str[i] != 34 && str[i])
 			i++;
 	}
 	if (str[i] == 39)
 	{
 		i++;
-		while (str[i] != 39)
+		while (str[i] != 39 && str[i])
 			i++;
 	}
 	return (i);
