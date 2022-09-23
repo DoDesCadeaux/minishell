@@ -7,7 +7,7 @@ NAME	= minishell
 CC 		= gcc
 
 #CFLAGS	= -Wall -Wextra -Werror -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -fsanitize=address
-# CFLAGS	= -Wall -Wextra -Werror -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
+#CFLAGS	= -Wall -Wextra -Werror -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
 CFLAGS	= -Wall -Wextra -Werror -lreadline -L/Users/algaspar/.brew/opt/readline/lib -I/Users/algaspar/.brew/opt/readline/include -fsanitize=address
 
 CFLAGS_WRL = -Wall -Wextra -Werror
