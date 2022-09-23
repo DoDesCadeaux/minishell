@@ -18,6 +18,7 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	char	*tmp;
 	int		i;
 
+	//line = preparsing(line);
 	line_split = ft_split_pipe(line, ' ');
 	i = 0;
 	i = tok_fd_in(tok, line_split, i);
