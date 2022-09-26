@@ -29,11 +29,11 @@ static void	ctrl_c(int sig)
 	(void)sig;
 }
 
-static void	ctrl_d(int sig)
-{
-	printf("^\\\n\nEXIT\n");
-	(void)sig;
-}
+//static void	ctrl_d(int sig)
+//{
+//	printf("^\\\n\nEXIT\n");
+//	(void)sig;
+//}
 
 void	run_signals(int sig)
 {
@@ -45,6 +45,6 @@ void	run_signals(int sig)
 	if (sig == 2)
 	{
 		signal(SIGINT, ctrl_c);
-		signal(SIGQUIT, ctrl_d);
+		signal(SIGQUIT, SIG_IGN);
 	}
 }
