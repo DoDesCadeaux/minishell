@@ -37,9 +37,9 @@ static int	manage_redirection_with_quotes(char **line_split, int i)
 	{	
 		if (line_split[i][0] == 39)
 			i++;
-		if (line_split[i][0] == 34)
+		else if (line_split[i][0] == 34)
 			i++;
-		if (line_split[i] && (!ft_strcmp(line_split[i], GREAT) || !ft_strcmp(line_split[i], DGREAT)))
+		else if (line_split[i] && (!ft_strcmp(line_split[i], GREAT) || !ft_strcmp(line_split[i], DGREAT)))
 			return (i);
 		else
 			i++;
