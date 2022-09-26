@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_tokenisation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:51:00 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/18 12:51:02 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:16:45 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,14 @@ char	*get_fd(char *file, int type, char *token)
 	if (type == REDIR_STDIN)
 	{
 		if (file)
+		{
 			fd = open(file, O_RDONLY);
+			if (fd == -1)
+			{
+				perror(file);
+				return (NULL);
+			}
+		}
 		else
 			fd = 0;
 	}

@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 18:50:40 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/19 15:31:57 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:25:28 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static int	manage_redirection_with_quotes(char **line_split, int i)
 	{	
 		if (line_split[i][0] == 39)
 			i++;
-		if (line_split[i][0] == 34)
+		else if (line_split[i][0] == 34)
 			i++;
-		if (line_split[i] && (!ft_strcmp(line_split[i], GREAT) || !ft_strcmp(line_split[i], DGREAT)))
+		if (line_split[i] && (!ft_strcmp(line_split[i], GREAT) || !ft_strcmp(line_split[i], DGREAT) || !ft_strcmp(line_split[i], LESS) || !ft_strcmp(line_split[i], DLESS)))
 			return (i);
 		else
 			i++;

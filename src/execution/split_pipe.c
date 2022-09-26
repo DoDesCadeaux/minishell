@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 13:59:44 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/15 13:59:46 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:09:36 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	ft_lenword(const char *str, char c, int i)
 			while (str[i] != 39 && str[i + 1])
 				i++;
 		}
-		if (str[i] != c && str[i + 1])
+		if (str[i] != c && str[i])
 			i++;
 		else
 			break ;

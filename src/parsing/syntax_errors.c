@@ -92,12 +92,12 @@ int	syntax_errors(char *line)
 	i = 0;
 	if (empty_line(line))
 	{
-		ft_error("minishell: Syntax error : empty line", 0);
+		ft_error(NULL, 0);
 		return (1);
 	}
 	if (is_only_spaces(line))
 	{
-		ft_error("minishell: Syntax error : there's only spaces", 0);
+		ft_error(NULL, 0);
 		return (1);
 	}
 	if (open_quotes(line, i))
