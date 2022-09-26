@@ -19,15 +19,15 @@ static void	restore_prompt(int sig)
 	write(1, "\n", 1);
 	show_ghost();
 	rl_redisplay();
+	g_error_code = 1;
 	(void)sig;
 }
 
-static void	ctrl_c(int sig)
+/*static void	ctrl_c(int sig)
 {
-	g_error_code = 1;
 	write(1, "\n", 1);
 	(void)sig;
-}
+}*/
 
 //static void	ctrl_d(int sig)
 //{
@@ -46,5 +46,6 @@ void	run_signals(int sig)
 	{
 		signal(SIGINT, ctrl_c);
 		signal(SIGQUIT, SIG_IGN);
+		signal(SIGKILL, SIG_IGN);
 	}
 }

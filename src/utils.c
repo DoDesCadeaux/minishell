@@ -40,3 +40,27 @@ char	*msg(char *cmd, char *element, char *msg)
 	free(message);
 	return (tmp);
 }
+
+int	find_real_redir( char *haystack, char *needle)
+{
+	int	i;
+	int	y;
+
+	i = 0;
+	if (needle[i] == '\0')
+		return (-1);
+	while (haystack[i])
+	{
+		y = 0;
+		i = skip_double_quotes(haystack, i);
+		i = skip_single_quotes(haystack, i);
+		while (haystack[i + y] == needle[y])
+		{
+			if (needle[y + 1] == '\0')
+				return (i - y);
+			y++;
+		}
+		i++;
+	}
+	return (-1);
+}
