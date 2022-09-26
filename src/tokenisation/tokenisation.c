@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:49:46 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/22 15:44:10 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:15:55 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	char	*tmp;
 	int		i;
 
-	//line = preparsing(line);
 	line_split = ft_split_pipe(line, ' ');
 	i = 0;
 	i = tok_fd_in(tok, line_split, i);
@@ -29,10 +28,15 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT);
 	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT))
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, DGREAT);
+	else if (line_split[i] && !ft_strcmp(line_split[i], LESS))
+		tmp = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
 	else
 		tmp = get_fd(NULL, REDIR_STDOUT, NULL);
 	tok[1] = parsing(tok[1], data);
-	tok[2] = ft_strdup(tmp);
+	if (tmp)
+		tok[2] = ft_strdup(tmp);
+	else
+		return (NULL);
 	tok[3] = 0;
 	free(tmp);
 	free(line);
