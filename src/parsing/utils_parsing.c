@@ -54,10 +54,6 @@ char	*str_dup_parts(char *src, int end, int start)
 int	is_error_code(char *line, int i)
 {
 	if (line[i] == '$' && line[i + 1] == '?')
-	{
-		i += 2;
-		if (is_end_of_dollar(line[i]) || line[i] == '\0')
-			return (1);
-	}
+		return (1);
 	return (0);
 }
