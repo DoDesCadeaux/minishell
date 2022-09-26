@@ -30,12 +30,6 @@ static void	ctrl_c(int sig)
 	(void)sig;
 }
 
-//static void	ctrl_d(int sig)
-//{
-//	printf("^\\\n\nEXIT\n");
-//	(void)sig;
-//}
-
 void	run_signals(int sig)
 {
 	if (sig == 1)
