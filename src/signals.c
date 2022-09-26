@@ -23,7 +23,7 @@ static void	restore_prompt(int sig)
 	(void)sig;
 }
 
-static void	ctrl_c(int sig)
+static void	process_ended(int sig)
 {
 	write(1, "\n", 1);
 	g_error_code = SIGNAL;
@@ -40,8 +40,8 @@ void	run_signals(int sig)
 	}
 	if (sig == 2)
 	{
-		signal(SIGINT, ctrl_c);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, process_ended);
+		signal(SIGQUIT, process_ended);
 		signal(SIGKILL, SIG_IGN);
 	}
 }

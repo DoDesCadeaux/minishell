@@ -14,11 +14,12 @@
 
 void	show_ghost(void)
 {
-	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n"R);
+	printf(G " /▔▔▔▔▔▔▔▔\\  ╭━━━━╮\n" R);
 	printf(G "| ╭--╮╭--╮ | |BOO…|\n" R);
 	printf(G "| |╭-╯╰-╮| | ╰━┳━━╯\n" R);
 	printf(G "| ╰╯ ╭╮ ╰╯ |━━━╯ \n" R);
 	printf(G "|    ╰╯    | \n" R);
+	printf(G "|/\\_/\\/\\_/\\| \n" R);
 }
 
 static char	*prompt(void)
@@ -27,7 +28,7 @@ static char	*prompt(void)
 
 	run_signals(1);
 	show_ghost();
-	str = readline(G "|/\\_/\\/\\_/\\|	->" R);
+	str = readline("MINISHELL ->");
 	if (!str)
 		ft_error_exit("exit", 1);
 	add_history(str);

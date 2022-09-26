@@ -30,6 +30,8 @@ void	error_perror(void)
 void	ft_error(char *message, int code)
 {
 	g_error_code = code;
+	if (message == NULL)
+		return;
 	ft_putstr_fd(message, 2);
 	ft_putchar_fd('\n', 2);
 }
