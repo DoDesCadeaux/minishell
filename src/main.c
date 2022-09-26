@@ -25,11 +25,11 @@ static char	*prompt(void)
 {
 	char	*str;
 
-//	run_signals(1);
+	run_signals(1);
 	show_ghost();
 	str = readline(G "|/\\_/\\/\\_/\\|	->" R);
-//	if (!str)
-//		ft_error_exit("ctrl-D", 1);
+	if (!str)
+		ft_error_exit("exit", 1);
 	add_history(str);
 	return (str);
 }
@@ -40,7 +40,6 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	char		**tok;
 
-	run_signals(1);
 	data = initializer(envp, argc, argv);
 	while (19)
 	{
