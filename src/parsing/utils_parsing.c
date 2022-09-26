@@ -19,13 +19,7 @@ int	is_metachar(char c)
 
 int	is_end_of_dollar(char c)
 {
-	if (c == ' ')
-		return (1);
-	if (c == '$')
-		return (1);
-	if (c == '"')
-		return (1);
-	if (c == 39)
+	if (!ft_isalnum(c))
 		return (1);
 	return (0);
 }

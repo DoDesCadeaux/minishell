@@ -121,6 +121,7 @@ int			is_good_binary(t_struct *data, char *cmd);
 int			ft_strcmp(char *s1, char *s2);
 char		*get_fd(char *file, int type, char *token);
 int			is_pipe(char *line);
+int			find_real_redir(char *haystack, char *needle);
 
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
