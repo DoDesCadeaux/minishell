@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:32:28 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/27 12:30:23 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/09/27 14:02:52 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*prompt(void)
 	char	*str;
 
 	run_signals(1);
-	show_ghost();
+	// show_ghost();
 	str = readline("MINISHELL~> ");
 	if (!str)
 		ft_error_exit("exit", 1);
