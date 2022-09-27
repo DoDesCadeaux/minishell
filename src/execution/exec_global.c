@@ -92,11 +92,13 @@ void	run_program(t_struct *data, char **tok, char *line)
 		data->pipe = 0;
 		tok = tokenisation(line, tok, data);
 		if (tok)
-		{
 			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
-			ft_clear_split(tok);
+		while (data->i_redir != 0)
+		{
+			tok = tokenisation(line, tok, data);
+			if (tok)
+				call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
 		}
-		free(tok);
 	}
 	else
 	{

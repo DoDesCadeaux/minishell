@@ -26,5 +26,6 @@ t_struct	*initializer(char **envp, int argc, char **argv)
 	data = malloc(sizeof(t_struct));
 	protect_malloc(data);
 	data = clone_env(envp, data);
+	data->i_redir = 0;
 	return (data);
 }
