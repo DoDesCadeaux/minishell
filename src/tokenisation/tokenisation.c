@@ -24,6 +24,8 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	if (i == len_split(line_split))
 		return (NULL);
 	i = tok_1(tok, line_split, i, line);
+	if (i < 0)
+		return (NULL);
 	if (data->i_redir != 0)
 		i = data->i_redir;
 	if (line_split[i] && !ft_strcmp(line_split[i], GREAT))

@@ -55,6 +55,8 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 	int		i_end;
 
 	end = NULL;
+	if (!line_split[i])
+		return (-1);
 	if (!ft_strcmp(line_split[i], DGREAT) || !ft_strcmp(line_split[i], GREAT))
 	{
 		tok[1] = ft_strdup("echo -n");
