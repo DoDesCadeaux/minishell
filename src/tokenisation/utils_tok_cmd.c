@@ -28,6 +28,7 @@ char	*remove_multi_space(char *line)
 
 	split_space = ft_split_pipe(line, ' ');
 	protect_malloc(split_space);
+	free(line);
 	i = 1;
 	new_line = ft_strdup(split_space[0]);
 	tmp = NULL;

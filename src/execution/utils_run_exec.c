@@ -34,6 +34,7 @@ void	run_bad_binary(t_struct *data, char *cmd)
 
 void	run_exec(t_struct *data, char **tok)
 {
+	printf("run exec : %p\n", tok);
 	if (data->type == BINARY)
 		execute(data, tok[1]);
 	else if (data->type == BU_ECHO)
