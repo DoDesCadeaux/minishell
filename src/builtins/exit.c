@@ -14,5 +14,6 @@
 
 void	exit_builtins(void)
 {
+	printf("exit\n");
 	exit(EXIT_SUCCESS);
 }

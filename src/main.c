@@ -41,6 +41,8 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	char		**tok;
 
+	if (!envp[0])
+		ft_error_exit("Bien essayé fdp", 1);
 	data = initializer(envp, argc, argv);
 	while (19)
 	{

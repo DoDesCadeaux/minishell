@@ -92,6 +92,8 @@ int	check_doublepipe(char *line)
 	i = 0;
 	while (line[i])
 	{
+		i = skip_double_quotes(line, i);
+		i = skip_single_quotes(line, i);
 		if (line[i] == '|')
 		{
 			i++;

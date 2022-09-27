@@ -64,6 +64,8 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 		cd_builtin(data, tok);
 	if (data->type == BAD_BINARY)
 		run_bad_binary(data, tok[1]);
+	if (data->type == BU_EXIT)
+		exit_builtins();
 	child = fork();
 	if (data->pipe == 0)
 		run_without_pipe(data, tok);
