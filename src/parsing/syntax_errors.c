@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 23:11:04 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/27 12:36:31 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/09/27 17:01:28 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,11 @@ int	syntax_errors(char *line)
 		ft_error("minishell: Syntax error: open quotes", SYNTAX_ERROR);
 		return (1);
 	}
+	if (check_doublepipe(line))
+	{
+		ft_error("minishell: Syntax error near unexpected token '||'", SYNTAX_ERROR);
+		return (1);
+	}
 	if (is_metachar(line[0]))
 	{
 		ft_error(MSG_PIPE_ERROR, PIPE_ERROR);
@@ -132,11 +137,6 @@ int	syntax_errors(char *line)
 	if (stdout_empty(line))
 	{
 		ft_error(MSG_STDOUT_EMPTY, 258);
-		return (1);
-	}
-	if (check_doublepipe(line))
-	{
-		ft_error("minishell: Syntax error: double pipe", SYNTAX_ERROR);
 		return (1);
 	}
 	return (0);
