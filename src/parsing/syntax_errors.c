@@ -126,7 +126,7 @@ int	syntax_errors(char *line)
 	}
 	if (check_doublepipe(line))
 	{
-		ft_error("minishell: Syntax error near unexpected token '||'", SYNTAX_ERROR);
+		ft_error("minishell: Syntax error near unexpected token '||'", PIPE_ERROR);
 		return (1);
 	}
 	if (is_metachar(line[0]))

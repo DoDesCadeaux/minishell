@@ -36,12 +36,10 @@ void	run_signals(int sig)
 	{
 		signal(SIGINT, restore_prompt);
 		signal(SIGQUIT, SIG_IGN);
-		signal(SIGKILL, SIG_IGN);
 	}
 	if (sig == 2)
 	{
 		signal(SIGINT, process_ended);
 		signal(SIGQUIT, process_ended);
-		signal(SIGKILL, SIG_IGN);
 	}
 }
