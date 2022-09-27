@@ -89,10 +89,10 @@ void	single_pipe(char **split_pipe, char **tok, t_struct *data)
 
 	tok = tokenisation(split_pipe[0], tok, data);
 	if (pipe(pfd) == -1)
-		ft_error_exit("pipe error", 0);
+		ft_error_exit("", errno);
 	pid1 = fork();
 	if (pid1 == -1)
-		ft_error_exit("fork error", 0);
+		ft_error_exit("", errno);
 	if (pid1 == 0)
 	{
 		dup2(pfd[1], STDOUT_FILENO);
@@ -104,7 +104,7 @@ void	single_pipe(char **split_pipe, char **tok, t_struct *data)
 		tok = tokenisation(split_pipe[1], tok, data);
 		pid2 = fork();
 		if (pid2 == -1)
-			ft_error_exit("fork error", 0);
+			ft_error_exit("", errno);
 		if (pid2 == 0)
 		{
 			dup2(pfd[0], STDIN_FILENO);
@@ -140,11 +140,11 @@ void	multi_pipe(char **split_pipe, char **tok, t_struct *data)
 	while (split_pipe[i])
 	{
 		if (pipe(pfd) == -1)
-			ft_error_exit("pipe error", 0);
+			ft_error_exit("", errno);
 		tok = tokenisation(split_pipe[i], tok, data);
 		pid = fork();
 		if (pid == -1)
-			ft_error_exit("fork error", 0);
+			ft_error_exit("", errno);
 		if (pid == 0)
 		{
 			dup2(fdd, 0);
