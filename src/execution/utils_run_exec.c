@@ -24,9 +24,9 @@ void	run_bad_binary(t_struct *data, char *cmd)
 	else if (!var_exist(data, "PATH"))
 		ft_error(msg(cmd_arg[0], NULL, "No such file or directory"), CMD_ERROR);
 	else if (!ft_strncmp(cmd, "./", 2))
-		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
+		ft_error(msg(cmd_arg[0] + 2, NULL, "No such file or directory"), CMD_ERROR);
 	else if (!ft_strncmp(cmd, "/", 1))
-		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
+		ft_error(msg(cmd_arg[0], NULL, "No such file or directory"), CMD_ERROR);
 	else
 		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 	ft_free_split(cmd_arg);
