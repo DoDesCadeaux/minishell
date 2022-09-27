@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_global.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 20:40:15 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/17 20:40:17 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/09/27 14:00:44 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ static void	protected_execve(char *path, char **cmd_arg, char **envp)
 	check = execve(path, cmd_arg, envp);
 	if (check == -1)
 	{
+		write(2, cmd_arg[0], ft_strlen(cmd_arg[0]));
+		write(2, ": Command not found\n", 20);
 		ft_free_split(cmd_arg);
-		ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
+		exit(CMD_ERROR);
 	}
 }
 
