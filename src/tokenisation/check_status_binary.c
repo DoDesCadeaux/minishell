@@ -37,8 +37,15 @@ int	is_good_binary(t_struct *data, char *cmd)
 		ft_error("???", CMD_ERROR);
 	if (!cmd_arg[0])
 		return (0);
+	//SI le path existe pas + check
 	if (!var_exist(data, "PATH"))
+	{
+		if (!ft_strncmp(cmd, "./", 2))
+			return (check_access(cmd, cmd_arg));
+		if (!ft_strncmp(cmd, "/", 1))
+			return (check_access(cmd, cmd_arg));
 		return (0);
+	}
 	if (!ft_strncmp(cmd, "./", 2))
 		return (check_access(cmd, cmd_arg));
 	if (!ft_strncmp(cmd, "/", 1))

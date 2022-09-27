@@ -19,13 +19,13 @@ void	run_bad_binary(t_struct *data, char *cmd)
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg)
 		ft_error("minishell: error malloc", MALLOC);
-	if (!cmd_arg[0])
+	else if (!cmd_arg[0])
 		ft_error(msg(cmd, NULL, "Command not found"), CMD_ERROR);
-	if (!var_exist(data, "PATH"))
+	else if (!var_exist(data, "PATH"))
 		ft_error(msg(cmd_arg[0], NULL, "No such file or directory"), CMD_ERROR);
-	if (!ft_strncmp(cmd, "./", 2))
+	else if (!ft_strncmp(cmd, "./", 2))
 		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
-	if (!ft_strncmp(cmd, "/", 1))
+	else if (!ft_strncmp(cmd, "/", 1))
 		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 	else
 		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
