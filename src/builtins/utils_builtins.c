@@ -70,7 +70,7 @@ int	find_env_path(t_struct *data)
 	path = var_exist(data, "PATH");
 	if (!path)
 		return (0);
-	if (!ft_strcmp(path, "/usr/bin"))
+	if (ft_strnstr(path, "/usr/bin", ft_strlen(path)))
 		return (1);
 	return (0);
 }
