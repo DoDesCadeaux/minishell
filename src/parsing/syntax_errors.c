@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 23:11:04 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/13 23:11:05 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/09/27 12:36:31 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,25 @@ int	stdout_empty(char *line)
 	return (0);
 }
 
+int	check_doublepipe(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '|')
+		{
+			i++;
+			if (line[i] && line[i] == '|')
+				return (1);
+		}
+		else
+			i++;
+	}
+	return (0);
+}
+
 int	syntax_errors(char *line)
 {
 	int	i;
@@ -102,7 +121,7 @@ int	syntax_errors(char *line)
 	}
 	if (open_quotes(line, i))
 	{
-		ft_error("minishell: Syntax error : open quotes", SYNTAX_ERROR);
+		ft_error("minishell: Syntax error: open quotes", SYNTAX_ERROR);
 		return (1);
 	}
 	if (is_metachar(line[0]))
@@ -113,6 +132,11 @@ int	syntax_errors(char *line)
 	if (stdout_empty(line))
 	{
 		ft_error(MSG_STDOUT_EMPTY, 258);
+		return (1);
+	}
+	if (check_doublepipe(line))
+	{
+		ft_error("minishell: Syntax error: double pipe", SYNTAX_ERROR);
 		return (1);
 	}
 	return (0);
