@@ -103,7 +103,7 @@ typedef struct s_struct
 	int		type;
 	int		check;
 	int		pipe;
-	int		father_code;
+	int		i_redir;
 }	t_struct;
 
 //ENVIRONNEMENT
