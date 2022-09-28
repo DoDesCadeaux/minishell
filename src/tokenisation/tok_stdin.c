@@ -67,11 +67,7 @@ int	tok_fd_in(char **tok, char **line_split, int i)
 	if (!ft_strcmp(line_split[i], LESS))
 		i = 2;
 	else if (!ft_strcmp(line_split[i], DLESS))
-	{
 		i = 2;
-		if (!line_split[i + 1])
-			i = 3;
-	}
 	else if (!ft_strcmp(line_split[i], DGREAT)
 		|| !ft_strcmp(line_split[i], GREAT))
 		i = 0;

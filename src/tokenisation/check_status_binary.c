@@ -38,11 +38,17 @@ int	is_good_binary(t_struct *data, char *cmd)
 	if (!cmd_arg[0])
 		return (0);
 	if (!var_exist(data, "PATH"))
+	{
+		if (!ft_strncmp(cmd, "./", 2))
+			return (check_access(cmd_arg[0], cmd_arg));
+		if (!ft_strncmp(cmd, "/", 1))
+			return (check_access(cmd_arg[0], cmd_arg));
 		return (0);
+	}
 	if (!ft_strncmp(cmd, "./", 2))
-		return (check_access(cmd, cmd_arg));
+		return (check_access(cmd_arg[0], cmd_arg));
 	if (!ft_strncmp(cmd, "/", 1))
-		return (check_access(cmd, cmd_arg));
+		return (check_access(cmd_arg[0], cmd_arg));
 	else
 	{
 		paths = path_list(data->envp);

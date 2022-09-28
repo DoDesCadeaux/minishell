@@ -19,14 +19,14 @@ void	run_bad_binary(t_struct *data, char *cmd)
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg)
 		ft_error("minishell: error malloc", MALLOC);
-	if (!cmd_arg[0])
+	else if (!cmd_arg[0])
 		ft_error(msg(cmd, NULL, "Command not found"), CMD_ERROR);
-	if (!var_exist(data, "PATH"))
+	else if (!var_exist(data, "PATH"))
 		ft_error(msg(cmd_arg[0], NULL, "No such file or directory"), CMD_ERROR);
-	if (!ft_strncmp(cmd, "./", 2))
-		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
-	if (!ft_strncmp(cmd, "/", 1))
-		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
+	else if (!ft_strncmp(cmd, "./", 2))
+		ft_error(msg(cmd_arg[0] + 2, NULL, "No such file or directory"), CMD_ERROR);
+	else if (!ft_strncmp(cmd, "/", 1))
+		ft_error(msg(cmd_arg[0], NULL, "No such file or directory"), CMD_ERROR);
 	else
 		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
 	ft_free_split(cmd_arg);
@@ -34,6 +34,7 @@ void	run_bad_binary(t_struct *data, char *cmd)
 
 void	run_exec(t_struct *data, char **tok)
 {
+	printf("run exec : %p\n", tok);
 	if (data->type == BINARY)
 		execute(data, tok[1]);
 	else if (data->type == BU_ECHO)

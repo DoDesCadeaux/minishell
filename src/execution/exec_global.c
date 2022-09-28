@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_global.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 20:40:15 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/17 20:40:17 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/09/27 14:00:44 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ static void	protected_execve(char *path, char **cmd_arg, char **envp)
 	check = execve(path, cmd_arg, envp);
 	if (check == -1)
 	{
+		write(2, cmd_arg[0], ft_strlen(cmd_arg[0]));
+		write(2, ": Command not found\n", 20);
 		ft_free_split(cmd_arg);
-		ft_error_exit(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
+		exit(CMD_ERROR);
 	}
 }
 
@@ -62,6 +64,8 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 		cd_builtin(data, tok);
 	if (data->type == BAD_BINARY)
 		run_bad_binary(data, tok[1]);
+	if (data->type == BU_EXIT)
+		exit_builtins();
 	child = fork();
 	if (data->pipe == 0)
 		run_without_pipe(data, tok);
@@ -88,11 +92,13 @@ void	run_program(t_struct *data, char **tok, char *line)
 		data->pipe = 0;
 		tok = tokenisation(line, tok, data);
 		if (tok)
-		{
 			call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
-			ft_clear_split(tok);
+		while (data->i_redir != 0)
+		{
+			tok = tokenisation(line, tok, data);
+			if (tok)
+				call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
 		}
-		free(tok);
 	}
 	else
 	{

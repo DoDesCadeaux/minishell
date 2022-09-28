@@ -93,6 +93,7 @@ enum	e_type
 typedef struct s_struct
 {
 	char	**envp;
+	char	*path;
 	int		shlvl;
 	char	**pwd;
 	char	*user;
@@ -102,7 +103,7 @@ typedef struct s_struct
 	int		type;
 	int		check;
 	int		pipe;
-	int		father_code;
+	int		i_redir;
 }	t_struct;
 
 //ENVIRONNEMENT
@@ -112,6 +113,7 @@ char		**add_var(char **matrix, int len_matrix, int len_nline,
 char		*var_exist(t_struct *data, char *variable);
 int			is_numeric(char *value);
 int			is_env_var(t_struct *data, char *export, int i);
+int			find_env_path(t_struct *data);
 
 //TOKENISATION
 char		**tokenisation(char *line, char **tok, t_struct *data);
