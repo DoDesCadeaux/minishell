@@ -139,7 +139,7 @@ void		export_empty(t_struct *data);
 void		echo(char **tok);
 void		pwd_builtin(t_struct *data);
 void		cd_builtin(t_struct *data, char **tok);
-void		exit_builtins(void);
+int			exit_builtins(char *line);
 void		update_pwd(t_struct *data, int status);
 t_struct	*update_var(t_struct *data, char *export, int i);
 t_struct	*update_envp(t_struct *data, char *type);

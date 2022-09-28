@@ -24,6 +24,7 @@ OBJ_COLOR   = \033[0;36m
 SRC 		= 	ft_isalpha.c		ft_isdigit.c 		ft_isalnum.c \
 				ft_isprint.c		ft_toupper.c		ft_tolower.c \
 				ft_isascii.c		ft_atoi.c			ft_strlen.c \
+														ft_long_atoi.c \
 				ft_strncmp.c		ft_strchr.c			ft_strrchr.c \
 				ft_memcmp.c			ft_memchr.c			ft_memset.c \
 				ft_strnstr.c		ft_bzero.c			ft_strdup.c \
@@ -37,13 +38,6 @@ SRC 		= 	ft_isalpha.c		ft_isdigit.c 		ft_isalnum.c \
 
 OBJ 		= 	${SRC:.c=.o}
 
-####		BONUS		PART
-BONUS 		= 	ft_lstnew.c			ft_lstsize.c		ft_lstlast.c \
-				ft_lstiter.c		ft_lstadd_front.c	ft_lstadd_back.c \
-				ft_lstdelone.c		ft_lstclear.c 		ft_lstmap.c
-
-BONUSOBJ	= ${BONUS:.c=.o}
-
 .c.o:
 	@printf "%b" "$(COM_COLOR)Compiling libft : $(OBJ_COLOR) ${<:.c=.o}\n"
 	@${CC} ${FLAG} ${OPTION} $< -o ${<:.c=.o}
@@ -54,11 +48,8 @@ ${NAME}:	${OBJ}
 
 all:		${NAME}
 
-bonus: ${OBJ} ${BONUSOBJ}
-	@ar -rc ${NAME} ${OBJ} ${BONUSOBJ}
-
 clean:
-		@rm  -f ${OBJ} ${BONUSOBJ}
+		@rm  -f ${OBJ}
 		
 fclean: 	clean
 		@rm  -f ${NAME}
