@@ -120,6 +120,7 @@ int			find_env_path(t_struct *data);
 char		**tokenisation(char *line, char **tok, t_struct *data);
 int			tok_fd_in(char **tok, char **line_split, int i);
 int			tok_1(char **tok, char **line_split, int i, char *line);
+int			tok_fd_out(t_struct *data, char **tok, char **line_split, int i);
 int			check_type(char **tok, t_struct *data);
 int			is_good_binary(t_struct *data, char *cmd);
 int			ft_strcmp(char *s1, char *s2);
