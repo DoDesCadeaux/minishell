@@ -38,7 +38,6 @@
 # define BUFFER_SIZE 100
 
 # define ERROR 1
-# define SYNTAX_ERROR 1
 # define MALLOC 1
 # define EXEC_ERROR 126
 # define CMD_ERROR 127
@@ -65,8 +64,10 @@
 # define CMD	"echo "
 # define MSG_PIPE "pipe> "
 # define MSG_HERE "heredoc> "
-# define MSG_STDOUT_EMPTY "minishell: Syntax error near unexpected token 'newline'"
+# define MSG_STDOUT "minishell: Syntax error near unexpected token 'newline'"
 # define MSG_PIPE_ERROR "minishell: Syntax error near unexpected token '|'"
+# define MSG_DOUBLE_PIPE "minishell: Syntax error near unexpected token '||'"
+# define MSG_NO_SUCH_FILE "No such file or directory"
 
 int	g_error_code;
 
@@ -125,6 +126,8 @@ int			ft_strcmp(char *s1, char *s2);
 char		*get_fd(char *file, int type, char *token);
 int			is_pipe(char *line);
 int			find_real_redir(char *haystack, char *needle);
+int			is_any_redirection(char **line_split, int i);
+int			is_a_greater_redirection(char **line_split, int i);
 
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
@@ -170,6 +173,8 @@ void		*ft_free(char *save);
 
 //PARSING
 int			syntax_errors(char *line);
+int			error_msg(char *msg, int code);
+int			is_empty_line(char *line);
 int			is_metachar(char c);
 char		*parsing(char *line_to_pars, t_struct *data);
 char		*parsing_dollar(t_struct *data, char *line_to_pars, int i);
@@ -187,24 +192,27 @@ int			is_error_code(char *line, int i);
 char		*remove_quotes(char *line);
 char		get_value_of_quote(char quote, char *line, int i);
 char		*preparsing(char *line);
+void		skip_spaces(char **lineptr);
 
-//Main
+//Main.c
 void		show_ghost(void);
 void		protect_malloc(void *element);
+
+//Errors.c
 void		ft_error(char *message, int code);
 void		ft_error_exit(char *message, int code);
 void		error_perror(void);
 
-//Utils
+//Utils.c
 char		*msg(char *cmd, char *element, char *msg);
 
-//Initializer
+//Initializer.c
 t_struct	*initializer(char **envp, int argc, char **argv);
 
-//Signals
+//Signals.c
 void		run_signals(int sig);
 
-//Welcome
+//Welcome.c
 void		welcome(void);
 
 #endif

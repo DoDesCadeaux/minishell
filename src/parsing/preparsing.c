@@ -12,12 +12,6 @@
 
 #include "../../include/minishell.h"
 
-static void	skip_spaces(char **lineptr)
-{
-	while (*(*lineptr) == ' ' || *(*lineptr) == '\t')
-		(*lineptr)++;
-}
-
 static void	ignore_quote(char **lineptr, char **bufptr, char c)
 {
 	*(*bufptr)++ = *(*lineptr)++;
