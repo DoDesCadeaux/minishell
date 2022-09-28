@@ -212,6 +212,7 @@ t_struct	*initializer(char **envp, int argc, char **argv);
 
 //Signals.c
 void		run_signals(int sig);
+void		restore_prompt(int sig);
 
 //Welcome.c
 void		welcome(void);
