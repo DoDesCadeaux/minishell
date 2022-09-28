@@ -12,13 +12,6 @@
 
 #include "../../include/minishell.h"
 
-static int	empty_line(char *line)
-{
-	if (*line == '\0')
-		return (1);
-	return (0);
-}
-
 static int	is_only_spaces(char *line)
 {
 	size_t	i;
@@ -111,35 +104,17 @@ int	syntax_errors(char *line)
 	int	i;
 
 	i = 0;
-	if (empty_line(line))
-	{
-		ft_error(NULL, 0);
-		return (1);
-	}
+	if (is_empty_line(line))
+		return (error_msg(NULL, 0));
 	if (is_only_spaces(line))
-	{
-		ft_error(NULL, 0);
-		return (1);
-	}
+		return (error_msg(NULL, 0));
 	if (open_quotes(line, i))
-	{
-		ft_error("minishell: Syntax error: open quotes", SYNTAX_ERROR);
-		return (1);
-	}
+		return (error_msg("minishell: Syntax error: open quotes", 1));
 	if (check_doublepipe(line))
-	{
-		ft_error("minishell: Syntax error near unexpected token '||'", PIPE_ERROR);
-		return (1);
-	}
+		return (error_msg(MSG_DOUBLE_PIPE, PIPE_ERROR));
 	if (is_metachar(line[0]))
-	{
-		ft_error(MSG_PIPE_ERROR, PIPE_ERROR);
-		return (1);
-	}
+		return (error_msg(MSG_PIPE_ERROR, PIPE_ERROR));
 	if (stdout_empty(line))
-	{
-		ft_error(MSG_STDOUT_EMPTY, 258);
-		return (1);
-	}
+		return (error_msg(MSG_STDOUT, 258));
 	return (0);
 }

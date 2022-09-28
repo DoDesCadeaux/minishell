@@ -53,7 +53,7 @@ static char	*manage_info_stdin(char *info, char **line_split, int i)
 		if (!line_split[i + 1])
 			unlink(HERE_DOC);
 	}
-	else if (!ft_strcmp(line_split[i], DGREAT)|| !ft_strcmp(line_split[i], GREAT))
+	else if (is_a_greater_redirection(line_split, i))
 		info = get_fd(NULL, REDIR_STDIN, NULL);
 	return (info);
 }
@@ -68,8 +68,7 @@ int	tok_fd_in(char **tok, char **line_split, int i)
 		i = 2;
 	else if (!ft_strcmp(line_split[i], DLESS))
 		i = 2;
-	else if (!ft_strcmp(line_split[i], DGREAT)
-		|| !ft_strcmp(line_split[i], GREAT))
+	else if (is_a_greater_redirection(line_split, i))
 		i = 0;
 	else
 		info = get_fd(NULL, REDIR_STDIN, NULL);
