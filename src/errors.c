@@ -24,7 +24,7 @@ void	error_perror(void)
 {
 	perror("minishell");
 	g_error_code = errno;
-	exit(EXIT_FAILURE);
+	exit(g_error_code);
 }
 
 void	ft_error(char *message, int code)
