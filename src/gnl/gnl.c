@@ -34,11 +34,11 @@ static char	*read_file(char *rest, int fd, char *msg)
 	reading = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	protect_malloc(reading);
 	rc = 1;
-	while (rc && !ft_strchr(rest, '\n'))
+	while (rc && !ft_strchr(rest, '\n') && g_error_code != SIGNAL)
 	{
 		ft_putstr_fd(msg, 0);
 		rc = read(fd, reading, BUFFER_SIZE);
-		if (rc < 0)
+		if (rc < 0 || g_error_code == SIGNAL)
 			return (ft_free(reading));
 		reading[rc] = '\0';
 		rest = ft_strjoin_gnl(rest, reading);

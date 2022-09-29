@@ -12,8 +12,10 @@
 
 #include "../include/minishell.h"
 
-static void	restore_prompt(int sig)
+void	restore_prompt(int sig)
 {
+	if (access(HERE_DOC, R_OK) == 0)
+		unlink(HERE_DOC);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	write(1, "\n", 1);
