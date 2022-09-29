@@ -118,7 +118,7 @@ int			find_env_path(t_struct *data);
 
 //TOKENISATION
 char		**tokenisation(char *line, char **tok, t_struct *data);
-int			tok_fd_in(char **tok, char **line_split, int i);
+int			tok_fd_in(t_struct *data, char **tok, char **line_split, int i);
 int			tok_1(char **tok, char **line_split, int i, char *line);
 int			tok_fd_out(t_struct *data, char **tok, char **line_split, int i);
 int			check_type(char **tok, t_struct *data);
@@ -129,6 +129,7 @@ int			is_pipe(char *line);
 int			find_real_redir(char *haystack, char *needle);
 int			is_any_redirection(char **line_split, int i);
 int			is_a_greater_redirection(char **line_split, int i);
+int			is_a_less_redirection(char **line_split, int i);
 
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
