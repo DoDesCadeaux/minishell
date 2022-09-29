@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 	char		**tok;
 
 	data = initializer(envp, argc, argv);
-	while (19)
+	while (!0)
 	{
 		tok = malloc(sizeof(char *) * 4 + 1);
 		protect_malloc(tok);
