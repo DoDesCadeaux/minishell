@@ -33,8 +33,6 @@ static char	*create_heredoc(char *delimiter)
 	}
 	free(line);
 	fd = open("here_doc", O_RDONLY);
-	if (fd < 0)
-		ft_error("???", errno); //???
 	info = ft_itoa(fd);
 	return (info);
 }
