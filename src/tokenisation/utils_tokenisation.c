@@ -32,6 +32,20 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
+static int	get_right_fd(char *file, char *token)
+{
+	int	fd;
+
+	fd = 0;
+	if (file && !ft_strcmp(token, GREAT))
+		fd = open(file, O_CREAT | O_TRUNC | O_RDWR, 0644);
+	else if (file && !ft_strcmp(token, DGREAT))
+		fd = open(file, O_CREAT | O_APPEND | O_RDWR, 0644);
+	else
+		fd = 1;
+	return (fd);
+}
+
 char	*get_fd(char *file, int type, char *token)
 {
 	int		fd;
@@ -53,12 +67,7 @@ char	*get_fd(char *file, int type, char *token)
 	}
 	else
 	{
-		if (file && !ft_strcmp(token, GREAT))
-			fd = open(file, O_CREAT | O_TRUNC | O_RDWR, 0644);
-		else if (file && !ft_strcmp(token, DGREAT))
-			fd = open(file, O_CREAT | O_APPEND | O_RDWR, 0644);
-		else
-			fd = 1;
+		fd = get_right_fd(file, token);
 	}
 	if (fd < 0)
 		return (NULL);

@@ -26,6 +26,15 @@ static int	check_access(char *cmd, char **cmd_arg)
 	}
 }
 
+static int	path_exists(char **cmd_arg, char *cmd)
+{
+	if (!ft_strncmp(cmd, "./", 2))
+		return (check_access(cmd_arg[0], cmd_arg));
+	if (!ft_strncmp(cmd, "/", 1))
+		return (check_access(cmd_arg[0], cmd_arg));
+	return (0);
+}
+
 int	is_good_binary(t_struct *data, char *cmd)
 {
 	char	**paths;
@@ -39,11 +48,7 @@ int	is_good_binary(t_struct *data, char *cmd)
 		return (0);
 	if (!var_exist(data, "PATH"))
 	{
-		if (!ft_strncmp(cmd, "./", 2))
-			return (check_access(cmd_arg[0], cmd_arg));
-		if (!ft_strncmp(cmd, "/", 1))
-			return (check_access(cmd_arg[0], cmd_arg));
-		return (0);
+		return (path_exists(cmd_arg, cmd));
 	}
 	if (!ft_strncmp(cmd, "./", 2))
 		return (check_access(cmd_arg[0], cmd_arg));

@@ -57,3 +57,15 @@ void	run_without_pipe(t_struct *data, char **tok)
 	else if (data->type == BU_EXPORT)
 		export_env(data, tok[1]);
 }
+
+void	run_child(t_struct *data, char **tok, int fdin, int fdout)
+{
+	data->check = dup2(fdin, 0);
+	if (data->check == -1)
+		ft_error_exit("", errno);
+	data->check = dup2(fdout, 1);
+	if (data->check == -1)
+		ft_error_exit("", errno);
+	close_fd(fdin, fdout);
+	run_exec(data, tok);
+}

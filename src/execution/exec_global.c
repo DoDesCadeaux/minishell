@@ -26,7 +26,7 @@ static void	protected_execve(char *path, char **cmd_arg, char **envp)
 	}
 }
 
-static void	close_fd(int fdin, int fdout)
+void	close_fd(int fdin, int fdout)
 {
 	if (fdout != 1)
 		close(fdout);
@@ -67,19 +67,15 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 	if (data->type == BU_EXIT)
 		exit_builtins(tok[1]);
 	child = fork();
+	if (child == -1)
+	{
+		ft_error("", errno);	//??????
+		return ;
+	}
 	if (data->pipe == 0)
 		run_without_pipe(data, tok);
 	if (child == 0)
-	{
-		data->check = dup2(fdin, 0);
-		if (data->check == -1)
-			ft_error_exit("", errno);
-		data->check = dup2(fdout, 1);
-		if (data->check == -1)
-			ft_error_exit("", errno);
-		close_fd(fdin, fdout);
-		run_exec(data, tok);
-	}
+		run_child(data, tok, fdin, fdout);
 	waitpid(child, NULL, 0);
 	if (access(HERE_DOC, F_OK) == 0)
 		unlink(HERE_DOC);

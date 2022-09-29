@@ -82,7 +82,8 @@ char	*str_dup_parts(char *src, int end, int start)
 
 static int	is_a_less_redir(char *line_split, int i)
 {
-	if (line_split[i] == '<' || (line_split[i] == '<' && line_split[i + 1] == '<'))
+	if (line_split[i] == '<'
+		|| (line_split[i] == '<' && line_split[i + 1] == '<'))
 		return (1);
 	else
 		return (0);
@@ -111,10 +112,10 @@ static int	find_cat(const char *haystack, const char *needle)
 	return (0);
 }
 
-static char *erase(char *line, int end_first_part, int start_second_part)
+static char	*erase(char *line, int end_first_part, int start_second_part)
 {
 	char	*tmp1;
-	char 	*tmp2;
+	char	*tmp2;
 
 	tmp1 = str_dup_parts(line, end_first_part, 0);
 	tmp2 = str_dup_parts(line, ft_strlen(line), start_second_part);
@@ -122,17 +123,16 @@ static char *erase(char *line, int end_first_part, int start_second_part)
 	return (line);
 }
 
-static int is_end_of_word(char *line, int i)
+static int	is_end_of_word(char *line, int i)
 {
 	if (!ft_isalpha(line[i + 1]))
 		return (1);
 	if (line[i + 1] == '\0')
 		return (1);
-
 	return (0);
 }
 
-static char *return_line(char *line, int start_cut, int i)
+static char	*return_line(char *line, int start_cut, int i)
 {
 	if (line[i] == 34)
 		i = skip_double_quotes(line, i);
@@ -147,7 +147,7 @@ static char *return_line(char *line, int start_cut, int i)
 
 static char	*erase_redirection_and_following_word(char *line, int i)
 {
-	int 	start_cut;
+	int	start_cut;
 
 	start_cut = i - 1;
 	i++;
