@@ -72,11 +72,9 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 	if (child == 0)
 	{
 		data->check = dup2(fdin, 0);
-		if (data->check == -1)
-			ft_error_exit("", errno);
+		protect_dup(data->check);
 		data->check = dup2(fdout, 1);
-		if (data->check == -1)
-			ft_error_exit("", errno);
+		protect_dup(data->check);
 		close_fd(fdin, fdout);
 		run_exec(data, tok);
 	}

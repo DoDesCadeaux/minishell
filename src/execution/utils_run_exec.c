@@ -57,3 +57,9 @@ void	run_without_pipe(t_struct *data, char **tok)
 	else if (data->type == BU_EXPORT)
 		export_env(data, tok[1]);
 }
+
+void	protect_dup(int check)
+{
+	if (check == -1)
+		ft_error_exit("", errno);
+}
