@@ -196,6 +196,7 @@ char		*remove_quotes(char *line);
 char		get_value_of_quote(char quote, char *line, int i);
 char		*preparsing(char *line);
 void		skip_spaces(char **lineptr);
+char		*parsing_cat(char *line);
 
 //Main.c
 void		show_ghost(void);

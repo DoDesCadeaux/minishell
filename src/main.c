@@ -8,7 +8,7 @@
 /*   Created: 2022/08/18 13:32:28 by pamartin          #+#    #+#             */
 /*   Updated: 2022/09/27 16:59:16 by algaspar         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/* ****************************************************************i********** */
 
 #include "../include/minishell.h"
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 	char		**tok;
 
 	data = initializer(envp, argc, argv);
-	while (19)
+	while (!0)
 	{
 		tok = malloc(sizeof(char *) * 4 + 1);
 		protect_malloc(tok);
