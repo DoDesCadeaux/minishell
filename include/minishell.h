@@ -168,6 +168,7 @@ void		call_exec(t_struct *data, char **tok, int fdin, int fdout);
 void		run_program(t_struct *data, char **tok, char *line);
 void		close_fd(int fdin, int fdout);
 void		run_child(t_struct *data, char **tok, int fdin, int fdout);
+void		protect_dup(int check);
 
 //GNL
 char		*get_next_line(int fd, char *msg);

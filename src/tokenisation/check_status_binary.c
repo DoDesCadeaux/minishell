@@ -42,8 +42,6 @@ int	is_good_binary(t_struct *data, char *cmd)
 	char	*path;
 
 	cmd_arg = ft_split_pipe(cmd, ' ');
-	if (!cmd_arg)
-		ft_error("???", CMD_ERROR);
 	if (!cmd_arg[0])
 		return (0);
 	if (!var_exist(data, "PATH"))

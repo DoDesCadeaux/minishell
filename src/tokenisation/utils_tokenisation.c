@@ -46,22 +46,14 @@ static int	get_right_fd(char *file, char *token)
 	return (fd);
 }
 
-char	*get_fd(char *file, int type, char *token)
+static int	find_fd(char *file, int type, char *token)
 {
-	int		fd;
-	char	*fd_tok;
+	int	fd;
 
 	if (type == REDIR_STDIN)
 	{
 		if (file)
-		{
 			fd = open(file, O_RDONLY);
-			if (fd == -1)
-			{
-				ft_error(msg("", file, "No such file or directory"), 1);
-				return (NULL);
-			}
-		}
 		else
 			fd = 0;
 	}
@@ -69,8 +61,20 @@ char	*get_fd(char *file, int type, char *token)
 	{
 		fd = get_right_fd(file, token);
 	}
+	return (fd);
+}
+
+char	*get_fd(char *file, int type, char *token)
+{
+	int		fd;
+	char	*fd_tok;
+
+	fd = find_fd(file, type, token);
 	if (fd < 0)
+	{
+		ft_error(msg("", file, "No such file or directory"), errno);
 		return (NULL);
+	}
 	fd_tok = ft_itoa(fd);
 	return (fd_tok);
 }
