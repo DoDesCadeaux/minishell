@@ -44,7 +44,7 @@ char	*get_fd(char *file, int type, char *token)
 			fd = open(file, O_RDONLY);
 			if (fd == -1)
 			{
-				perror(file);
+				ft_error(msg("", file, "No such file or directory"), 1);
 				return (NULL);
 			}
 		}

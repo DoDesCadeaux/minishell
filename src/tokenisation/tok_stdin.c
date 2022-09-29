@@ -42,11 +42,7 @@ static char	*create_heredoc(char *delimiter)
 static char	*manage_info_stdin(char *info, char **line_split, int i)
 {
 	if (!ft_strcmp(line_split[i], LESS))
-	{
 		info = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
-		if (!info)
-			ft_error("", 1); // que écrire dans l'erreur??
-	}
 	else if (!ft_strcmp(line_split[i], DLESS))
 	{
 		info = create_heredoc(line_split[i + 1]);
@@ -58,23 +54,29 @@ static char	*manage_info_stdin(char *info, char **line_split, int i)
 	return (info);
 }
 
-int	tok_fd_in(char **tok, char **line_split, int i)
+int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 {
 	char	*info;
 
 	info = NULL;
+	if (data->i_redir != 0)
+		i = data->i_redir;
 	info = manage_info_stdin(info, line_split, i);
 	if (!ft_strcmp(line_split[i], LESS))
-		i = 2;
+		i += 2;
 	else if (!ft_strcmp(line_split[i], DLESS))
-		i = 2;
+		i += 2;
 	else if (is_a_greater_redirection(line_split, i))
-		i = 0;
+		i += 0;
 	else
 		info = get_fd(NULL, REDIR_STDIN, NULL);
+	if (is_a_less_redirection(line_split, i) && info)
+		data->i_redir = i;
+	else
+		data->i_redir = 0;
+	tok[0] = ft_strdup(info);
 	if (!info)
 		return (i);
-	tok[0] = ft_strdup(info);
 	free(info);
 	return (i);
 }

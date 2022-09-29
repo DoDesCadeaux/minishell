@@ -29,3 +29,14 @@ int	is_a_greater_redirection(char **line_split, int i)
 	else
 		return (0);
 }
+
+int	is_a_less_redirection(char **line_split, int i)
+{
+	while (line_split[i])
+	{
+		if (!ft_strcmp(line_split[i], DLESS) || !ft_strcmp(line_split[i], LESS))
+			return (1);
+		i++;
+	}
+	return (0);
+}
