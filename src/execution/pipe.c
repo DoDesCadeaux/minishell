@@ -49,6 +49,8 @@ static void	run_multi_pipe(t_struct *data, char **tok, int *pipe_fd1)
 	close(pipe_fd2[1]);
 	pipe_fd1[0] = dup2(pipe_fd2[0], pipe_fd1[0]);
 	pipe_fd1[1] = dup2(pipe_fd2[1], pipe_fd1[1]);
+	protect_dup(pipe_fd1[0]);
+	protect_dup(pipe_fd1[1]);
 	close(pipe_fd2[0]);
 	close(pipe_fd2[1]);
 }

@@ -58,7 +58,6 @@ void	run_without_pipe(t_struct *data, char **tok)
 		export_env(data, tok[1]);
 }
 
-
 void	run_child(t_struct *data, char **tok, int fdin, int fdout)
 {
 	data->check = dup2(fdin, 0);
@@ -67,9 +66,12 @@ void	run_child(t_struct *data, char **tok, int fdin, int fdout)
 	protect_dup(data->check);
 	close_fd(fdin, fdout);
 	run_exec(data, tok);
+}
 
 void	protect_dup(int check)
 {
 	if (check == -1)
+	{
 		ft_error_exit("", errno);
+	}
 }

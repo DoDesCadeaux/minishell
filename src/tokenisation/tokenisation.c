@@ -20,11 +20,11 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	data->i_redir = 0;
 	line_split = ft_split_pipe(line, ' ');
 	i = 0;
-	i = tok_fd_in(data, tok, line_split, i);
+	i = tok_fd_in(tok, line_split, i);
 	if (i == len_split(line_split))
 		return (NULL);
 	while (data->i_redir != 0)
-		i = tok_fd_in(data, tok, line_split, i);
+		i = tok_fd_in(tok, line_split, i);
 	if (!tok[0])
 		return (NULL);
 	i = tok_1(tok, line_split, i, line);
