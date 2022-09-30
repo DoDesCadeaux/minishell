@@ -48,7 +48,6 @@ int check_redirections(char *line)
 	i = 0;
 	while (array[i])
 	{
-		printf("-%s\n", array[i]);
 		if (ends_with_redirection(array[i]))
 			return (1);
 		i++;

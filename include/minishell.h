@@ -131,17 +131,12 @@ int			is_pipe(char *line);
 int			find_real_redir(char *haystack, char *needle);
 int			is_any_redirection(char **line_split, int i);
 int			is_a_greater_redirection(char **line_split, int i);
-<<<<<<< HEAD
 int			there_is_a_less_redirection(char **line_split, int i);
 int			is_less_redirection(char **line_split, int i);
 char		*parsing_redirstdin(char *line);
-=======
 int			is_a_less_redirection(char **line_split, int i);
 int			is_a_less_redir(char *line_split, int i);
 int			is_a_greater_redir(char *line_split, int i);
-
->>>>>>> f54787d3766cf55f5cbb4142b7cfe665aad8ba37
-
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
 

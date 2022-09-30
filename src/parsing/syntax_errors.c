@@ -53,8 +53,6 @@ static int	open_quotes(char *line, int i)
 	return (0);
 }
 
-
-
 int	check_doublepipe(char *line)
 {
 	int	i;
@@ -91,12 +89,9 @@ int	syntax_errors(char *line)
 		return (error_msg(MSG_DOUBLE_PIPE, PIPE_ERROR));
 	if (is_metachar(line[0]))
 		return (error_msg(MSG_PIPE_ERROR, PIPE_ERROR));
-<<<<<<< HEAD
-=======
-	if (stdout_empty(line))
-		return (error_msg(MSG_STDOUT, 258));
+	//if (stdout_empty(line))
+	//	return (error_msg(MSG_STDOUT, 258));
 	if (check_redirections(line))
-		return (error_msg(MSG_STDOUT, 2));
->>>>>>> f54787d3766cf55f5cbb4142b7cfe665aad8ba37
+		return (error_msg(MSG_STDOUT, 258));
 	return (0);
 }

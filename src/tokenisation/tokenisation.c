@@ -38,7 +38,7 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 		i = tok_fd_out(data, tok, line_split, i);
 	printf("i = %d\n", i);
 	tok[1] = parsing(tok[1], data);
-	//tok[1] = parsing_redirstdin(tok[1]);
+	tok[1] = parsing_redirstdin(tok[1]);
 	printf("tok[1] apres parsing cat = %s\n", tok[1]);
 	free(line);
 	tok[3] = 0;
