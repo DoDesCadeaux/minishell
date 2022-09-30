@@ -114,14 +114,14 @@ static char	*erase(char *line, int end_first_part, int start_second_part)
 	return (line);
 }
 
-static int	is_end_of_word(char *line, int i)
-{
-	if (!ft_isalpha(line[i + 1]))
-		return (1);
-	if (line[i + 1] == '\0')
-		return (1);
-	return (0);
-}
+//static int	is_end_of_word(char *line, int i)
+//{
+//	if (!ft_isalpha(line[i + 1]))
+//		return (1);
+//	if (line[i + 1] == '\0')
+//		return (1);
+//	return (0);
+//}
 
 static char	*return_line(char *line, int start_cut, int i)
 {
@@ -148,7 +148,7 @@ static char	*erase_redirection_and_following_word(char *line, int i)
 		return (return_line(line, start_cut, i));
 	while (line[i])
 	{
-		if (is_end_of_word(line, i))
+		if (!ft_isalpha(line[i + 1]) || line[i + 1] == '\0')
 		{
 			i += 1;
 			line = erase(line, start_cut, i);
