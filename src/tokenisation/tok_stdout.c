@@ -19,13 +19,13 @@ int	tok_fd_out(t_struct *data, char **tok, char **line_split, int i)
 	if (data->i_redir != 0)
 		i = data->i_redir;
 	if (line_split[i] && !ft_strcmp(line_split[i], GREAT))
-		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT);
+		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT, -1);
 	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT))
-		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, DGREAT);
-	else if (line_split[i] && !ft_strcmp(line_split[i], LESS))
-		tmp = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
+		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, DGREAT, -1);
+	//else if (line_split[i] && !ft_strcmp(line_split[i], LESS))
+	//	tmp = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
 	else
-		tmp = get_fd(NULL, REDIR_STDOUT, NULL);
+		tmp = get_fd(NULL, REDIR_STDOUT, NULL, -1);
 	if (tmp)
 		tok[2] = ft_strdup(tmp);
 	free(tmp);

@@ -64,3 +64,24 @@ int	find_real_redir( char *haystack, char *needle)
 	}
 	return (-1);
 }
+
+char	*reverse_split(char **line_split, char *add)
+{
+	char *tmp;
+	char *line;
+	int i;
+
+	i = 1;
+	line = ft_strdup(line_split[0]);
+	tmp = ft_strjoin(line, add);
+	while (line_split[i])
+	{
+		free(line);
+		line = ft_strjoin(tmp, line_split[i]);
+		free(tmp);
+		tmp = ft_strjoin(line, add);
+		i++;
+	}
+	free(line);
+	return(tmp);
+}

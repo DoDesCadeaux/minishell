@@ -105,6 +105,8 @@ typedef struct s_struct
 	int		check;
 	int		pipe;
 	int		i_redir;
+	int		cmd;
+	int		real_i;
 }	t_struct;
 
 //ENVIRONNEMENT
@@ -118,7 +120,7 @@ int			find_env_path(t_struct *data);
 
 //TOKENISATION
 char		**tokenisation(char *line, char **tok, t_struct *data);
-int			tok_fd_in(char **tok, char **line_split, int i);
+int			tok_fd_in(t_struct *data, char **tok, char **line_split, int i);
 int			tok_1(char **tok, char **line_split, int i, char *line);
 int			tok_fd_out(t_struct *data, char **tok, char **line_split, int i);
 int			check_type(char **tok, t_struct *data);
@@ -129,7 +131,9 @@ int			is_pipe(char *line);
 int			find_real_redir(char *haystack, char *needle);
 int			is_any_redirection(char **line_split, int i);
 int			is_a_greater_redirection(char **line_split, int i);
-int			is_a_less_redirection(char **line_split, int i);
+int			there_is_a_less_redirection(char **line_split, int i);
+int			is_less_redirection(char **line_split, int i);
+char		*parsing_redirstdin(char *line);
 
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
@@ -211,6 +215,7 @@ void		error_perror(void);
 
 //Utils.c
 char		*msg(char *cmd, char *element, char *msg);
+char		*reverse_split(char **line_split, char *add);
 
 //Initializer.c
 t_struct	*initializer(char **envp, int argc, char **argv);

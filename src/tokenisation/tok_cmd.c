@@ -39,7 +39,7 @@ static int	manage_redirection_with_quotes(char **line_split, int i)
 			i++;
 		else if (line_split[i][0] == 34)
 			i++;
-		else if (line_split[i] && is_any_redirection(line_split, i))
+		else if (line_split[i] && is_a_greater_redirection(line_split, i))
 			return (i);
 		else
 			i++;

@@ -53,30 +53,7 @@ static int	open_quotes(char *line, int i)
 	return (0);
 }
 
-int	stdout_empty(char *line)
-{
-	int	i;
 
-	i = 0;
-	line = remove_multi_space(line);
-	while (line[i])
-	{
-		i = skip_double_quotes(line, i);
-		i = skip_single_quotes(line, i);
-		if (line[i] && line[i] == '>')
-		{
-			i++;
-			if (!line[i])
-				return (1);
-			else if (line[i] == '>' && !line[i + 1])
-				return (1);
-			else
-				return (0);
-		}
-		i++;
-	}
-	return (0);
-}
 
 int	check_doublepipe(char *line)
 {
@@ -114,7 +91,5 @@ int	syntax_errors(char *line)
 		return (error_msg(MSG_DOUBLE_PIPE, PIPE_ERROR));
 	if (is_metachar(line[0]))
 		return (error_msg(MSG_PIPE_ERROR, PIPE_ERROR));
-	if (stdout_empty(line))
-		return (error_msg(MSG_STDOUT, 258));
 	return (0);
 }
