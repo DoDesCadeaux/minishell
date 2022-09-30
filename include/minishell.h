@@ -43,7 +43,7 @@
 # define CMD_ERROR 127
 # define PATH_ERROR 127
 # define FD_ERROR 1
-# define PIPE_ERROR 258
+# define PIPE_ERROR 2
 # define SIGNAL 130
 # define SUCCES	0
 
@@ -64,9 +64,9 @@
 # define CMD	"echo "
 # define MSG_PIPE "pipe> "
 # define MSG_HERE "heredoc> "
-# define MSG_STDOUT "minishell: Syntax error near unexpected token 'newline'"
-# define MSG_PIPE_ERROR "minishell: Syntax error near unexpected token '|'"
-# define MSG_DOUBLE_PIPE "minishell: Syntax error near unexpected token '||'"
+# define MSG_STDOUT "minishell: Syntax error near unexpected token `newline'"
+# define MSG_PIPE_ERROR "minishell: Syntax error near unexpected token `|'"
+# define MSG_DOUBLE_PIPE "minishell: Syntax error near unexpected token `||'"
 # define MSG_NO_SUCH_FILE "No such file or directory"
 
 int	g_error_code;
@@ -130,6 +130,9 @@ int			find_real_redir(char *haystack, char *needle);
 int			is_any_redirection(char **line_split, int i);
 int			is_a_greater_redirection(char **line_split, int i);
 int			is_a_less_redirection(char **line_split, int i);
+int			is_a_less_redir(char *line_split, int i);
+int			is_a_greater_redir(char *line_split, int i);
+
 
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
@@ -199,6 +202,7 @@ char		get_value_of_quote(char quote, char *line, int i);
 char		*preparsing(char *line);
 void		skip_spaces(char **lineptr);
 char		*parsing_cat(char *line);
+int			check_redirections(char *line);
 
 //Main.c
 void		show_ghost(void);

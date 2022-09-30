@@ -24,3 +24,34 @@ int	error_msg(char *msg, int code)
 	ft_error(msg, code);
 	return (1);
 }
+
+static int	ends_with_redirection(char *line)
+{
+	int i;
+
+	if (!line)
+		return (0);
+	i = ft_strlen(line);
+	while ((line[i] == ' ' || line[i] == '\0'))
+		i--;
+	if (is_a_less_redir(line, i) || is_a_greater_redir(line, i))
+		return (1);
+	return (0);
+}
+
+int check_redirections(char *line)
+{
+	int 	i;
+	char	**array;
+
+	array = ft_split_pipe(line, '|');
+	i = 0;
+	while (array[i])
+	{
+		printf("-%s\n", array[i]);
+		if (ends_with_redirection(array[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}

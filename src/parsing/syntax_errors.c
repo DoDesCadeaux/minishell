@@ -116,5 +116,7 @@ int	syntax_errors(char *line)
 		return (error_msg(MSG_PIPE_ERROR, PIPE_ERROR));
 	if (stdout_empty(line))
 		return (error_msg(MSG_STDOUT, 258));
+	if (check_redirections(line))
+		return (error_msg(MSG_STDOUT, 2));
 	return (0);
 }

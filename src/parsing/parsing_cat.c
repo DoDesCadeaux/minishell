@@ -80,15 +80,6 @@ char	*str_dup_parts(char *src, int end, int start)
 
 /////////////////////////////////////
 
-static int	is_a_less_redir(char *line_split, int i)
-{
-	if (line_split[i] == '<'
-		|| (line_split[i] == '<' && line_split[i + 1] == '<'))
-		return (1);
-	else
-		return (0);
-}
-
 static int	find_cat(const char *haystack, const char *needle)
 {
 	int	i;

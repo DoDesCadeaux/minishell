@@ -40,3 +40,21 @@ int	is_a_less_redirection(char **line_split, int i)
 	}
 	return (0);
 }
+
+int	is_a_less_redir(char *line_split, int i)
+{
+	if (line_split[i] == '<'
+		|| (line_split[i] == '<' && line_split[i + 1] == '<'))
+		return (1);
+	else
+		return (0);
+}
+
+int	is_a_greater_redir(char *line_split, int i)
+{
+	if (line_split[i] == '>'
+		|| (line_split[i] == '>' && line_split[i + 1] == '>'))
+		return (1);
+	else
+		return (0);
+}
