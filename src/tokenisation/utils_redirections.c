@@ -41,6 +41,7 @@ int	there_is_a_less_redirection(char **line_split, int i)
 	return (0);
 }
 
+<<<<<<< HEAD
 int	is_less_redirection(char **line_split, int i)
 {
 	if (!ft_strcmp(line_split[i], DLESS) || !ft_strcmp(line_split[i], LESS))
@@ -48,3 +49,22 @@ int	is_less_redirection(char **line_split, int i)
 	else
 		return (0);
 }
+=======
+int	is_a_less_redir(char *line_split, int i)
+{
+	if (line_split[i] == '<'
+		|| (line_split[i] == '<' && line_split[i + 1] == '<'))
+		return (1);
+	else
+		return (0);
+}
+
+int	is_a_greater_redir(char *line_split, int i)
+{
+	if (line_split[i] == '>'
+		|| (line_split[i] == '>' && line_split[i + 1] == '>'))
+		return (1);
+	else
+		return (0);
+}
+>>>>>>> f54787d3766cf55f5cbb4142b7cfe665aad8ba37

@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:49:30 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/27 15:21:58 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/09/30 13:38:48 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ static void	run_multi_pipe(t_struct *data, char **tok, int *pipe_fd1)
 	close(pipe_fd2[1]);
 	pipe_fd1[0] = dup2(pipe_fd2[0], pipe_fd1[0]);
 	pipe_fd1[1] = dup2(pipe_fd2[1], pipe_fd1[1]);
-	protect_dup(pipe_fd1[0]);
-	protect_dup(pipe_fd1[1]);
 	close(pipe_fd2[0]);
 	close(pipe_fd2[1]);
 }
