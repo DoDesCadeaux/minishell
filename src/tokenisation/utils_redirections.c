@@ -41,6 +41,28 @@ int	there_is_a_less_redirection(char **line_split, int i)
 	return (0);
 }
 
+int	there_is_a_less_redir(char **line_split, int i)
+{
+	while (line_split[i])
+	{
+		if (!ft_strcmp(line_split[i], LESS))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	there_is_a_dless_redir(char **line_split, int i)
+{
+	while (line_split[i])
+	{
+		if (!ft_strcmp(line_split[i], DLESS))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	is_less_redirection(char **line_split, int i)
 {
 	if (!ft_strcmp(line_split[i], DLESS) || !ft_strcmp(line_split[i], LESS))

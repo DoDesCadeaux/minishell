@@ -47,13 +47,14 @@ static char	*create_heredoc(char *delimiter)
 
 static char	*manage_info_stdin(char *info, char **line_split, int i)
 {
+	//printf("dans manage info, line = %s\n", line_split[i]);
 	if (!ft_strcmp(line_split[i], LESS))
 		info = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
 	else if (!ft_strcmp(line_split[i], DLESS))
 	{
 		info = create_heredoc(line_split[i + 1]);
-		if (!line_split[i + 1])
-			unlink(HERE_DOC);
+		//if (!line_split[i + 1])
+		//	unlink(HERE_DOC);
 	}
 	else
 		info = get_fd(NULL, REDIR_STDIN, NULL);
@@ -65,22 +66,37 @@ int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 	char	*info;
 
 	info = NULL;
-	if (data->i_redir != 0)
+	if (data->i_redir == 1)
 		i = data->i_redir;
-	//printf("i = %d\n", i);
+	else if (data->i_redir > 1)
+		i = data->i_redir - 1;
+	printf("i = %d\n", i);
 	info = manage_info_stdin(info, line_split, i);
 //printf("pass manageavec info = %s\n", info);
-	if (!ft_strcmp(line_split[i], LESS))
+	if (!ft_strcmp(line_split[i], LESS)) /// remplacer par is_less_redirection
 		i += 2;
 	else if (!ft_strcmp(line_split[i], DLESS))
 		i += 2;
 	else if (is_a_greater_redirection(line_split, i))
 		i += 0;
-	if (there_is_a_less_redirection(line_split, i) && info)
-		data->i_redir = i;
+	printf("ici on est a -> %s\n", line_split[i]);
+	printf("rslt ther is less = %d\n", there_is_a_less_redirection(line_split, i));
+	if (there_is_a_less_redirection(line_split, i))
+		data->i_redir = i + 1;
 	else
-		data->i_redir = 0;
+		data->i_redir = -1;
+	if (data->i_redir != -1)
+	{
+		printf("il y a une redir\n");
+		if (data->cmd < 0)
+			data->cmd = i;
+		//data->i_redir++;
+		printf("position new i_redir : %s\n", line_split[data->i_redir]);
+	}
 	tok[0] = ft_strdup(info);
+	printf("data->cmdddddd === %d\n", data->cmd);
+	if (data->cmd >= 0)
+		return (data->cmd);
 	if (!info)
 		return (i);
 	free(info);

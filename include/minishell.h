@@ -137,6 +137,8 @@ char		*parsing_redirstdin(char *line);
 int			is_a_less_redirection(char **line_split, int i);
 int			is_a_less_redir(char *line_split, int i);
 int			is_a_greater_redir(char *line_split, int i);
+int			there_is_a_less_redir(char **line_split, int i);
+int			there_is_a_dless_redir(char **line_split, int i);
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
 

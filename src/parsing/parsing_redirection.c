@@ -45,8 +45,9 @@ char	*manage_one_redir(char **line_split, int i)
 {
 	char	*line;
 	char	*tmp;
-	//int		cible;
+//	int		cible;
 
+	//cible = 0;
 	line = NULL; //
 	while (line_split[i])
 	{
@@ -54,12 +55,16 @@ char	*manage_one_redir(char **line_split, int i)
 		{
 			free(line_split[i]);
 			line_split[i] = ft_strdup(" ");
-			if (line_split[i + 1])
+			if (line_split[i + 1] && line_split[i + 2])
 			{
 				free(line_split[i + 1]);
 				line_split[i + 1] = ft_strdup(" ");
 			}
-			//line = reverse_split(line_split, " ");
+			else if (line_split[i + 1] && !line_split[i + 2])
+			{
+				free(line_split[i + 1]);
+				line_split[i + 1] = ft_strdup("here_doc");
+			}
 		}
 		if (!ft_strcmp(line_split[i], LESS))
 		{
@@ -69,8 +74,11 @@ char	*manage_one_redir(char **line_split, int i)
 			{
 				if (access(line_split[i + 1], F_OK) == 0)
 				{
-					free(line_split[i + 1]);
-					line_split[i + 1] = ft_strdup(" ");
+					if (line_split[i + 2])
+					{
+						free(line_split[i + 1]);
+						line_split[i + 1] = ft_strdup(" ");
+					}
 				}
 				else
 				{
@@ -92,8 +100,70 @@ char	*manage_one_redir(char **line_split, int i)
 		i++;
 	}
 	line = reverse_split(line_split, " ");
-	ft_free_split(line_split);
+	//ft_free_split(line_split);
 	return (line);
+}
+
+char	*manage_multi_redir(char **line_split, int i)
+{
+	char	*line;
+	char	*tmp;
+
+	line = NULL; //
+	while (line_split[i])
+	{
+		if (!ft_strcmp(line_split[i], DLESS))
+		{
+			free(line_split[i]);
+			line_split[i] = ft_strdup(" ");
+			if (line_split[i + 1] && there_is_a_less_redirection(line_split, i + 1))
+			{
+				free(line_split[i + 1]);
+				line_split[i + 1] = ft_strdup(" ");
+			}
+			else
+			{
+				free(line_split[i + 1]);
+				line_split[i + 1] = ft_strdup("here_doc");
+			}
+		}
+		if (!ft_strcmp(line_split[i], LESS))
+		{
+			free(line_split[i]);
+			line_split[i] = ft_strdup(" ");
+			if (line_split[i + 1])
+			{
+				if (access(line_split[i + 1], F_OK) == 0)
+				{
+					if (line_split[i + 2])
+					{
+						free(line_split[i + 1]);
+						line_split[i + 1] = ft_strdup(" ");
+					}
+				}
+				else
+				{
+					line = ft_strjoin(line_split[0]," ");
+					tmp = ft_strjoin(line, line_split[i + 1]);
+					free(line);
+					ft_free_split(line_split);
+					printf("tmp = %s\n", tmp);
+					return (tmp);
+				}
+			}
+		}
+		i++;
+	}
+	i = 0;
+	while (line_split[i])
+	{
+		printf("split %d : %s\n", i, line_split[i]);
+		i++;
+	}
+	line = reverse_split(line_split, " ");
+	//ft_free_split(line_split);
+	return (line);
+
 }
 
 char	*parsing_redirstdin(char *line)
@@ -111,14 +181,13 @@ char	*parsing_redirstdin(char *line)
 	printf("nb = %d\n", nb);
 	if (nb == 0)
 	{
-		//printf("parsing 1\n");
 		ft_free_split(line_split);
 		return (line);
 	}
-	else
-	{
-		printf("parsing 2\n");
+	if (nb == 1)
 		new_line = manage_one_redir(line_split, i);
-	}
+	if (nb > 1)
+		new_line = manage_multi_redir(line_split, i);
+	ft_free_split(line_split);
 	return (new_line);
 }
