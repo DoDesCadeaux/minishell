@@ -55,9 +55,8 @@ static char	*manage_info_stdin(char *info, char **line_split, int i)
 		if (!line_split[i + 1])
 			unlink(HERE_DOC);
 	}
-	else if (is_a_greater_redirection(line_split, i))
+	else
 		info = get_fd(NULL, REDIR_STDIN, NULL);
-	//printf("info ====== %s\n", info);
 	return (info);
 }
 
