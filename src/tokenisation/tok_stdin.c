@@ -12,12 +12,6 @@
 
 #include "../../include/minishell.h"
 
-static void	protect(void)
-{
-	perror("minishell: ");
-	exit(EXIT_FAILURE);
-}
-
 static char	*create_heredoc(char *delimiter)
 {
 	char	*line;
@@ -57,58 +51,62 @@ static char	*manage_info_stdin(char *info, char **line_split, int i)
 	}
 	else
 		info = get_fd(NULL, REDIR_STDIN, NULL);
-	printf("info = %s\n", info);
 	return (info);
+}
+
+static int	manage_incre(char **line_split, t_struct *data, int i, int type)
+{
+	if (is_less_redirection(line_split, i))
+		i += 2;
+	else if (is_a_greater_redirection(line_split, i))
+		i += 0;
+	else
+	{
+		if (type == POST)
+			i += 1;
+	}
+	if (type == PRE)
+	{
+		if (there_is_a_less_redirection(line_split, i) && i > 0)
+			data->i_redir = i + 1;
+		else
+			data->i_redir = -1;
+		if (data->i_redir != -1 && data->cmd < 0)
+			data->cmd = i;
+	}
+	return (i);
+}
+
+void	redir_after_executable(char **line_split, t_struct *data, int i)
+{
+	char	*info;
+	int		y;
+
+	info = NULL;
+	y = i + 1;
+	while (line_split[y] && !is_a_greater_redirection(line_split, y))
+	{
+		manage_info_stdin(info, line_split, y);
+		y = manage_incre(line_split, data, y, POST);
+	}
+	data->i_redir = -1;
 }
 
 int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 {
 	char	*info;
-	int		y;
 	int		i_manage;
 
-	y = 0;
 	info = NULL;
 	if (data->i_redir == 1)
 		i = data->i_redir;
 	else if (data->i_redir > 1)
 		i = data->i_redir - 1;
 	i_manage = i;
-	if (!ft_strcmp(line_split[i], LESS)) /// remplacer par is_less_redirection
-		i += 2;
-	else if (!ft_strcmp(line_split[i], DLESS))
-		i += 2;
-	else if (is_a_greater_redirection(line_split, i))
-		i += 0;
-	if (there_is_a_less_redirection(line_split, i) && i > 0)
-		data->i_redir = i + 1;
-	else
-		data->i_redir = -1;
-	if (data->i_redir != -1 && data->cmd < 0)
-	{
-		data->cmd = i;
-	}
-	printf("line_split[i] = %s\n", line_split[i]);
-	if ((data->i_redir != -1 && !is_any_redirection(line_split, i)) || (there_is_a_less_redirection(line_split, i) && i == 0))
-	{
-		y = i + 1;
-		while (line_split[y] && !is_a_greater_redirection(line_split, y))
-		{
-			printf("ici\n");
-			printf("au debut de le boucle line = %s\n", line_split[y]);
-			manage_info_stdin(info, line_split, y);
-			if (!ft_strcmp(line_split[y], LESS)) /// remplacer par is_less_redirection
-				y += 2;
-			else if (!ft_strcmp(line_split[y], DLESS))
-				y += 2;
-			else if (is_a_greater_redirection(line_split, y))
-				y += 0;
-			else
-				y += 1;
-			printf("dans le boucle line = %s\n", line_split[y]);
-		}
-		data->i_redir = -1;
-	}
+	i = manage_incrementation(line_split, data, i, PRE);
+	if ((data->i_redir != -1 && !is_any_redirection(line_split, i))
+		|| (there_is_a_less_redirection(line_split, i) && i == 0))
+		redir_after_executable(line_split, data, i);
 	info = manage_info_stdin(info, line_split, i_manage);
 	if (!info)
 		return (-1);
@@ -118,6 +116,5 @@ int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 	if (!info)
 		return (i);
 	free(info);
-	printf("tok0 = %s\n", tok[0]);
 	return (i);
 }

@@ -47,3 +47,9 @@ char	*remove_multi_space(char *line)
 	}
 	return (tmp);
 }
+
+void	protect(void)
+{
+	perror("minishell: ");
+	exit(EXIT_FAILURE);
+}

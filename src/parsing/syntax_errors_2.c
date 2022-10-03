@@ -27,7 +27,7 @@ int	error_msg(char *msg, int code)
 
 static int	ends_with_redirection(char *line)
 {
-	int i;
+	int	i;
 
 	if (!line)
 		return (0);
@@ -39,9 +39,9 @@ static int	ends_with_redirection(char *line)
 	return (0);
 }
 
-int check_redirections(char *line)
+int	check_redirections(char *line)
 {
-	int 	i;
+	int		i;
 	char	**array;
 
 	array = ft_split_pipe(line, '|');

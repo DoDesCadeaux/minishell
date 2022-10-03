@@ -12,41 +12,6 @@
 
 #include "../../include/minishell.h"
 
-static char	**check_dless(char **line_split, int i)
-{
-	while (line_split[i])
-	{
-		if (!ft_strcmp(line_split[i], DLESS))
-		{
-			free(line_split[i + 1]);
-			line_split[i + 1] = ft_strdup("here_doc");
-			i++;
-		}
-		i++;
-	}
-	return (line_split);
-}
-
-static int	nb_of_redir(char **line_split, int i)
-{
-	int nb;
-
-	nb = 0;
-	while (line_split[i])
-	{
-		if (is_less_redirection(line_split, i))
-			nb++;
-		i++;
-	}
-	return (nb);
-}
-
-static void	erase_line(char **line_split, int i)
-{
-	free(line_split[i]);
-	line_split[i] = ft_strdup(" ");
-}
-
 static void	manage_special_case(char **line_split, int i, int len, int nb)
 {
 	if (nb == 1)
@@ -61,19 +26,36 @@ static void	manage_special_case(char **line_split, int i, int len, int nb)
 	}
 }
 
-char	*manage_redir(char **line_split, int i, int len, int nb)
+static char	*manage_badfiles(char **line_split, int i)
 {
 	char	*line;
 	char	*tmp;
 
+	if (!ft_strcmp(line_split[0], "cat"))
+	{
+		line = ft_strjoin(line_split[0], " ");
+		tmp = ft_strjoin(line, line_split[i + 1]);
+		free(line);
+		return (tmp);
+	}
+	return (NULL);
+}
+
+void	manage_dless(char **line_split, int i, int len, int nb)
+{
+	erase_line(line_split, i);
+	if (line_split[i + 1])
+		manage_special_case(line_split, i, len, nb);
+}
+
+char	*manage_redir(char **line_split, int i, int len, int nb)
+{
+	char	*line;
+
 	while (line_split[i])
 	{
 		if (!ft_strcmp(line_split[i], DLESS))
-		{
-			erase_line(line_split, i);
-			if (line_split[i + 1])
-				manage_special_case(line_split, i, len, nb);
-		}
+			manage_dless(line_split, i, len, nb);
 		if (!ft_strcmp(line_split[i], LESS))
 		{
 			erase_line(line_split, i);
@@ -83,13 +65,9 @@ char	*manage_redir(char **line_split, int i, int len, int nb)
 					manage_special_case(line_split, i, len, nb);
 				else
 				{
-					if (!ft_strcmp(line_split[0], "cat"))
-					{
-						line = ft_strjoin(line_split[0]," ");
-						tmp = ft_strjoin(line, line_split[i + 1]);
-						free(line);
-						return (tmp);
-					}
+					line = manage_badfiles(line_split, i);
+					if (line)
+						return (line);
 				}
 			}
 		}
@@ -101,8 +79,8 @@ char	*manage_redir(char **line_split, int i, int len, int nb)
 
 char	*parsing_redirstdin(char *line)
 {
-	char 	**line_split;
-	char 	*new_line;
+	char	**line_split;
+	char	*new_line;
 	int		i;
 	int		nb;
 	int		len;
