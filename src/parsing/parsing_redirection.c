@@ -106,7 +106,7 @@ char	*manage_multi_redir(char **line_split, int i, int len, int nb)
 			line_split[i] = ft_strdup(" ");
 			if (line_split[i + 1])
 			{
-				if (there_is_a_less_redirection(line_split, i + 1) || (!there_is_a_less_redirection(line_split, i + 1) && line_split[i + 2]) || i + 1 == len - nb)
+				if (there_is_a_less_redirection(line_split, i + 1) || (!there_is_a_less_redirection(line_split, i + 1) && line_split[i + 2]) || i >= len - nb)
 				{
 					free(line_split[i + 1]);
 					line_split[i + 1] = ft_strdup(" ");
@@ -121,7 +121,7 @@ char	*manage_multi_redir(char **line_split, int i, int len, int nb)
 			{
 				if (access(line_split[i + 1], F_OK) == 0)
 				{
-					if (line_split[i + 2] || i + 1 == len - nb)
+					if (line_split[i + 2] || i >= len - nb)
 					{
 						free(line_split[i + 1]);
 						line_split[i + 1] = ft_strdup(" ");
