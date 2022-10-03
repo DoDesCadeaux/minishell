@@ -74,7 +74,6 @@ int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 	else if (data->i_redir > 1)
 		i = data->i_redir - 1;
 	i_manage = i;
-	
 	if (!ft_strcmp(line_split[i], LESS)) /// remplacer par is_less_redirection
 		i += 2;
 	else if (!ft_strcmp(line_split[i], DLESS))

@@ -188,3 +188,70 @@ int 	main(int ac, char **av)
 	printf("LINE = %s\n", line);
 	return (0);
 }*/
+
+
+
+
+
+
+
+
+
+
+
+/*
+char	*manage_multi_redir(char **line_split, int i, int len, int nb)
+{
+	char	*line;
+	char	*tmp;
+
+	while (line_split[i])
+	{
+		if (!ft_strcmp(line_split[i], DLESS))
+		{
+			free(line_split[i]);
+			line_split[i] = ft_strdup(" ");
+			if (line_split[i + 1])
+			{
+				if (there_is_a_less_redirection(line_split, i + 1) || (!there_is_a_less_redirection(line_split, i + 1) && line_split[i + 2]) || i + 1 >= len - nb)
+				{
+					free(line_split[i + 1]);
+					line_split[i + 1] = ft_strdup(" ");
+				}
+			}
+		}
+		if (!ft_strcmp(line_split[i], LESS))
+		{
+			free(line_split[i]);
+			line_split[i] = ft_strdup(" ");
+			if (line_split[i + 1])
+			{
+				if (access(line_split[i + 1], F_OK) == 0)
+				{
+					if (line_split[i + 2] || i + 1 >= len - nb)
+					{
+						free(line_split[i + 1]);
+						line_split[i + 1] = ft_strdup(" ");
+					}
+				}
+				else
+				{
+					line = ft_strjoin(line_split[0]," ");
+					tmp = ft_strjoin(line, line_split[i + 1]);
+					free(line);
+					return (tmp);
+				}
+			}
+		}
+		i++;
+	}
+	i = 0;
+	while(line_split[i])
+	{
+		printf("split %d : %s\n", i, line_split[i]);
+		i++;
+	}
+	line = reverse_split(line_split, " ");
+	return (line);
+
+}*/
