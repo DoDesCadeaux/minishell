@@ -45,25 +45,17 @@ char	*manage_one_redir(char **line_split, int i)
 {
 	char	*line;
 	char	*tmp;
-//	int		cible;
 
-	//cible = 0;
-	line = NULL; //
 	while (line_split[i])
 	{
 		if (!ft_strcmp(line_split[i], DLESS))
 		{
 			free(line_split[i]);
 			line_split[i] = ft_strdup(" ");
-			if (line_split[i + 1] && line_split[i + 2])
+			if ((line_split[i + 1] && line_split[i + 2]) || i > 1)
 			{
 				free(line_split[i + 1]);
 				line_split[i + 1] = ft_strdup(" ");
-			}
-			else if (line_split[i + 1] && !line_split[i + 2])
-			{
-				free(line_split[i + 1]);
-				line_split[i + 1] = ft_strdup("here_doc");
 			}
 		}
 		if (!ft_strcmp(line_split[i], LESS))
@@ -74,7 +66,7 @@ char	*manage_one_redir(char **line_split, int i)
 			{
 				if (access(line_split[i + 1], F_OK) == 0)
 				{
-					if (line_split[i + 2])
+					if (line_split[i + 2] || i > 1)
 					{
 						free(line_split[i + 1]);
 						line_split[i + 1] = ft_strdup(" ");
@@ -85,8 +77,6 @@ char	*manage_one_redir(char **line_split, int i)
 					line = ft_strjoin(line_split[0]," ");
 					tmp = ft_strjoin(line, line_split[i + 1]);
 					free(line);
-					ft_free_split(line_split);
-					printf("tmp = %s\n", tmp);
 					return (tmp);
 				}
 			}
@@ -94,37 +84,33 @@ char	*manage_one_redir(char **line_split, int i)
 		i++;
 	}
 	i = 0;
-	while (line_split[i])
+	while(line_split[i])
 	{
 		printf("split %d : %s\n", i, line_split[i]);
 		i++;
 	}
 	line = reverse_split(line_split, " ");
-	//ft_free_split(line_split);
 	return (line);
 }
 
-char	*manage_multi_redir(char **line_split, int i)
+char	*manage_multi_redir(char **line_split, int i, int len, int nb)
 {
 	char	*line;
 	char	*tmp;
 
-	line = NULL; //
 	while (line_split[i])
 	{
 		if (!ft_strcmp(line_split[i], DLESS))
 		{
 			free(line_split[i]);
 			line_split[i] = ft_strdup(" ");
-			if (line_split[i + 1] && there_is_a_less_redirection(line_split, i + 1))
+			if (line_split[i + 1])
 			{
-				free(line_split[i + 1]);
-				line_split[i + 1] = ft_strdup(" ");
-			}
-			else
-			{
-				free(line_split[i + 1]);
-				line_split[i + 1] = ft_strdup("here_doc");
+				if (there_is_a_less_redirection(line_split, i + 1) || (!there_is_a_less_redirection(line_split, i + 1) && line_split[i + 2]) || i + 1 == len - nb)
+				{
+					free(line_split[i + 1]);
+					line_split[i + 1] = ft_strdup(" ");
+				}
 			}
 		}
 		if (!ft_strcmp(line_split[i], LESS))
@@ -135,7 +121,7 @@ char	*manage_multi_redir(char **line_split, int i)
 			{
 				if (access(line_split[i + 1], F_OK) == 0)
 				{
-					if (line_split[i + 2])
+					if (line_split[i + 2] || i + 1 == len - nb)
 					{
 						free(line_split[i + 1]);
 						line_split[i + 1] = ft_strdup(" ");
@@ -146,8 +132,6 @@ char	*manage_multi_redir(char **line_split, int i)
 					line = ft_strjoin(line_split[0]," ");
 					tmp = ft_strjoin(line, line_split[i + 1]);
 					free(line);
-					ft_free_split(line_split);
-					printf("tmp = %s\n", tmp);
 					return (tmp);
 				}
 			}
@@ -155,13 +139,12 @@ char	*manage_multi_redir(char **line_split, int i)
 		i++;
 	}
 	i = 0;
-	while (line_split[i])
+	while(line_split[i])
 	{
 		printf("split %d : %s\n", i, line_split[i]);
 		i++;
 	}
 	line = reverse_split(line_split, " ");
-	//ft_free_split(line_split);
 	return (line);
 
 }
@@ -172,22 +155,24 @@ char	*parsing_redirstdin(char *line)
 	char 	*new_line;
 	int		i;
 	int		nb;
+	int		len;
 
 	new_line = NULL; //
 	line_split = ft_split_pipe(line, ' ');
 	i = 0;
 	line_split = check_dless(line_split, i);
 	nb = nb_of_redir(line_split, i);
-	printf("nb = %d\n", nb);
 	if (nb == 0)
 	{
 		ft_free_split(line_split);
 		return (line);
 	}
+	len = len_split(line_split);
+	printf("len = %d\nnb = %d\n", len, nb);
 	if (nb == 1)
 		new_line = manage_one_redir(line_split, i);
 	if (nb > 1)
-		new_line = manage_multi_redir(line_split, i);
+		new_line = manage_multi_redir(line_split, i, len, nb);
 	ft_free_split(line_split);
 	return (new_line);
 }

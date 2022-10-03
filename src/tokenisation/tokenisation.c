@@ -17,7 +17,6 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	char	**line_split;
 	int		i;
 
-	printf("coucou\n");
 	data->i_redir = -1;
 	data->cmd = -1;
 	//data->real_i = 1;
@@ -45,11 +44,9 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	printf("tok[1] avant parsing = %s\n", tok[1]);
 	tok[1] = parsing(tok[1], data);
 	tok[1] = parsing_redirstdin(tok[1]);
-	printf("tok[1] apres parsing cat = %s\n", tok[1]);
 	free(line);
 	tok[3] = 0;
 	ft_free_split(line_split);
 	data->type = check_type(tok, data);
-	printf("tok[0] = %s\ntok[1] = %s\ntok[2] = %s\n", tok[0], tok[1], tok[2]);
 	return (tok);
 }
