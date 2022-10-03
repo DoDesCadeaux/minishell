@@ -168,7 +168,6 @@ char	*parsing_redirstdin(char *line)
 		return (line);
 	}
 	len = len_split(line_split);
-	printf("len = %d\nnb = %d\n", len, nb);
 	if (nb == 1)
 		new_line = manage_one_redir(line_split, i);
 	if (nb > 1)

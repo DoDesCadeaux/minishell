@@ -57,6 +57,7 @@ static char	*manage_info_stdin(char *info, char **line_split, int i)
 	}
 	else
 		info = get_fd(NULL, REDIR_STDIN, NULL);
+	printf("info = %s\n", info);
 	return (info);
 }
 
@@ -64,6 +65,7 @@ int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 {
 	char	*info;
 	int		y;
+	int		i_manage;
 
 	y = 0;
 	info = NULL;
@@ -71,14 +73,15 @@ int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 		i = data->i_redir;
 	else if (data->i_redir > 1)
 		i = data->i_redir - 1;
-	info = manage_info_stdin(info, line_split, i);
+	i_manage = i;
+	
 	if (!ft_strcmp(line_split[i], LESS)) /// remplacer par is_less_redirection
 		i += 2;
 	else if (!ft_strcmp(line_split[i], DLESS))
 		i += 2;
 	else if (is_a_greater_redirection(line_split, i))
 		i += 0;
-	if (there_is_a_less_redirection(line_split, i) && data->cmd <= 0)
+	if (there_is_a_less_redirection(line_split, i) && i > 0)
 		data->i_redir = i + 1;
 	else
 		data->i_redir = -1;
@@ -86,20 +89,36 @@ int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 	{
 		data->cmd = i;
 	}
-	if (data->i_redir != -1 && data->cmd > 0)
+	printf("line_split[i] = %s\n", line_split[i]);
+	if ((data->i_redir != -1 && !is_any_redirection(line_split, i)) || (there_is_a_less_redirection(line_split, i) && i == 0))
 	{
 		y = i + 1;
 		while (line_split[y] && !is_a_greater_redirection(line_split, y))
 		{
+			printf("ici\n");
+			printf("au debut de le boucle line = %s\n", line_split[y]);
 			manage_info_stdin(info, line_split, y);
-			y++;
+			if (!ft_strcmp(line_split[y], LESS)) /// remplacer par is_less_redirection
+				y += 2;
+			else if (!ft_strcmp(line_split[y], DLESS))
+				y += 2;
+			else if (is_a_greater_redirection(line_split, y))
+				y += 0;
+			else
+				y += 1;
+			printf("dans le boucle line = %s\n", line_split[y]);
 		}
+		data->i_redir = -1;
 	}
+	info = manage_info_stdin(info, line_split, i_manage);
+	if (!info)
+		return (-1);
 	tok[0] = ft_strdup(info);
 	if (data->cmd == 0)
 		return (data->cmd);
 	if (!info)
 		return (i);
 	free(info);
+	printf("tok0 = %s\n", tok[0]);
 	return (i);
 }
