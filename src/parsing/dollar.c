@@ -58,6 +58,7 @@ static char	*replace_error_code(t_struct *data, char *line_pars, int i)
 	data->tmp_3 = str_dup_parts(line_pars, i, y);
 	dst = ft_strjoin(data->tmp_1, data->tmp_2);
 	dst = ft_strjoin(dst, data->tmp_3);
+	ft_free_tmp(data);
 	return (dst);
 }
 
@@ -75,6 +76,7 @@ char	*replace_dollar(t_struct *data, char *line, int i)
 		i++;
 	data->tmp_3 = str_dup_parts(line, i, y);
 	line = replace_or_erase(line, data);
+	ft_free_tmp(data);
 	return (line);
 }
 

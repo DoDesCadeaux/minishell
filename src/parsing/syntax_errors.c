@@ -89,8 +89,6 @@ int	syntax_errors(char *line)
 		return (error_msg(MSG_DOUBLE_PIPE, PIPE_ERROR));
 	if (is_metachar(line[0]))
 		return (error_msg(MSG_PIPE_ERROR, PIPE_ERROR));
-	//if (stdout_empty(line))
-	//	return (error_msg(MSG_STDOUT, 258));
 	if (check_redirections(line))
 		return (error_msg(MSG_STDOUT, 258));
 	return (0);

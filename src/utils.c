@@ -67,9 +67,9 @@ int	find_real_redir( char *haystack, char *needle)
 
 char	*reverse_split(char **line_split, char *add)
 {
-	char *tmp;
-	char *line;
-	int i;
+	char	*tmp;
+	char	*line;
+	int		i;
 
 	i = 1;
 	line = ft_strdup(line_split[0]);
@@ -83,5 +83,13 @@ char	*reverse_split(char **line_split, char *add)
 		i++;
 	}
 	free(line);
-	return(tmp);
+	return (tmp);
+}
+
+char *free_and_return(char *to_return, char *free_1, char *free_2,char **free_3)
+{
+	free(free_1);
+	free(free_2);
+	ft_free_split(free_3);
+	return (to_return);
 }

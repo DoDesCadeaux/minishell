@@ -69,7 +69,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 	child = fork();
 	if (child == -1)
 	{
-		ft_error("", errno);	//??????
+		ft_error("", errno);
 		return ;
 	}
 	if (data->pipe == 0)

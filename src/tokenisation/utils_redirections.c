@@ -30,6 +30,14 @@ int	is_a_greater_redirection(char **line_split, int i)
 		return (0);
 }
 
+int	is_less_redirection(char **line_split, int i)
+{
+	if (!ft_strcmp(line_split[i], DLESS) || !ft_strcmp(line_split[i], LESS))
+		return (1);
+	else
+		return (0);
+}
+
 int	there_is_a_less_redirection(char **line_split, int i)
 {
 	while (line_split[i])
@@ -39,14 +47,6 @@ int	there_is_a_less_redirection(char **line_split, int i)
 		i++;
 	}
 	return (0);
-}
-
-int	is_less_redirection(char **line_split, int i)
-{
-	if (!ft_strcmp(line_split[i], DLESS) || !ft_strcmp(line_split[i], LESS))
-		return (1);
-	else
-		return (0);
 }
 
 int	is_a_less_redir(char *line_split, int i)

@@ -18,7 +18,7 @@ void	*ft_clear_split(char **split)
 
 	i = 0;
 	if (!split)
-		return (0);
+		return (NULL);
 	while (split[i])
 	{
 		free(split[i]);
@@ -29,7 +29,10 @@ void	*ft_clear_split(char **split)
 
 void	*ft_free_split(char **split)
 {
-	ft_clear_split(split);
-	free(split);
+	if (split)
+	{
+		ft_clear_split(split);
+		free(split);
+	}
 	return (NULL);
 }

@@ -31,39 +31,17 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	return (0);
 }
-/*
-static int	get_right_fd(char *file, char *token)
+
+static int	manage_fdin(char *file)
 {
 	int	fd;
 
 	fd = 0;
-	if (file && !ft_strcmp(token, GREAT))
-		fd = open(file, O_CREAT | O_TRUNC | O_RDWR, 0644);
-	else if (file && !ft_strcmp(token, DGREAT))
-		fd = open(file, O_CREAT | O_APPEND | O_RDWR, 0644);
-	else
-		fd = 1;
-	return (fd);
-}*/
-/*
-static int	find_fd(char *file, int type, char *token)
-{
-	int	fd;
-
-	if (type == REDIR_STDIN)
-	{
-		if (file)
-			fd = open(file, O_RDONLY);
-		else
-			fd = 0;
-	}
-	else
-	{
-		fd = get_right_fd(file, token);
-	}
+	if (file)
+		fd = open(file, O_RDONLY);
 	return (fd);
 }
-*/
+
 char	*get_fd(char *file, int type, char *token)
 {
 	int		fd;
@@ -71,17 +49,12 @@ char	*get_fd(char *file, int type, char *token)
 
 	if (type == REDIR_STDIN)
 	{
-		if (file)
+		fd = manage_fdin(file);
+		if (fd == -1)
 		{
-			fd = open(file, O_RDONLY);
-			if (fd == -1)
-			{
-				ft_error(msg("", file, "No such file or directory"), 1);
-				return (NULL);
-			}
+			ft_error(msg("", file, "No such file or directory"), 1);
+			return (NULL);
 		}
-		else
-			fd = 0;
 	}
 	else
 	{

@@ -14,6 +14,12 @@
 
 static void	process_ended(int sig)
 {
+	if (access(HERE_DOC, X_OK) == 0)
+	{
+		unlink(HERE_DOC);
+	}
+	rl_on_new_line();
+	rl_replace_line("", 0);
 	write(1, "\n", 1);
 	g_error_code = SIGNAL;
 	(void)sig;
@@ -21,15 +27,6 @@ static void	process_ended(int sig)
 
 void	restore_prompt(int sig)
 {
-//	if (access(HERE_DOC, X_OK) == 0)
-//	{
-//		printf("\nSIG2\n");
-//		unlink(HERE_DOC);
-//	}
-//	signal(SIGPIPE, process_ended);
-
-//	--> close pipes OR here_doc
-
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	write(1, "\n", 1);
