@@ -88,7 +88,6 @@ char	*manage_one_redir(char **line_split, int i)
 	i = 0;
 	while (line_split[i])
 	{
-		printf("split %d : %s\n", i, line_split[i]);
 		i++;
 	}
 	line = reverse_split(line_split, " ");
@@ -108,7 +107,6 @@ char	*parsing_redirstdin(char *line)
 	i = 0;
 	line_split = check_dless(line_split, i);
 	nb = nb_of_redir(line_split, i);
-	printf("nb = %d\n", nb);
 	if (nb == 0)
 	{
 		//printf("parsing 1\n");
@@ -117,7 +115,6 @@ char	*parsing_redirstdin(char *line)
 	}
 	else
 	{
-		printf("parsing 2\n");
 		new_line = manage_one_redir(line_split, i);
 	}
 	return (new_line);

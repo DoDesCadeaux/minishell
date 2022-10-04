@@ -12,22 +12,29 @@
 
 #include "../include/minishell.h"
 
+static void	process_ended(int sig)
+{
+	write(1, "\n", 1);
+	g_error_code = SIGNAL;
+	(void)sig;
+}
+
 void	restore_prompt(int sig)
 {
-	if (access(HERE_DOC, R_OK) == 0)
-		unlink(HERE_DOC);
+//	if (access(HERE_DOC, X_OK) == 0)
+//	{
+//		printf("\nSIG2\n");
+//		unlink(HERE_DOC);
+//	}
+//	signal(SIGPIPE, process_ended);
+
+//	--> close pipes OR here_doc
+
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	write(1, "\n", 1);
 	show_ghost();
 	rl_redisplay();
-	g_error_code = SIGNAL;
-	(void)sig;
-}
-
-static void	process_ended(int sig)
-{
-	write(1, "\n", 1);
 	g_error_code = SIGNAL;
 	(void)sig;
 }
@@ -43,5 +50,6 @@ void	run_signals(int sig)
 	{
 		signal(SIGINT, process_ended);
 		signal(SIGQUIT, process_ended);
+		signal(SIGPIPE, process_ended);
 	}
 }
