@@ -19,6 +19,17 @@ static char	*add_space(char *tmp, char *new_line)
 	return (tmp);
 }
 
+
+static char	**malloc_and_free(char *line)
+{
+	char **array;
+
+	array = ft_split_pipe(line, ' ');
+	protect_malloc(array);
+	free(line);
+	return (array);
+}
+
 char	*remove_multi_space(char *line)
 {
 	char	**split_space;
@@ -26,15 +37,14 @@ char	*remove_multi_space(char *line)
 	char	*new_line;
 	char	*tmp;
 
-	split_space = ft_split_pipe(line, ' ');
-	protect_malloc(split_space);
+	split_space = malloc_and_free(line);
 	i = 1;
 	new_line = ft_strdup(split_space[0]);
 	tmp = NULL;
 	if (split_space[i])
 		tmp = add_space(tmp, new_line);
 	else
-		return (new_line);
+		return (free_and_return(new_line, NULL, NULL, split_space));
 	while (split_space[i])
 	{
 		new_line = ft_strjoin(tmp, split_space[i]);
@@ -42,10 +52,10 @@ char	*remove_multi_space(char *line)
 		if (split_space[i + 1])
 			tmp = add_space(tmp, new_line);
 		else
-			return (new_line);
+			return (free_and_return(new_line, NULL, NULL, split_space));
 		i++;
 	}
-	return (tmp);
+	return (free_and_return(tmp, NULL, new_line, split_space));
 }
 
 void	protect(void)

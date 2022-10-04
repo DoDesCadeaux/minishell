@@ -230,9 +230,11 @@ void		error_perror(void);
 //Utils.c
 char		*msg(char *cmd, char *element, char *msg);
 char		*reverse_split(char **line_split, char *add);
+char		*free_and_return(char *to_return, char *free_1, char *free_2,char **free_3);
 
 //Initializer.c
 t_struct	*initializer(char **envp, int argc, char **argv);
+void		ft_free_tmp(t_struct *data);
 
 //Signals.c
 void		run_signals(int sig);

@@ -57,5 +57,6 @@ int	check_type(char **tok, t_struct *data)
 	else
 		type = BINARY;
 	type = check_binary(data, tok, type);
+	ft_free_split(full_cmd);
 	return (type);
 }

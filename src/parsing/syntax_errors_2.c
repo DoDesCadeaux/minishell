@@ -49,8 +49,12 @@ int	check_redirections(char *line)
 	while (array[i])
 	{
 		if (ends_with_redirection(array[i]))
+		{
+			ft_free_split(array);
 			return (1);
+		}
 		i++;
 	}
+	ft_free_split(array);
 	return (0);
 }

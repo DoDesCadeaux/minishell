@@ -25,10 +25,10 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	while (data->i_redir != -1)
 		i = tok_fd_in(data, tok, line_split, i);
 	if (i == len_split(line_split) || i < 0 || !tok[0])
-		return (NULL);
+		return ((char **)free_and_return(NULL, line, NULL, line_split));
 	i = tok_1(tok, line_split, i, line);
 	if (i < 0)
-		return (NULL);
+		return ((char **)free_and_return(NULL, line, NULL, line_split));
 	i = tok_fd_out(data, tok, line_split, i);
 	while (data->i_redir != -1)
 		i = tok_fd_out(data, tok, line_split, i);

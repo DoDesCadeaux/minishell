@@ -31,3 +31,13 @@ t_struct	*initializer(char **envp, int argc, char **argv)
 	data->i_redir = 0;
 	return (data);
 }
+
+void	ft_free_tmp(t_struct *data)
+{
+	if (data->tmp_1)
+		free(data->tmp_1);
+	if (data->tmp_2)
+		free(data->tmp_2);
+	if (data->tmp_3)
+		free(data->tmp_3);
+}
