@@ -12,12 +12,6 @@
 
 #include "../../include/minishell.h"
 
-static void	protect(void)
-{
-	perror("minishell: ");
-	exit(EXIT_FAILURE);
-}
-
 static char	*create_heredoc(char *delimiter)
 {
 	char	*line;
@@ -55,33 +49,70 @@ static char	*manage_info_stdin(char *info, char **line_split, int i)
 		if (!line_split[i + 1])
 			unlink(HERE_DOC);
 	}
-	else if (is_a_greater_redirection(line_split, i))
+	else
 		info = get_fd(NULL, REDIR_STDIN, NULL);
-	//printf("info ====== %s\n", info);
 	return (info);
+}
+
+static int	manage_incre(char **line_split, t_struct *data, int i, int type)
+{
+	if (is_less_redirection(line_split, i))
+		i += 2;
+	else if (is_a_greater_redirection(line_split, i))
+		i += 0;
+	else
+	{
+		if (type == POST)
+			i += 1;
+	}
+	if (type == PRE)
+	{
+		if (there_is_a_less_redirection(line_split, i) && i > 0)
+			data->i_redir = i + 1;
+		else
+			data->i_redir = -1;
+		if (data->i_redir != -1 && data->cmd < 0)
+			data->cmd = i;
+	}
+	return (i);
+}
+
+void	redir_after_executable(char **line_split, t_struct *data, int i)
+{
+	char	*info;
+	int		y;
+
+	info = NULL;
+	y = i + 1;
+	while (line_split[y] && !is_a_greater_redirection(line_split, y))
+	{
+		manage_info_stdin(info, line_split, y);
+		y = manage_incre(line_split, data, y, POST);
+	}
+	data->i_redir = -1;
 }
 
 int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 {
 	char	*info;
+	int		i_manage;
 
 	info = NULL;
-	if (data->i_redir != 0)
+	if (data->i_redir == 1)
 		i = data->i_redir;
-	//printf("i = %d\n", i);
-	info = manage_info_stdin(info, line_split, i);
-//printf("pass manageavec info = %s\n", info);
-	if (!ft_strcmp(line_split[i], LESS))
-		i += 2;
-	else if (!ft_strcmp(line_split[i], DLESS))
-		i += 2;
-	else if (is_a_greater_redirection(line_split, i))
-		i += 0;
-	if (there_is_a_less_redirection(line_split, i) && info)
-		data->i_redir = i;
-	else
-		data->i_redir = 0;
+	else if (data->i_redir > 1)
+		i = data->i_redir - 1;
+	i_manage = i;
+	i = manage_incre(line_split, data, i, PRE);
+	if ((data->i_redir != -1 && !is_any_redirection(line_split, i))
+		|| (there_is_a_less_redirection(line_split, i) && i == 0))
+		redir_after_executable(line_split, data, i);
+	info = manage_info_stdin(info, line_split, i_manage);
+	if (!info)
+		return (-1);
 	tok[0] = ft_strdup(info);
+	if (data->cmd == 0)
+		return (data->cmd);
 	if (!info)
 		return (i);
 	free(info);

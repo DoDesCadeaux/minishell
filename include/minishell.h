@@ -77,6 +77,12 @@ enum	e_redirection
 	REDIR_STDOUT
 };
 
+enum	e_incrementation
+{
+	POST,
+	PRE
+};
+
 enum	e_type
 {
 	BU_ECHO,
@@ -137,6 +143,8 @@ char		*parsing_redirstdin(char *line);
 int			is_a_less_redirection(char **line_split, int i);
 int			is_a_less_redir(char *line_split, int i);
 int			is_a_greater_redir(char *line_split, int i);
+void		protect(void);
+
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
 
@@ -206,6 +214,9 @@ char		*preparsing(char *line);
 void		skip_spaces(char **lineptr);
 char		*parsing_cat(char *line);
 int			check_redirections(char *line);
+char		**check_dless(char **line_split, int i);
+int			nb_of_redir(char **line_split, int i);
+void		erase_line(char **line_split, int i);
 
 //Main.c
 void		show_ghost(void);

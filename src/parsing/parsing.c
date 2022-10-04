@@ -33,5 +33,6 @@ char	*parsing(char *line, t_struct *data)
 		i++;
 	}
 	line = remove_quotes(line);
+	line = parsing_redirstdin(line);
 	return (line);
 }

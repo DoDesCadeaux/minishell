@@ -16,14 +16,12 @@ int	tok_fd_out(t_struct *data, char **tok, char **line_split, int i)
 {
 	char	*tmp;
 
-	if (data->i_redir != 0)
+	if (data->i_redir != -1)
 		i = data->i_redir;
 	if (line_split[i] && !ft_strcmp(line_split[i], GREAT))
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, GREAT);
 	else if (line_split[i] && !ft_strcmp(line_split[i], DGREAT))
 		tmp = get_fd(line_split[i + 1], REDIR_STDOUT, DGREAT);
-	//else if (line_split[i] && !ft_strcmp(line_split[i], LESS))
-	//	tmp = get_fd(line_split[i + 1], REDIR_STDIN, NULL);
 	else
 		tmp = get_fd(NULL, REDIR_STDOUT, NULL);
 	if (tmp)
@@ -32,6 +30,6 @@ int	tok_fd_out(t_struct *data, char **tok, char **line_split, int i)
 	if (i < len_split(line_split) - 3)
 		data->i_redir = i + 2;
 	else
-		data->i_redir = 0;
+		data->i_redir = -1;
 	return (i);
 }
