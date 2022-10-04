@@ -103,7 +103,7 @@ int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 	else if (data->i_redir > 1)
 		i = data->i_redir - 1;
 	i_manage = i;
-	i = manage_incrementation(line_split, data, i, PRE);
+	i = manage_incre(line_split, data, i, PRE);
 	if ((data->i_redir != -1 && !is_any_redirection(line_split, i))
 		|| (there_is_a_less_redirection(line_split, i) && i == 0))
 		redir_after_executable(line_split, data, i);
