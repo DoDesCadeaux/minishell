@@ -48,13 +48,20 @@ int	main(int argc, char **argv, char **envp)
 		protect_malloc(tok);
 		line = prompt();
 		if (syntax_errors(line))
+		{
 			continue ;
+		}
 		line = preparsing(line);
 		line = remove_multi_space(line);
 		if (is_metachar(line[ft_strlen(line) - 1]))
+		{
 			line = get_full_pipe(line);
+		}
 		if (line)
+		{
 			run_program(data, tok, line);
+		}
+		ft_free_split(tok);
 	}
-	return (0);
+	exit(EXIT_SUCCESS);
 }

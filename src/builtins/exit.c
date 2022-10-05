@@ -16,6 +16,7 @@ static int	ft_return_nbr(char *line)
 {
 	int		i;
 	int		j;
+	int		tmp;
 	char	*numbers;
 
 	i = 0;
@@ -35,10 +36,12 @@ static int	ft_return_nbr(char *line)
 	numbers[j] = '\0';
 	if (ft_strlen(numbers) > 19 || ft_long_atoi(numbers) > 9223372036854775807)
 	{
-		printf("exit: %s : numeric argument required\n", numbers);
+		ft_error(msg("exit", numbers, "numeric argument required"), JSP);
+		free(numbers);
 		return (2);
 	}
-	return (ft_long_atoi(numbers));
+	tmp = ft_long_atoi(numbers);
+	return (tmp);
 }
 
 int	exit_builtins(char *line)
@@ -48,10 +51,12 @@ int	exit_builtins(char *line)
 	exit_value = ft_return_nbr(line);
 	if (exit_value >= LONG_MAX)
 	{
-		printf("exit: %li : numeric argument required\n", exit_value);
+		ft_error(msg("exit", (char *)exit_value, "numeric argument required"), JSP);
+		free(line);
 		exit(2);
 	}
 	else
 		printf("exit\n");
+	free(line);
 	exit(exit_value);
 }

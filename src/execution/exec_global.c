@@ -19,8 +19,7 @@ static void	protected_execve(char *path, char **cmd_arg, char **envp)
 	check = execve(path, cmd_arg, envp);
 	if (check == -1)
 	{
-		write(2, cmd_arg[0], ft_strlen(cmd_arg[0]));
-		write(2, ": Command not found\n", 20);
+		ft_error(msg(cmd_arg[0], NULL, "Command not found"), 127);
 		ft_free_split(cmd_arg);
 		exit(CMD_ERROR);
 	}
@@ -37,8 +36,8 @@ void	close_fd(int fdin, int fdout)
 void	execute(t_struct *data, char *cmd)
 {
 	char	**paths;
+	char 	*path;
 	char	**cmd_arg;
-	char	*path;
 
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg)

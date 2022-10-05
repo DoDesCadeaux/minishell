@@ -33,6 +33,7 @@ char	*msg(char *cmd, char *element, char *msg)
 	{
 		tmp = ft_strjoin(message, element);
 		free(message);
+		free(element);
 		message = ft_strjoin(tmp, ": ");
 		free(tmp);
 	}
@@ -84,4 +85,12 @@ char	*reverse_split(char **line_split, char *add)
 	}
 	free(line);
 	return (tmp);
+}
+
+char *free_and_return(char *to_return, char *free_1, char *free_2,char **free_3)
+{
+	free(free_1);
+	free(free_2);
+	ft_free_split(free_3);
+	return (to_return);
 }
