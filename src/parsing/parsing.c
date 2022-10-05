@@ -16,7 +16,6 @@ char	*parsing(char *line, t_struct *data)
 {
 	int		i;
 	char	quote;
-	char 	*tmp;
 
 	line = remove_multi_space(line);
 	quote = 0;
@@ -33,8 +32,7 @@ char	*parsing(char *line, t_struct *data)
 		}
 		i++;
 	}
-	tmp = remove_quotes(line);
-	line = parsing_redirstdin(tmp);
-	//free(tmp);
+	line = remove_quotes(line);
+	line = parsing_redirstdin(line);
 	return (line);
 }

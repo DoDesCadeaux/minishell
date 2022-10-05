@@ -41,6 +41,7 @@ static int	ft_return_nbr(char *line)
 		return (2);
 	}
 	tmp = ft_long_atoi(numbers);
+	free(numbers);
 	return (tmp);
 }
 

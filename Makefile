@@ -8,7 +8,7 @@ CC 		= gcc
 
 #CFLAGS	= -Wall -Wextra -Werror -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -fsanitize=address
 #CFLAGS	= -Wall -Wextra -Werror -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
-CFLAGS	= -Wall -Wextra -Werror -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address -g
+CFLAGS	= -Wall -Wextra -Werror -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew0/opt/readline/include #-fsanitize=address -g
 
 CFLAGS_WRL = -Wall -Wextra -Werror
 MAKE 	= make

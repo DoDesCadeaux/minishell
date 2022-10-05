@@ -91,13 +91,13 @@ char	*reverse_split(char **line_split, char *add)
 	return (tmp);
 }
 
-char *free_and_return(char *to_return, char *free_1, char *free_2,char **free_3)
-{
-	if (free_1)
-		free(free_1);
-	if (free_2)
-		free(free_2);
-	if (free_3)
-		ft_clear_split(free_3);
-	return (to_return);
-}
+//char *free_and_return(char *to_return, char *free_1, char *free_2,char **free_3)
+//{
+//	if (free_1)
+//		free(free_1);
+//	if (free_2)
+//		free(free_2);
+//	if (free_3)
+//		ft_clear_split(free_3);
+//	return (to_return);
+//}

@@ -49,6 +49,8 @@ int	main(int argc, char **argv, char **envp)
 		line = prompt();
 		if (syntax_errors(line))
 		{
+			free(line);
+			ft_free_split(tok);
 			continue ;
 		}
 		line = preparsing(line);
@@ -60,10 +62,9 @@ int	main(int argc, char **argv, char **envp)
 		if (line)
 		{
 			run_program(data, tok, line);
+			free(line);
+			ft_free_split(tok);
 		}
-		printf("adresse de tok = %p\n", tok);
-		ft_clear_split(tok);
-		free(line);
 	}
 	exit(EXIT_SUCCESS);
 }

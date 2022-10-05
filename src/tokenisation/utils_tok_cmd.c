@@ -43,7 +43,10 @@ char	*remove_multi_space(char *line)
 	if (split_space[i])
 		tmp = add_space(tmp, new_line);
 	else
-		return (free_and_return(new_line, NULL, NULL, split_space));
+	{
+		ft_free_split(split_space);
+		return (new_line);
+	}
 	while (split_space[i])
 	{
 		new_line = ft_strjoin(tmp, split_space[i]);
@@ -51,10 +54,15 @@ char	*remove_multi_space(char *line)
 		if (split_space[i + 1])
 			tmp = add_space(tmp, new_line);
 		else
-			return (free_and_return(new_line, NULL, NULL, split_space));
+		{
+			ft_free_split(split_space);
+			return (new_line);
+		}
 		i++;
 	}
-	return (free_and_return(tmp, NULL, new_line, split_space));
+	free(new_line);
+	ft_free_split(split_space);
+	return (tmp);
 }
 
 void	protect(void)

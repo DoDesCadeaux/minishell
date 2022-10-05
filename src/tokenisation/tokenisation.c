@@ -28,10 +28,16 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 		i = tok_fd_in(data, tok, line_split, i);
 	}
 	if (i == len_split(line_split) || i < 0 || !tok[0])
-		return ((char **)free_and_return(NULL, NULL, NULL, line_split));
+	{
+		ft_free_split(line_split);
+		return (NULL);
+	}
 	i = tok_1(tok, line_split, i, line);
 	if (i < 0)
-		return ((char **)free_and_return(NULL, NULL, NULL, line_split));
+	{
+		ft_free_split(line_split);
+		return (NULL);
+	}
 	i = tok_fd_out(data, tok, line_split, i);
 	while (data->i_redir != -1)
 	{
@@ -40,8 +46,8 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	}
 	tok[1]= parsing(tok[1], data);
 	tok[3] = 0;
-	ft_free_split(line_split);
 	data->type = check_type(tok, data);
-	printf("tok[0] = %s\ntok[1] = %s\ntok[2] = %s\n", tok[0], tok[1], tok[2]);
+	ft_free_split(line_split);
+	//printf("tok[0] = %s\ntok[1] = %s\ntok[2] = %s\n", tok[0], tok[1], tok[2]);
 	return (tok);
 }
