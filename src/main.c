@@ -44,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 	data = initializer(envp, argc, argv);
 	while (!0)
 	{
-		tok = malloc(sizeof(char *) * 4 + 1);
+		tok = ft_calloc(sizeof(char *), 4);
 		protect_malloc(tok);
 		line = prompt();
 		if (syntax_errors(line))
@@ -65,6 +65,7 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 			ft_free_split(tok);
 		}
+		system("leaks minishell");
 	}
 	exit(EXIT_SUCCESS);
 }

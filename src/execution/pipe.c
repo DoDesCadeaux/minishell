@@ -70,11 +70,13 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 		error_perror();
 	}
 	run_first(data, tok, pipe_fd);
+	ft_clear_split(tok);
 	i++;
 	while (i < len - 2)
 	{
 		tok = tokenisation(split_pipe[i], tok, data);
 		run_multi_pipe(data, tok, pipe_fd);
+		ft_clear_split(tok);
 		i++;
 	}
 	tok = tokenisation(split_pipe[i], tok, data);
