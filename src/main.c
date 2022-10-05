@@ -65,7 +65,6 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 			ft_free_split(tok);
 		}
-		system("leaks minishell");
 	}
 	exit(EXIT_SUCCESS);
 }
