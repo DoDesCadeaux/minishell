@@ -84,7 +84,7 @@ int	syntax_errors(char *line)
 	if (is_only_spaces(line))
 		return (error_msg(NULL, 0));
 	if (open_quotes(line, i))
-		return (error_msg("minishell: Syntax error: open quotes", 1));
+		return (error_msg(MSG_OPEN_QUOTES, 1));
 	if (check_doublepipe(line))
 		return (error_msg(MSG_DOUBLE_PIPE, PIPE_ERROR));
 	if (is_metachar(line[0]))

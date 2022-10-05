@@ -21,7 +21,7 @@ int	is_empty_line(char *line)
 
 int	error_msg(char *msg, int code)
 {
-	ft_error(msg, code);
+	ft_error_no_ptr(msg, code);
 	return (1);
 }
 

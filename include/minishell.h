@@ -69,6 +69,7 @@
 # define MSG_PIPE_ERROR "minishell: Syntax error near unexpected token `|'"
 # define MSG_DOUBLE_PIPE "minishell: Syntax error near unexpected token `||'"
 # define MSG_NO_SUCH_FILE "No such file or directory"
+# define MSG_OPEN_QUOTES "minishell: Syntax error: open quotes"
 
 int	g_error_code;
 
@@ -227,6 +228,8 @@ void		protect_malloc(void *element);
 void		ft_error(char *message, int code);
 void		ft_error_exit(char *message, int code);
 void		error_perror(void);
+void		ft_error_no_ptr(char *message, int code);
+
 
 //Utils.c
 char		*msg(char *cmd, char *element, char *msg, int code);
