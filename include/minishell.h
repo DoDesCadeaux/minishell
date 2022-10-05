@@ -46,6 +46,7 @@
 # define PIPE_ERROR 2
 # define SIGNAL 130
 # define SUCCES	0
+# define JSP 255
 
 # define LESS "<"
 # define DLESS "<<"

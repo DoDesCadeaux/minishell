@@ -12,12 +12,35 @@
 
 #include "../../include/minishell.h"
 
+static char	*replace_error_code(t_struct *data, char *line, int i)
+{
+	char 	*tmp;
+	char	*dst;
+	int		y;
+
+	data->tmp_1 = str_dup_parts(line, i - 1, 0);
+	i++;
+	data->tmp_2 = ft_itoa(g_error_code);
+	y = i + 1;
+	while (line[i])
+		i++;
+	data->tmp_3 = str_dup_parts(line, i, y);
+	tmp = ft_strjoin(data->tmp_1, data->tmp_2);
+	dst = ft_strjoin(tmp, data->tmp_3);
+	free(tmp);
+	free(line);
+	ft_free_tmp(data);
+	return (dst);
+}
+
 static char	*join_and_replace(t_struct *data, char *tmp1, char *rpl, char *tmp3)
 {
 	char	*dst;
+	char 	*tmp;
 	char	*tmp_dollar;
 	int		i;
 
+	tmp = NULL;
 	tmp_dollar = var_exist(data, rpl);
 	if (tmp_dollar)
 	{
@@ -26,40 +49,27 @@ static char	*join_and_replace(t_struct *data, char *tmp1, char *rpl, char *tmp3)
 			i++;
 		i++;
 		tmp_dollar = str_dup_parts(tmp_dollar, ft_strlen(tmp_dollar), i);
-		dst = ft_strjoin(tmp1, tmp_dollar);
-		dst = ft_strjoin(dst, tmp3);
+		tmp = ft_strjoin(tmp1, tmp_dollar);
+		dst = ft_strjoin(tmp, tmp3);
 	}
 	else
 		dst = ft_strjoin(tmp1, tmp3);
 	free(tmp_dollar);
+	free(tmp);
 	return (dst);
 }
 
 static char	*replace_or_erase(char *line, t_struct *data)
 {
-	if (var_exist(data, data->tmp_2))
+	char *tmp;
+
+	tmp = var_exist(data, data->tmp_2);
+	if (tmp)
 		line = join_and_replace(data, data->tmp_1, data->tmp_2, data->tmp_3);
 	else
 		line = ft_strjoin(data->tmp_1, data->tmp_3);
+	free(tmp);
 	return (line);
-}
-
-static char	*replace_error_code(t_struct *data, char *line_pars, int i)
-{
-	char	*dst;
-	int		y;
-
-	data->tmp_1 = str_dup_parts(line_pars, i - 1, 0);
-	i++;
-	data->tmp_2 = ft_itoa(g_error_code);
-	y = i + 1;
-	while (line_pars[i])
-		i++;
-	data->tmp_3 = str_dup_parts(line_pars, i, y);
-	dst = ft_strjoin(data->tmp_1, data->tmp_2);
-	dst = ft_strjoin(dst, data->tmp_3);
-	ft_free_tmp(data);
-	return (dst);
 }
 
 char	*replace_dollar(t_struct *data, char *line, int i)
@@ -75,6 +85,7 @@ char	*replace_dollar(t_struct *data, char *line, int i)
 	while (line[i])
 		i++;
 	data->tmp_3 = str_dup_parts(line, i, y);
+	free(line);
 	line = replace_or_erase(line, data);
 	ft_free_tmp(data);
 	return (line);

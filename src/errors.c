@@ -17,6 +17,7 @@ void	ft_error_exit(char *message, int code)
 	g_error_code = code;
 	write(2, message, ft_strlen(message));
 	write(2, "\n", 1);
+	free(message);
 	exit(g_error_code);
 }
 
@@ -34,4 +35,5 @@ void	ft_error(char *message, int code)
 		return ;
 	ft_putstr_fd(message, 2);
 	ft_putchar_fd('\n', 2);
+	free(message);
 }

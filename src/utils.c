@@ -33,6 +33,7 @@ char	*msg(char *cmd, char *element, char *msg)
 	{
 		tmp = ft_strjoin(message, element);
 		free(message);
+		free(element);
 		message = ft_strjoin(tmp, ": ");
 		free(tmp);
 	}
