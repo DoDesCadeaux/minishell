@@ -54,6 +54,7 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 	char	*end;
 	int		i_end;
 
+
 	end = NULL;
 	if (!line_split[i])
 		return (-1);
@@ -64,15 +65,17 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 	}
 	start = ft_strdup(line_split[i]);
 	tmp = ft_strstr(line, start);
+	free(start);
 	i = manage_redirection_with_quotes(line_split, i);
 	if (line_split[i])
 		end = ft_strdup(line_split[i]);
 	if (end && i != 0)
+	{
 		i_end = find_real_redir(tmp, end);
+		free(end);
+	}
 	else
 		i_end = ft_strlen(line);
 	tok[1] = get_cmd(tmp, i_end);
-	free(start);
-	free(end);
 	return (i);
 }

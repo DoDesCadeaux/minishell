@@ -19,7 +19,6 @@ static char	*add_space(char *tmp, char *new_line)
 	return (tmp);
 }
 
-
 static char	**malloc_and_free(char *line)
 {
 	char **array;

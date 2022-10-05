@@ -18,17 +18,17 @@ void	run_bad_binary(t_struct *data, char *cmd)
 
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg)
-		ft_error("minishell: error malloc", MALLOC);
+		ft_error(msg(NULL, NULL, "error malloc", 1), MALLOC);
 	else if (!cmd_arg[0])
-		ft_error(msg(cmd, NULL, "Command not found"), CMD_ERROR);
+		ft_error(msg(cmd, NULL, "Command not found", 0), CMD_ERROR);
 	else if (!var_exist(data, "PATH"))
-		ft_error(msg(cmd_arg[0], NULL, MSG_NO_SUCH_FILE), CMD_ERROR);
+		ft_error(msg(cmd_arg[0], NULL, MSG_NO_SUCH_FILE, 0), CMD_ERROR);
 	else if (!ft_strncmp(cmd, "./", 2))
-		ft_error(msg(cmd_arg[0] + 2, NULL, MSG_NO_SUCH_FILE), CMD_ERROR);
+		ft_error(msg(cmd_arg[0] + 2, NULL, MSG_NO_SUCH_FILE, 0), CMD_ERROR);
 	else if (!ft_strncmp(cmd, "/", 1))
-		ft_error(msg(cmd_arg[0], NULL, MSG_NO_SUCH_FILE), CMD_ERROR);
+		ft_error(msg(cmd_arg[0], NULL, MSG_NO_SUCH_FILE, 0), CMD_ERROR);
 	else
-		ft_error(msg(cmd_arg[0], NULL, "Command not found"), CMD_ERROR);
+		ft_error(msg(cmd_arg[0], NULL, "Command not found", 0), CMD_ERROR);
 	ft_free_split(cmd_arg);
 }
 
@@ -72,6 +72,6 @@ void	protect_dup(int check)
 {
 	if (check == -1)
 	{
-		ft_error_exit("", errno);
+		ft_error_exit(msg(NULL, NULL, "", 1), errno);
 	}
 }

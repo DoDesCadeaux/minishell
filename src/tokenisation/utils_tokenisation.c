@@ -52,7 +52,7 @@ char	*get_fd(char *file, int type, char *token)
 		fd = manage_fdin(file);
 		if (fd == -1)
 		{
-			ft_error(msg("", file, "No such file or directory"), 1);
+			ft_error(msg("", file, "No such file or directory", 0), 1);
 			return (NULL);
 		}
 	}

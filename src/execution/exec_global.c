@@ -19,7 +19,7 @@ static void	protected_execve(char *path, char **cmd_arg, char **envp)
 	check = execve(path, cmd_arg, envp);
 	if (check == -1)
 	{
-		ft_error(msg(cmd_arg[0], NULL, "Command not found"), 127);
+		ft_error(msg(cmd_arg[0], NULL, "Command not found", 0), 127);
 		ft_free_split(cmd_arg);
 		exit(CMD_ERROR);
 	}
@@ -41,7 +41,7 @@ void	execute(t_struct *data, char *cmd)
 
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg)
-		ft_error("minishell: error malloc", MALLOC);
+		ft_error(msg(NULL, NULL, "error malloc", 1), MALLOC);
 	if (!ft_strncmp(cmd, "./", 2))
 		protected_execve(cmd_arg[0], cmd_arg, data->envp);
 	if (!ft_strncmp(cmd, "/", 1))
@@ -68,7 +68,7 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 	child = fork();
 	if (child == -1)
 	{
-		ft_error("", errno);
+		ft_error(msg(NULL, NULL, "", 1), errno);
 		return ;
 	}
 	if (data->pipe == 0)

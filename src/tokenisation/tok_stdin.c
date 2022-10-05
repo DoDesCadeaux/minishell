@@ -82,11 +82,12 @@ void	redir_after_executable(char **line_split, t_struct *data, int i)
 	char	*info;
 	int		y;
 
-	info = NULL;
 	y = i + 1;
 	while (line_split[y] && !is_a_greater_redirection(line_split, y))
 	{
-		manage_info_stdin(info, line_split, y);
+		info = manage_info_stdin(info, line_split, y);
+		if (info)
+			free(info);
 		y = manage_incre(line_split, data, y, POST);
 	}
 	data->i_redir = -1;
@@ -108,13 +109,12 @@ int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 		|| (there_is_a_less_redirection(line_split, i) && i == 0))
 		redir_after_executable(line_split, data, i);
 	info = manage_info_stdin(info, line_split, i_manage);
+	printf("ifo = %s avec file = %s\n", info, line_split[i]);
 	if (!info)
 		return (-1);
 	tok[0] = ft_strdup(info);
+	free(info);
 	if (data->cmd == 0)
 		return (data->cmd);
-	if (!info)
-		return (i);
-	free(info);
 	return (i);
 }

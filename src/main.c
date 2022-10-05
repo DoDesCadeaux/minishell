@@ -30,7 +30,7 @@ static char	*prompt(void)
 	show_ghost();
 	str = readline("MINISHELL~> ");
 	if (!str)
-		ft_error_exit("exit", 1);
+		ft_error_exit(msg(NULL, NULL, "exit", 1), 1);
 	add_history(str);
 	return (str);
 }
@@ -61,7 +61,9 @@ int	main(int argc, char **argv, char **envp)
 		{
 			run_program(data, tok, line);
 		}
-		ft_free_split(tok);
+		printf("adresse de tok = %p\n", tok);
+		ft_clear_split(tok);
+		free(line);
 	}
 	exit(EXIT_SUCCESS);
 }

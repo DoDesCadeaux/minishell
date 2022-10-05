@@ -17,12 +17,12 @@ t_struct	*initializer(char **envp, int argc, char **argv)
 	t_struct	*data;
 
 	if (!envp[0])
-		ft_error_exit("Our minishell doesn't work without an env", 1);
+		ft_error_exit((msg(NULL, NULL, "Our minishell doesn't work without an env", 1)), 1);
 	run_signals(1);
 	if (argc != 1)
-		ft_error_exit("Number of arguments != 1", ERROR);
+		ft_error_exit((msg(NULL, NULL, "Number of arguments != 1", 1)), ERROR);
 	if (ft_strcmp(argv[0], "./minishell"))
-		ft_error_exit("Bad program name", ERROR);
+		ft_error_exit((msg(NULL, NULL, "Bad program name", 1)), ERROR);
 	welcome();
 	g_error_code = 0;
 	data = malloc(sizeof(t_struct));

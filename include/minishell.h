@@ -229,7 +229,7 @@ void		ft_error_exit(char *message, int code);
 void		error_perror(void);
 
 //Utils.c
-char		*msg(char *cmd, char *element, char *msg);
+char		*msg(char *cmd, char *element, char *msg, int code);
 char		*reverse_split(char **line_split, char *add);
 char		*free_and_return(char *to_return, char *free_1, char *free_2,char **free_3);
 

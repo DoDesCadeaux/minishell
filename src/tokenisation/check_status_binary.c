@@ -40,14 +40,13 @@ int	is_good_binary(t_struct *data, char *cmd)
 	char	**paths;
 	char	**cmd_arg;
 	char	*path;
+	int 	rt;
 
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg[0])
 		return (0);
 	if (!var_exist(data, "PATH"))
-	{
 		return (path_exists(cmd_arg, cmd));
-	}
 	if (!ft_strncmp(cmd, "./", 2))
 		return (check_access(cmd_arg[0], cmd_arg));
 	if (!ft_strncmp(cmd, "/", 1))
@@ -56,6 +55,8 @@ int	is_good_binary(t_struct *data, char *cmd)
 	{
 		paths = path_list(data->envp);
 		path = get_cmd_path(paths, cmd_arg[0]);
-		return (check_access(path, cmd_arg));
+		rt = check_access(path, cmd_arg);
+		free(path);
+		return (rt);
 	}
 }

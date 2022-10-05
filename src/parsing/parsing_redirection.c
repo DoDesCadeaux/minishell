@@ -73,9 +73,6 @@ char	*manage_redir(char **line_split, int i, int len, int nb)
 		}
 		i++;
 	}
-	i = 0;
-	while (line_split[i])
-		i++;
 	line = reverse_split(line_split, " ");
 	return (line);
 }
