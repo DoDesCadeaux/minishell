@@ -21,7 +21,7 @@ static char	*add_space(char *tmp, char *new_line)
 
 static char	**malloc_and_free(char *line)
 {
-	char **array;
+	char	**array;
 
 	array = ft_split_pipe(line, ' ');
 	protect_malloc(array);

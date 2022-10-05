@@ -35,6 +35,12 @@ static char	*prompt(void)
 	return (str);
 }
 
+static void	free_that_shit(char *line, char **tok)
+{
+	free(line);
+	ft_free_split(tok);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_struct	*data;
@@ -49,22 +55,17 @@ int	main(int argc, char **argv, char **envp)
 		line = prompt();
 		if (syntax_errors(line))
 		{
-			free(line);
-			ft_free_split(tok);
+			free_that_shit(line, tok);
 			continue ;
 		}
 		line = preparsing(line);
 		line = remove_multi_space(line);
 		if (is_metachar(line[ft_strlen(line) - 1]))
-		{
 			line = get_full_pipe(line);
-		}
 		if (line)
 		{
 			run_program(data, tok, line);
-			free(line);
-			ft_free_split(tok);
+			free_that_shit(line, tok);
 		}
 	}
-	exit(EXIT_SUCCESS);
 }

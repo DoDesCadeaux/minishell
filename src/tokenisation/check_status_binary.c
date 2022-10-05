@@ -40,7 +40,7 @@ int	is_good_binary(t_struct *data, char *cmd)
 	char	**paths;
 	char	**cmd_arg;
 	char	*path;
-	int 	rt;
+	int		rt;
 
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg[0])

@@ -70,6 +70,8 @@
 # define MSG_DOUBLE_PIPE "minishell: Syntax error near unexpected token `||'"
 # define MSG_NO_SUCH_FILE "No such file or directory"
 # define MSG_OPEN_QUOTES "minishell: Syntax error: open quotes"
+# define MSG_NO_ENV "Our minishell doesn't work without an env"
+# define MSG_NUM "numeric argument required"
 
 int	g_error_code;
 
@@ -117,6 +119,14 @@ typedef struct s_struct
 	int		real_i;
 }	t_struct;
 
+typedef struct s_var
+{
+	char	*tmp;
+	char	*start;
+	char	*end;
+	int		i_end;
+}	t_var;
+
 //ENVIRONNEMENT
 t_struct	*clone_env(char **env, t_struct *data);
 char		**add_var(char **matrix, int len_matrix, int len_nline,
@@ -146,6 +156,8 @@ int			is_a_less_redirection(char **line_split, int i);
 int			is_a_less_redir(char *line_split, int i);
 int			is_a_greater_redir(char *line_split, int i);
 void		protect(void);
+int			is_a_greater_redir(char *line_split, int i);
+int			is_a_greater_redirection(char **line_split, int i);
 
 //SIGNALS
 void		rl_replace_line(const char *text, int clear_undo);
@@ -230,11 +242,10 @@ void		ft_error_exit(char *message, int code);
 void		error_perror(void);
 void		ft_error_no_ptr(char *message, int code);
 
-
 //Utils.c
 char		*msg(char *cmd, char *element, char *msg, int code);
 char		*reverse_split(char **line_split, char *add);
-char		*free_and_return(char *to_return, char *free_1, char *free_2,char **free_3);
+char		*free_and_return(char *txt, char *free1, char *free2, char **free3);
 
 //Initializer.c
 t_struct	*initializer(char **envp, int argc, char **argv);

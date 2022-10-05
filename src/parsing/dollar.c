@@ -14,7 +14,7 @@
 
 static char	*replace_error_code(t_struct *data, char *line, int i)
 {
-	char 	*tmp;
+	char	*tmp;
 	char	*dst;
 	int		y;
 
@@ -36,7 +36,7 @@ static char	*replace_error_code(t_struct *data, char *line, int i)
 static char	*join_and_replace(t_struct *data, char *tmp1, char *rpl, char *tmp3)
 {
 	char	*dst;
-	char 	*tmp;
+	char	*tmp;
 	char	*tmp_dollar;
 	int		i;
 
@@ -61,7 +61,7 @@ static char	*join_and_replace(t_struct *data, char *tmp1, char *rpl, char *tmp3)
 
 static char	*replace_or_erase(char *line, t_struct *data)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = var_exist(data, data->tmp_2);
 	if (tmp)

@@ -36,7 +36,7 @@ void	close_fd(int fdin, int fdout)
 void	execute(t_struct *data, char *cmd)
 {
 	char	**paths;
-	char 	*path;
+	char	*path;
 	char	**cmd_arg;
 
 	cmd_arg = ft_split_pipe(cmd, ' ');

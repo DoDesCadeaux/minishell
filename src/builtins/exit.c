@@ -12,6 +12,13 @@
 
 #include "../../include/minishell.h"
 
+static int	ft_norm(char *numbers)
+{
+	ft_error(msg("exit", numbers, MSG_NUM, 0), 2);
+	free(numbers);
+	return (2);
+}
+
 static int	ft_return_nbr(char *line)
 {
 	int		i;
@@ -35,11 +42,7 @@ static int	ft_return_nbr(char *line)
 	}
 	numbers[j] = '\0';
 	if (ft_strlen(numbers) > 19 || ft_long_atoi(numbers) > 9223372036854775807)
-	{
-		ft_error(msg("exit", numbers, "numeric argument required", 0), 2);
-		free(numbers);
-		return (2);
-	}
+		return (ft_norm(numbers));
 	tmp = ft_long_atoi(numbers);
 	free(numbers);
 	return (tmp);
@@ -52,7 +55,7 @@ int	exit_builtins(char *line)
 	exit_value = ft_return_nbr(line);
 	if (exit_value >= LONG_MAX)
 	{
-		ft_error(msg("exit", (char *)exit_value, "numeric argument required", 0), 2);
+		ft_error(msg("exit", (char *)exit_value, MSG_NUM, 0), 2);
 		free(line);
 		exit(2);
 	}

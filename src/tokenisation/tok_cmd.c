@@ -49,13 +49,9 @@ static int	manage_redirection_with_quotes(char **line_split, int i)
 
 int	tok_1(char **tok, char **line_split, int i, char *line)
 {
-	char	*tmp;
-	char	*start;
-	char	*end;
-	int		i_end;
+	t_var	var;
 
-
-	end = NULL;
+	var.end = NULL;
 	if (!line_split[i])
 		return (-1);
 	if (!ft_strcmp(line_split[i], DGREAT) || !ft_strcmp(line_split[i], GREAT))
@@ -63,19 +59,19 @@ int	tok_1(char **tok, char **line_split, int i, char *line)
 		tok[1] = ft_strdup("echo -n");
 		return (i);
 	}
-	start = ft_strdup(line_split[i]);
-	tmp = ft_strstr(line, start);
-	free(start);
+	var.start = ft_strdup(line_split[i]);
+	var.tmp = ft_strstr(line, var.start);
+	free(var.start);
 	i = manage_redirection_with_quotes(line_split, i);
 	if (line_split[i])
-		end = ft_strdup(line_split[i]);
-	if (end && i != 0)
+		var.end = ft_strdup(line_split[i]);
+	if (var.end && i != 0)
 	{
-		i_end = find_real_redir(tmp, end);
-		free(end);
+		var.i_end = find_real_redir(var.tmp, var.end);
+		free(var.end);
 	}
 	else
-		i_end = ft_strlen(line);
-	tok[1] = get_cmd(tmp, i_end);
+		var.i_end = ft_strlen(line);
+	tok[1] = get_cmd(var.tmp, var.i_end);
 	return (i);
 }

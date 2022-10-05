@@ -44,10 +44,9 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 		free(tok[2]);
 		i = tok_fd_out(data, tok, line_split, i);
 	}
-	tok[1]= parsing(tok[1], data);
+	tok[1] = parsing(tok[1], data);
 	tok[3] = 0;
 	data->type = check_type(tok, data);
 	ft_free_split(line_split);
-	//printf("tok[0] = %s\ntok[1] = %s\ntok[2] = %s\n", tok[0], tok[1], tok[2]);
 	return (tok);
 }

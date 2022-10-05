@@ -17,7 +17,7 @@ t_struct	*initializer(char **envp, int argc, char **argv)
 	t_struct	*data;
 
 	if (!envp[0])
-		ft_error_exit((msg(NULL, NULL, "Our minishell doesn't work without an env", 1)), 1);
+		ft_error_exit((msg(NULL, NULL, MSG_NO_ENV, 1)), 1);
 	run_signals(1);
 	if (argc != 1)
 		ft_error_exit((msg(NULL, NULL, "Number of arguments != 1", 1)), ERROR);

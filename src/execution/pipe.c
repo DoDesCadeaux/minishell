@@ -66,9 +66,7 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	tok = tokenisation(split_pipe[i], tok, data);
 	data->check = pipe(pipe_fd);
 	if (data->check < 0)
-	{
 		error_perror();
-	}
 	run_first(data, tok, pipe_fd);
 	ft_clear_split(tok);
 	i++;

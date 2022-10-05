@@ -109,7 +109,6 @@ int	tok_fd_in(t_struct *data, char **tok, char **line_split, int i)
 		|| (there_is_a_less_redirection(line_split, i) && i == 0))
 		redir_after_executable(line_split, data, i);
 	info = manage_info_stdin(info, line_split, i_manage);
-//	printf("ifo = %s avec file = %s\n", info, line_split[i]);
 	if (!info)
 		return (-1);
 	tok[0] = ft_strdup(info);
