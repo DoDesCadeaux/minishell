@@ -69,8 +69,6 @@ static char	*replace_or_erase(char *line, t_struct *data)
 		line = join_and_replace(data, data->tmp_1, data->tmp_2, data->tmp_3);
 	else
 		line = ft_strjoin(data->tmp_1, data->tmp_3);
-	if (tmp != NULL)
-		free(tmp);
 	return (line);
 }
 
