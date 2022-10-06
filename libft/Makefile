@@ -19,6 +19,8 @@ OPTION 		= 	-I $(HEADER) -c
 
 COM_COLOR   = \033[0;34m
 OBJ_COLOR   = \033[0;36m
+OK_COLOR    = \033[0;32m
+NO_COLOR    = \033[m
 
 ####        MENDATORY	PART
 SRC 		= 	ft_isalpha.c		ft_isdigit.c 		ft_isalnum.c \
@@ -39,7 +41,8 @@ SRC 		= 	ft_isalpha.c		ft_isdigit.c 		ft_isalnum.c \
 OBJ 		= 	${SRC:.c=.o}
 
 .c.o:
-	@printf "%b" "$(COM_COLOR)Compiling libft : $(OBJ_COLOR) ${<:.c=.o}\n"
+	@printf "%b" "$(COM_COLOR)Compiling libft : $(OBJ_COLOR) $(@F)";
+	@printf "%b\n" "		$(OK_COLOR)[✓]$(NO_COLOR)";
 	@${CC} ${FLAG} ${OPTION} $< -o ${<:.c=.o}
 
 
