@@ -29,6 +29,21 @@ static char	**malloc_and_free(char *line)
 	return (array);
 }
 
+static char	*return_properly(char **split_space, char *line)
+{
+	ft_free_split(split_space);
+	return (line);
+}
+
+static char	*join_properly(char *tmp, char *line_split)
+{
+	char	*new_line;
+
+	new_line = ft_strjoin(tmp, line_split);
+	free(tmp);
+	return (new_line);
+}
+
 char	*remove_multi_space(char *line)
 {
 	char	**split_space;
@@ -43,30 +58,17 @@ char	*remove_multi_space(char *line)
 	if (split_space[i])
 		tmp = add_space(tmp, new_line);
 	else
-	{
-		ft_free_split(split_space);
-		return (new_line);
-	}
+		return (return_properly(split_space, new_line));
 	while (split_space[i])
 	{
-		new_line = ft_strjoin(tmp, split_space[i]);
-		free(tmp);
+		new_line = join_properly(tmp, split_space[i]);
 		if (split_space[i + 1])
 			tmp = add_space(tmp, new_line);
 		else
-		{
-			ft_free_split(split_space);
-			return (new_line);
-		}
+			return (return_properly(split_space, new_line));
 		i++;
 	}
 	free(new_line);
 	ft_free_split(split_space);
 	return (tmp);
-}
-
-void	protect(void)
-{
-	perror("minishell: ");
-	exit(EXIT_FAILURE);
 }

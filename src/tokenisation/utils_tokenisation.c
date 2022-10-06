@@ -96,3 +96,9 @@ int	is_pipe(char *line)
 	}
 	return (0);
 }
+
+void	protect(void)
+{
+	perror("minishell: ");
+	exit(EXIT_FAILURE);
+}
