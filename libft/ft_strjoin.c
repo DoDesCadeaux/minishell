@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 01:21:00 by pamartin          #+#    #+#             */
-/*   Updated: 2021/12/24 01:21:03 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:06:39 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	str[y] = 0;
 	return (str);
 }
-
-/*
-#include <stdio.h>
-int main(int argc, char **argv)
-{
-	argc++;
-	printf("%s \n", ft_strjoin(argv[1], argv[2]));
-}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 21:34:58 by pamartin          #+#    #+#             */
-/*   Updated: 2021/12/29 21:34:59 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:06:08 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,3 @@ char	*ft_itoa(int n)
 	}
 	return (itoa);
 }
-
-/*
-#include <stdio.h>
-
-int main(int argc, char **argv)
-{
-	argc++;
-	printf("taille du chiffre :%d \n", ft_intlen(atoi(argv[1])));
-	printf("chiffre en string :%s \n", ft_itoa(atoi(argv[1])));
-
-}*/
