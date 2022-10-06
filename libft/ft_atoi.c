@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 03:30:23 by pamartin          #+#    #+#             */
-/*   Updated: 2021/12/26 00:17:36 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:06:04 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,3 @@ int	ft_atoi(const char *str)
 		nb *= -1;
 	return (nb);
 }
-
-/*
-#include <stdlib.h>
-#include <stdio.h>
-
-int main(int argc, char **argv)
-{
-	argc++;
-
-	int my;
-	int real;
-
-	my = ft_atoi(argv[1]);
-	real = atoi(argv[1]);
-
-	printf ("my atoi   : %d\n", my);
-	printf ("real atoi : %d\n", real);
-}*/

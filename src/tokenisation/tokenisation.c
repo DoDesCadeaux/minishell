@@ -12,38 +12,52 @@
 
 #include "../../include/minishell.h"
 
-char	**tokenisation(char *line, char **tok, t_struct *data)
+static char	**tok_initialization(t_struct *data, char *line)
 {
 	char	**line_split;
-	int		i;
 
 	data->i_redir = 0;
 	data->cmd = -1;
 	line_split = ft_split_pipe(line, ' ');
-	i = 0;
+	return (line_split);
+}
+
+static int	tok_0(t_struct *data, char **tok, char **line_split, int i)
+{
 	i = tok_fd_in(data, tok, line_split, i);
 	while (data->i_redir != -1)
 	{
 		free(tok[0]);
 		i = tok_fd_in(data, tok, line_split, i);
 	}
-	if (i == len_split(line_split) || i < 0 || !tok[0])
-	{
-		ft_free_split(line_split);
-		return (NULL);
-	}
-	i = tok_1(tok, line_split, i, line);
-	if (i < 0)
-	{
-		ft_free_split(line_split);
-		return (NULL);
-	}
+	return (i);
+}
+
+static int	tok_2(t_struct *data, char **tok, char **line_split, int i)
+{
 	i = tok_fd_out(data, tok, line_split, i);
 	while (data->i_redir != -1)
 	{
 		free(tok[2]);
 		i = tok_fd_out(data, tok, line_split, i);
 	}
+	return (i);
+}
+
+char	**tokenisation(char *line, char **tok, t_struct *data)
+{
+	char	**line_split;
+	int		i;
+
+	line_split = tok_initialization(data, line);
+	i = 0;
+	i = tok_0(data, tok, line_split, i);
+	if (i == len_split(line_split) || i < 0 || !tok[0])
+		return (ft_free_split(line_split));
+	i = tok_1(tok, line_split, i, line);
+	if (i < 0)
+		return (ft_free_split(line_split));
+	i = tok_2(data, tok, line_split, i);
 	tok[1] = parsing(tok[1], data);
 	tok[3] = 0;
 	data->type = check_type(tok, data);

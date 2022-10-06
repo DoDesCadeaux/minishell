@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 20:44:26 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/19 06:33:20 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:06:44 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,3 @@ int	ft_strqstr(const char *haystack, const char *needle)
 	}
 	return (-1);
 }
-
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main (int argc, char **argv)
-{
-	argc++;
-	printf("myyy ---> %s\n", ft_strstr(argv[1], argv[2]));
-	printf("real ---> %s\n", strstr(argv[1], argv[2]));
-}
-*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 19:29:17 by pamartin          #+#    #+#             */
-/*   Updated: 2021/12/17 19:29:19 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:06:14 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,3 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (0);
 }
-
-/*#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int main(int argc, char **argv)
-{
-	argc++;
-
-	printf("my   memchr   --->%s \n", ft_memchr(argv[1], atoi(argv[2]),
-		atoi(argv[3])));
-	printf("real memchr   --->%s \n", memchr(argv[1], atoi(argv[2]),
-		atoi(argv[3])));
-
-}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 00:20:31 by pamartin          #+#    #+#             */
-/*   Updated: 2021/12/26 00:20:33 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:06:24 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,33 +85,3 @@ char	**ft_split(char const *s, char c)
 	split[words] = 0;
 	return (split);
 }
-/*
-int main (void)
-{
-	char **c;
-
-	c = NULL;
-
-	c = malloc(sizeof(char *) * 4);
-	ft_free(c);
-	return (0);
-}*/
-
-/*
-#include <stdio.h>
-int main(void)
-{
-	int i;
-	char **split;
-	char c1, c2, c3, c4, c5;
-	char	*str1, *str2, *str4, *str3, *str5;
-
-
-	split = ft_split(str4, c4);
-	i = 0;
-	while (split[i])
-	{
-		printf("%s\n", split[i]);
-		i++;
-	}
-}*/

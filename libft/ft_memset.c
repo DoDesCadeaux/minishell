@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 20:00:21 by pamartin          #+#    #+#             */
-/*   Updated: 2021/12/17 20:00:22 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:06:20 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,3 @@ void	*ft_memset(void *b, int c, size_t len)
 	}
 	return ((void *)str);
 }
-
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main(int argc, char **argv)
-{
-    argc++;
-
-    printf("my   memset --> %s \n", ft_memset(argv[1], atoi(argv[2]),
-		atoi(argv[3])));
-	printf("real memset --> %s \n", memset(argv[1], atoi(argv[2]),
-		atoi(argv[3])));
-}*/

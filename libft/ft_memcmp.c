@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 19:05:24 by pamartin          #+#    #+#             */
-/*   Updated: 2021/12/17 19:05:25 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:06:11 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	}
 	return (0);
 }
-
-/*#include <stdio.h>
-#include <string.h>
-#include "libft.h"
-
-
-int main(int argc, char **argv)
-{
-    argc++;
-
-    printf("my   memcmp --> %d \n", ft_memcmp(argv[1], argv[2], atoi(argv[3])));
-	printf("real memcmp --> %d \n", memcmp(argv[1], argv[2], atoi(argv[3])));
-}*/

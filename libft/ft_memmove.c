@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 17:20:25 by pamartin          #+#    #+#             */
-/*   Updated: 2021/12/31 17:20:28 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:06:17 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,3 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	}
 	return (dst);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main(int argc, char **argv)
-{
-    printf("my memmove   : %s \n", ft_memmove(argv[1], argv[2], atoi(argv[3])));
-    printf("real memmove : %s \n", memmove(argv[1], argv[2], atoi(argv[3])));
-
-	char dst1[0xF0];
-	char dst2[0xF0];
-	char *data = "thiß ß\xde\xad\xbe\xeftriñg will be øvérlapéd !\r\n";
-	int size = 0xF0 - 0xF;
-
-	printf("my memmove   : %s \n", ft_memmove(dst2 + 3, dst1, size));
-    printf("real memmove : %s \n", memmove(dst2 + 3, dst1, size));
-}*/
