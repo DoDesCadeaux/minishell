@@ -54,8 +54,6 @@ void	run_without_pipe(t_struct *data, char **tok)
 		exit_builtins(tok[1]);
 	else if (data->type == BU_UNSET)
 		unset_env(data, tok[1]);
-	else if (data->type == BU_EXPORT)
-		export_env(data, tok[1]);
 }
 
 void	run_child(t_struct *data, char **tok, int fdin, int fdout)

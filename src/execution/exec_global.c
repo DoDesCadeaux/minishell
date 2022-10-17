@@ -65,6 +65,8 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 		run_bad_binary(data, tok[1]);
 	if (data->type == BU_EXIT)
 		exit_builtins(tok[1]);
+	if (data->type == BU_EXPORT)
+		export_env(data, tok[1]);
 	child = fork();
 	if (child == -1)
 	{

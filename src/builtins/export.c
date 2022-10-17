@@ -12,6 +12,22 @@
 
 #include "../../include/minishell.h"
 
+int		bad_indentifier(char *export)
+{
+	int	end;
+	int	i;
+
+	i = 1;
+	end = ft_strfchr(export, '=');
+	while (export[i] && i < end)
+	{
+		if(!ft_isalnum((int)export[i]) && export[i] != 95)
+			return (1);
+		i++;
+	}
+	return(0);
+}
+
 void	export_env(t_struct *data, char *cmd)
 {
 	int		i;
@@ -57,7 +73,7 @@ t_struct	*export_global(t_struct *data, char *export)
 	int	i;
 
 	i = 0;
-	while (data->envp[i])
+	while (data->envp[i] && data->pipe == 0)
 	{
 		if (is_env_var(data, export, i))
 		{
@@ -72,7 +88,9 @@ t_struct	*export_global(t_struct *data, char *export)
 		}
 		i++;
 	}
-	if (ft_strfchr(export, '=') > 1)
+	if (ft_strfchr(export, '=') < 1 || (!ft_isalpha((int)export[0]) && export[0] != 95) || bad_indentifier(export))
+		ft_error(msg("export", export, "not a valid identifier", 0), 1);
+	if (ft_strfchr(export, '=') >= 1 && data->pipe == 0)
 		data->envp = add_var(data->envp, len_split(data->envp),
 				ft_strlen(export), export);
 	return (data);
