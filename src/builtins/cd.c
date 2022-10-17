@@ -68,8 +68,11 @@ void	cd_solo(t_struct *data, char **tok, char **full_cmd)
 		ft_putstr_fd(data->pwd[0], ft_atoi(tok[2]));
 		ft_putchar_fd('\n', ft_atoi(tok[2]));
 	}
-	else
+	else if (ft_strlen(full_cmd[1]) <= 255)
 		ft_error(msg("cd", full_cmd[1], "No such file or directory", 0), 1);
+	else
+		ft_error(msg("cd", full_cmd[1], "File name too long", 0), 1);
+
 }
 
 void	cd_builtin(t_struct *data, char **tok)
