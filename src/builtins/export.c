@@ -73,7 +73,7 @@ t_struct	*export_global(t_struct *data, char *export)
 	int	i;
 
 	i = 0;
-	while (data->envp[i] && data->pipe == 0)
+	while (data->envp[i] && data->pipe != 1)
 	{
 		if (is_env_var(data, export, i))
 		{
