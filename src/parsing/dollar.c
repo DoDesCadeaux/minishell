@@ -81,7 +81,7 @@ char	*replace_dollar(t_struct *data, char *line, int i)
 	i++;
 	y = i;
 	i = update_i(line, i);
-	data->tmp_2 = str_dup_parts(line, i - 1, y);
+	data->tmp_2 = str_dup_parts(line, i, y);
 	y = i;
 	while (line[i])
 		i++;
