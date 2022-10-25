@@ -5,7 +5,7 @@
 
 NAME	= minishell
 CC 		= gcc
-
+DFLAGS	= -MMD -MF $(@:.o=.d)
 #CFLAGS	= -Wall -Wextra -Werror -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -fsanitize=address
 #CFLAGS	= -Wall -Wextra -Werror -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -fsanitize=address
 CFLAGS	= -Wall -Wextra -Werror -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew0/opt/readline/include -fsanitize=address -g
@@ -239,7 +239,7 @@ header:
 $(NAME):	$(OBJS) $(OBJ_MAIN)
 			@$(MAKE) -C Libft
 			@$(call display_progress_bar)
-			@$(call run_and_test,$(CC) $(CFLAGS) -I$(INCLUDE_PATH) $(LIB) -o $@ ${COMPIL} ${OBJS} ${OBJ_MAIN})
+			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -I$(INCLUDE_PATH) $(LIB) -o $@ ${COMPIL} ${OBJS} ${OBJ_MAIN})
 			@printf "$(WARN_COLOR)Project Ready :)\n"
 
 setup:
@@ -248,7 +248,7 @@ setup:
 objs/%.o: 	$(SRCS_PATH)/%$(FILE_EXTENSION)
 			@mkdir -p $(dir $@)
 			@$(call display_progress_bar)
-			@$(call run_and_test,$(CC) $(CFLAGS_WRL) -c $< -o $@ -I$(INCLUDE_PATH))
+			@$(call run_and_test,$(CC) $(CFLAGS_WRL) $(DFLAGS) -c $< -o $@ -I$(INCLUDE_PATH))
 
 clean:		header
 			@rm -rf objs objs_tests
