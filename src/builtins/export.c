@@ -107,7 +107,7 @@ t_struct	*export_global(t_struct *data, char *export)
 	}
 	if (ft_strfchr(export, '=') == 0 || (!ft_isalpha((int)export[0]) && export[0] != 95) || bad_indentifier(export))
 		ft_error(msg("export", export, "not a valid identifier", 0), 1);
-	if (ft_strfchr(export, '=') >= 1 && data->pipe == 0)
+	else if (ft_strfchr(export, '=') >= 1 && data->pipe == 0)
 		data->envp = add_var(data->envp, len_split(data->envp),
 				ft_strlen(export), export);
 	return (data);
