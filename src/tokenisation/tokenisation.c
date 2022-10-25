@@ -58,9 +58,10 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	if (i < 0)
 		return (ft_free_split(line_split));
 	i = tok_2(data, tok, line_split, i);
-	tok[1] = parsing(tok[1], data);
 	tok[3] = 0;
 	data->type = check_type(tok, data);
+	if (data->type != BU_EXPORT)
+		tok[1] = parsing(tok[1], data);
 	ft_free_split(line_split);
 	return (tok);
 }

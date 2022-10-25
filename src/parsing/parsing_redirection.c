@@ -38,6 +38,11 @@ static char	*manage_badfiles(char **line_split, int i)
 		free(line);
 		return (tmp);
 	}
+	else if (!ft_strcmp(line_split[0], "echo"))
+	{
+		line = ft_strdup("echo -n");
+		return(line);
+	}
 	return (NULL);
 }
 
@@ -74,6 +79,7 @@ char	*manage_redir(char **line_split, int i, int len, int nb)
 		i++;
 	}
 	line = reverse_split(line_split, " ");
+	printf("line=%s\n", line);
 	return (line);
 }
 

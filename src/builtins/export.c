@@ -28,15 +28,32 @@ int		bad_indentifier(char *export)
 	return(0);
 }
 
+int	is_real_export(char *export)
+{
+	int	i;
+
+	i = 0;
+	while (export[i])
+	{
+		if (export[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	export_env(t_struct *data, char *cmd)
 {
 	int		i;
 	char	**full_cmd;
 
 	i = 1;
-	full_cmd = ft_split(cmd, ' ');
+	printf("cmd = %s\n", cmd);
+	full_cmd = ft_split_pipe(cmd, ' ');
+	printf ("export = %s\n", full_cmd[i]);
 	while (full_cmd[i])
 	{
+		full_cmd[i] = parsing(full_cmd[i], data);
 		data = export_global(data, full_cmd[i]);
 		i++;
 	}
