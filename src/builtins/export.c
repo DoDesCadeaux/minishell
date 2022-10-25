@@ -94,7 +94,7 @@ t_struct	*export_global(t_struct *data, char *export)
 	{
 		if (is_env_var(data, export, i))
 		{
-			if (ft_strncmp(data->envp[i], export, ft_strlen(data->envp[i])))
+			if (ft_strncmp(data->envp[i], export, ft_strlen(data->envp[i]) + 1))
 			{
 				free(data->envp[i]);
 				data->envp[i] = malloc(sizeof(char) * ft_strlen(export) + 1);
@@ -105,7 +105,7 @@ t_struct	*export_global(t_struct *data, char *export)
 		}
 		i++;
 	}
-	if (ft_strfchr(export, '=') < 1 || (!ft_isalpha((int)export[0]) && export[0] != 95) || bad_indentifier(export))
+	if (ft_strfchr(export, '=') == 0 || (!ft_isalpha((int)export[0]) && export[0] != 95) || bad_indentifier(export))
 		ft_error(msg("export", export, "not a valid identifier", 0), 1);
 	if (ft_strfchr(export, '=') >= 1 && data->pipe == 0)
 		data->envp = add_var(data->envp, len_split(data->envp),
