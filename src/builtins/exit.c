@@ -14,7 +14,20 @@
 
 static int	ft_norm(char *numbers)
 {
-	ft_error(msg("exit", numbers, MSG_NUM, 0), 2);
+	char **split;
+	int	i;
+
+	i = 0;
+	split = ft_split_pipe(numbers, ' ');
+	if (!split)
+		exit(1);
+	while (split[i])
+		i++;
+	if (i > 1)
+		ft_error(msg("exit", NULL, MSG_ARG, 0), 2);
+	else
+		ft_error(msg("exit", numbers, MSG_NUM, 0), 2);
+	ft_free_split(split);
 	free(numbers);
 	exit(2);
 }

@@ -72,6 +72,7 @@
 # define MSG_OPEN_QUOTES "minishell: Syntax error: open quotes"
 # define MSG_NO_ENV "Our minishell doesn't work without an env"
 # define MSG_NUM "numeric argument required"
+# define MSG_ARG "too many arguments"
 
 int	g_error_code;
 
