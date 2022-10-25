@@ -14,8 +14,8 @@
 
 static int	ft_norm(char *numbers)
 {
-	char **split;
-	int	i;
+	char	**split;
+	int		i;
 
 	i = 0;
 	split = ft_split_pipe(numbers, ' ');

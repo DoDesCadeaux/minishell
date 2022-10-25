@@ -34,5 +34,6 @@ char	*parsing(char *line, t_struct *data)
 	}
 	line = remove_quotes(line);
 	line = parsing_redirstdin(line);
+	line = remove_multi_space(line);
 	return (line);
 }

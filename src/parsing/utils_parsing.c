@@ -38,10 +38,10 @@ char	*str_dup_parts(char *src, int end, int start)
 
 	if ((end - start) <= 0)
 		return (ft_strdup(""));
-	duplicate = malloc(sizeof(char) * (end - start) + 1);
+	duplicate = malloc(sizeof(char) * (end - start) + 2);
 	protect_malloc(duplicate);
 	i = 0;
-	while (src[i] && start - 1 < end)
+	while (src[i] && start < end)
 	{
 		duplicate[i] = src[start];
 		i++;

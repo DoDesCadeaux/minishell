@@ -48,7 +48,7 @@ static char	*join_and_replace(t_struct *data, char *tmp1, char *rpl, char *tmp3)
 			i++;
 		i++;
 		tmp_dollar = str_dup_parts(tmp_dollar, ft_strlen(tmp_dollar), i);
-		tmp = ft_strjoin(tmp1, tmp_dollar);
+		tmp = ft_strjoin_space(tmp1, tmp_dollar);
 		dst = ft_strjoin(tmp, tmp3);
 	}
 	else
@@ -95,7 +95,7 @@ char	*parsing_dollar(t_struct *data, char *line_to_pars, int i)
 {
 	if (is_error_code(line_to_pars, i))
 		line_to_pars = replace_error_code(data, line_to_pars, i);
-	if (line_to_pars[i] == '$')
+	else if (line_to_pars[i] == '$')
 		line_to_pars = replace_dollar(data, line_to_pars, i);
 	ft_free_tmp(data);
 	return (line_to_pars);

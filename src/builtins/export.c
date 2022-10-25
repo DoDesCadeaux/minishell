@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int		bad_indentifier(char *export)
+int	bad_id(char *export)
 {
 	int	end;
 	int	i;
@@ -21,11 +21,11 @@ int		bad_indentifier(char *export)
 	end = ft_strfchr(export, '=');
 	while (export[i] && i < end)
 	{
-		if(!ft_isalnum((int)export[i]) && export[i] != 95)
+		if (!ft_isalnum((int)export[i]) && export[i] != 95)
 			return (1);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 int	is_real_export(char *export)
@@ -48,9 +48,7 @@ void	export_env(t_struct *data, char *cmd)
 	char	**full_cmd;
 
 	i = 1;
-	printf("cmd = %s\n", cmd);
 	full_cmd = ft_split_pipe(cmd, ' ');
-	printf ("export = %s\n", full_cmd[i]);
 	while (full_cmd[i])
 	{
 		full_cmd[i] = parsing(full_cmd[i], data);
@@ -105,7 +103,8 @@ t_struct	*export_global(t_struct *data, char *export)
 		}
 		i++;
 	}
-	if (ft_strfchr(export, '=') == 0 || (!ft_isalpha((int)export[0]) && export[0] != 95) || bad_indentifier(export))
+	if (ft_strfchr(export, '=') == 0 || (!ft_isalpha((int)export[0])
+			&& export[0] != 95) || bad_id(export))
 		ft_error(msg("export", export, "not a valid identifier", 0), 1);
 	else if (ft_strfchr(export, '=') >= 1 && data->pipe == 0)
 		data->envp = add_var(data->envp, len_split(data->envp),

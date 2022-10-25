@@ -72,7 +72,6 @@ void	cd_solo(t_struct *data, char **tok, char **full_cmd)
 		ft_error(msg("cd", full_cmd[1], "No such file or directory", 0), 1);
 	else
 		ft_error(msg("cd", full_cmd[1], "File name too long", 0), 1);
-
 }
 
 void	cd_builtin(t_struct *data, char **tok)
