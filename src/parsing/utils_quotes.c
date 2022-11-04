@@ -59,3 +59,14 @@ void	skip_spaces(char **lineptr)
 	while (*(*lineptr) == ' ' || *(*lineptr) == '\t')
 		(*lineptr)++;
 }
+
+char	*include_space_to_join(char *tmp1, char *tmp_dollar)
+{
+	char	*tmp;
+
+	if (tmp1[ft_strlen(tmp1) - 1] == ' ')
+		tmp = ft_strjoin_space(tmp1, tmp_dollar);
+	else
+		tmp = ft_strjoin(tmp1, tmp_dollar);
+	return (tmp);
+}

@@ -65,6 +65,7 @@
 # define CMD	"echo "
 # define MSG_PIPE "pipe> "
 # define MSG_HERE "heredoc> "
+# define VAR_DECLARE "_=\"/usr/bin/env\""
 # define MSG_STDOUT "minishell: Syntax error near unexpected token `newline'"
 # define MSG_PIPE_ERROR "minishell: Syntax error near unexpected token `|'"
 # define MSG_DOUBLE_PIPE "minishell: Syntax error near unexpected token `||'"
@@ -143,7 +144,7 @@ char		**tokenisation(char *line, char **tok, t_struct *data);
 int			tok_fd_in(t_struct *data, char **tok, char **line_split, int i);
 int			tok_1(char **tok, char **line_split, int i, char *line);
 int			tok_fd_out(t_struct *data, char **tok, char **line_split, int i);
-int			check_type(char **tok, t_struct *data);
+int			check_type(t_struct *data, char **tok);
 int			is_good_binary(t_struct *data, char *cmd);
 int			ft_strcmp(char *s1, char *s2);
 char		*get_fd(char *file, int type, char *token);
@@ -228,6 +229,7 @@ char		*remove_quotes(char *line);
 char		get_value_of_quote(char quote, char *line, int i);
 char		*preparsing(char *line);
 void		skip_spaces(char **lineptr);
+char		*include_space_to_join(char *tmp1, char *tmp_dollar);
 char		*parsing_cat(char *line);
 int			check_redirections(char *line);
 char		**check_dless(char **line_split, int i);

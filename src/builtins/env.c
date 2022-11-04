@@ -29,6 +29,66 @@ void	env_builtin(t_struct *data)
 	exit(EXIT_SUCCESS);
 }
 
+char	*add_quotes(char *export)
+{
+	int		i;
+	char	*tmp;
+	char	*exportable;
+	char	*line;
+
+	i = ft_strpstr(export, "=");
+	exportable = ft_strrchr(export, '=');
+	tmp = ft_substr(export, 0, i + 1);
+	line = ft_strjoin(tmp, "\"");
+	free(tmp);
+	tmp = ft_strjoin(line, exportable + 1);
+	line = ft_strjoin(tmp, "\"");
+	free(tmp);
+	return (line);
+}
+
+char	**rm_last_exe(char **export)
+{
+	int	i;
+
+	i = 0;
+	while (export[i])
+	{
+		if (!ft_strncmp(export[i], VAR_DECLARE, ft_strlen(VAR_DECLARE)))
+		{
+			while (i + 1 < len_split(export) - 1)
+			{
+				free(export[i]);
+				export[i] = 0x0;
+				export[i] = ft_strdup(export[i + 1]);
+				i++;
+			}
+			free(export[i]);
+			export[i] = 0x0;
+			return (export);
+		}
+		i++;
+	}
+	return (export);
+}
+
+char	**export_to_declare(char **export)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (export[i])
+	{
+		tmp = add_quotes(export[i]);
+		free(export[i]);
+		export[i] = ft_strdup(tmp);
+		free(tmp);
+		i++;
+	}
+	return (export);
+}
+
 void	export_empty(t_struct *data)
 {
 	int		i;
@@ -46,12 +106,8 @@ void	export_empty(t_struct *data)
 		i++;
 	}
 	export[i] = 0;
-
-
-
-
-
-
+	export = export_to_declare(export);
+	export = rm_last_exe(export);
 	i = 0;
 	while (export[i])
 	{
@@ -59,5 +115,6 @@ void	export_empty(t_struct *data)
 		printf("%s\n", export[i]);
 		i++;
 	}
+	ft_free_split(export);
 	exit(EXIT_SUCCESS);
 }

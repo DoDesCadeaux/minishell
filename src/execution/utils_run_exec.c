@@ -18,9 +18,9 @@ void	run_bad_binary(t_struct *data, char *cmd)
 
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg)
-		ft_error(msg(NULL, NULL, "error malloc", 1), MALLOC);
+		ft_error(msg(" ", NULL, "Command not found", 0), CMD_ERROR);
 	else if (!cmd_arg[0])
-		ft_error(msg(cmd, NULL, "Command not found", 0), CMD_ERROR);
+		ft_error(msg(" ", NULL, "Command not found", 0), CMD_ERROR);
 	else if (!var_exist(data, "PATH"))
 		ft_error(msg(cmd_arg[0], NULL, MSG_NO_SUCH_FILE, 0), CMD_ERROR);
 	else if (!ft_strncmp(cmd, "./", 2))

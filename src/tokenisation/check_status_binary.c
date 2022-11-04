@@ -45,6 +45,8 @@ int	is_good_binary(t_struct *data, char *cmd)
 	cmd_arg = ft_split_pipe(cmd, ' ');
 	if (!cmd_arg[0])
 		return (0);
+	if (cmd_arg[0][0] == '\"')
+		return (0);
 	if (!var_exist(data, "PATH"))
 		return (path_exists(cmd_arg, cmd));
 	if (!ft_strncmp(cmd, "./", 2))

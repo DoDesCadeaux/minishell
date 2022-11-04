@@ -23,23 +23,23 @@ static int	export_type(char *line)
 	return (type);
 }
 
-static int	check_binary(t_struct *data, char **tok, int type)
+static int	check_binary(t_struct *data, char *tok, int type)
 {
 	if (type == BINARY)
 	{
-		if (!is_good_binary(data, tok[1]))
+		if (!is_good_binary(data, tok))
 			type = BAD_BINARY;
 	}
 	return (type);
 }
 
-int	check_type(char **tok, t_struct *data)
+int	check_type(t_struct *data, char **tok)
 {
 	char	**full_cmd;
 	int		type;
 
 	run_signals(2);
-	full_cmd = ft_split(tok[1], ' ');
+	full_cmd = ft_split_pipe(tok[1], ' ');
 	if (!ft_strcmp(full_cmd[0], ECHO))
 		type = BU_ECHO;
 	else if (!ft_strcmp(full_cmd[0], CD))
@@ -57,7 +57,7 @@ int	check_type(char **tok, t_struct *data)
 	else
 		type = BINARY;
 	if (type == BINARY)
-		type = check_binary(data, tok, type);
+		type = check_binary(data, full_cmd[0], type);
 	ft_free_split(full_cmd);
 	return (type);
 }

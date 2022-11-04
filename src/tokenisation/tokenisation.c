@@ -59,10 +59,13 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 		return (ft_free_split(line_split));
 	i = tok_2(data, tok, line_split, i);
 	tok[3] = 0;
-	data->type = check_type(tok, data);
-	if (data->type != BU_EXPORT && data->type != BU_EXIT)
+	data->type = check_type(data, tok);
+	if (data->type != BU_EXPORT && data->type != BU_EXIT
+		&& data->type != BAD_BINARY)
 		tok[1] = parsing(tok[1], data);
-	data->type = check_type(tok, data);
+	//printf("tok[0]=%s\ntok[1]=%s\ntok[2]=%s\n", tok[0], tok[1], tok[2]);
+	if (data->type != BAD_BINARY)
+		data->type = check_type(data, tok);
 	ft_free_split(line_split);
 	return (tok);
 }

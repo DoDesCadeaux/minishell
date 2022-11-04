@@ -83,7 +83,8 @@ t_struct	*update_(t_struct *data, char *variable)
 		{
 			free(tmp);
 			free(data->envp[i]);
-			data->envp[i] = malloc(sizeof(char) * ft_strlen("_=/usr/bin/env") + 1);
+			data->envp[i] = malloc(sizeof(char)
+					* ft_strlen("_=/usr/bin/env") + 1);
 			protect_malloc(data->envp[i]);
 			ft_strcpy(data->envp[i], "_=/usr/bin/env");
 			return (data);

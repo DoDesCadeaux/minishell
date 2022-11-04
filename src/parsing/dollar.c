@@ -25,7 +25,7 @@ static char	*replace_error_code(t_struct *data, char *line, int i)
 	while (line[i])
 		i++;
 	data->tmp_3 = str_dup_parts(line, i, y);
-	tmp = ft_strjoin(data->tmp_1, data->tmp_2);
+	tmp = ft_strjoin_space(data->tmp_1, data->tmp_2);
 	dst = ft_strjoin(tmp, data->tmp_3);
 	free(tmp);
 	free(line);
@@ -48,7 +48,7 @@ static char	*join_and_replace(t_struct *data, char *tmp1, char *rpl, char *tmp3)
 			i++;
 		i++;
 		tmp_dollar = str_dup_parts(tmp_dollar, ft_strlen(tmp_dollar), i);
-		tmp = ft_strjoin_space(tmp1, tmp_dollar);
+		tmp = include_space_to_join(tmp1, tmp_dollar);
 		dst = ft_strjoin(tmp, tmp3);
 	}
 	else
@@ -77,7 +77,7 @@ char	*replace_dollar(t_struct *data, char *line, int i)
 	int		y;
 	char	*tmp;
 
-	data->tmp_1 = str_dup_parts(line, i - 1, 0);
+	data->tmp_1 = str_dup_parts(line, i, 0);
 	i++;
 	y = i;
 	i = update_i(line, i);

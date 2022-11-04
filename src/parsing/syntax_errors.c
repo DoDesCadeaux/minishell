@@ -74,20 +74,38 @@ int	check_doublepipe(char *line)
 	return (0);
 }
 
+int	is_empty_pipe(char *line)
+{
+	char	**split;
+	int		rt;
+	int		i;
+
+	split = ft_split_pipe(line, '|');
+	if (!split)
+		printf("bordel");
+	i = 0;
+	rt = 0;
+	while (split[i])
+	{
+		if (is_only_spaces(split[i]) && split[i + 1])
+			rt += 1;
+		i++;
+	}
+	ft_free_split(split);
+	return (rt);
+}
+
 int	syntax_errors(char *line)
 {
-	int	i;
-
-	i = 0;
 	if (is_empty_line(line))
 		return (error_msg(NULL, 0));
 	if (is_only_spaces(line))
 		return (error_msg(NULL, 0));
-	if (open_quotes(line, i))
+	if (open_quotes(line, 0))
 		return (error_msg(MSG_OPEN_QUOTES, 1));
 	if (check_doublepipe(line))
 		return (error_msg(MSG_DOUBLE_PIPE, PIPE_ERROR));
-	if (is_metachar(line[0]))
+	if (is_metachar(line[0]) || is_empty_pipe(line))
 		return (error_msg(MSG_PIPE_ERROR, PIPE_ERROR));
 	if (check_redirections(line))
 		return (error_msg(MSG_STDOUT, 258));
