@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:14:33 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/18 13:14:35 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/11/04 20:35:35 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,23 @@ char	**export_to_declare(char **export)
 	return (export);
 }
 
+int	ft_cmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (1);
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
+
 void	export_empty(t_struct *data)
 {
 	int		i;
+	int		j;
+	char	*tmp;
 	char	**export;
 
 	export = malloc(sizeof(char *) * len_split(data->envp) + 1);
@@ -108,11 +122,27 @@ void	export_empty(t_struct *data)
 	export[i] = 0;
 	export = export_to_declare(export);
 	export = rm_last_exe(export);
+	tmp = NULL;
 	i = 0;
 	while (export[i])
 	{
-		printf("declare -x ");
-		printf("%s\n", export[i]);
+		j = i;
+		while (export[j])
+		{
+			if (ft_cmp(export[i], export[j]) > 0)
+			{
+				tmp = export[i];
+				export[i] = export[j];
+				export[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (export[i])
+	{
+		printf("declare -x %s\n", export[i]);
 		i++;
 	}
 	ft_free_split(export);

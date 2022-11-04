@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 20:40:15 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/27 14:00:44 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/11/04 21:17:08 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,11 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 		run_without_pipe(data, tok);
 	if (child == 0)
 		run_child(data, tok, fdin, fdout);
-	waitpid(child, NULL, 0);
+	waitpid(child, &g_error_code, 0);
+	if (WIFEXITED(child))
+		g_error_code = WEXITSTATUS(child);
+	else
+		g_error_code = 1;
 	if (access(HERE_DOC, F_OK) == 0)
 		unlink(HERE_DOC);
 }

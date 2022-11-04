@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clone_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 18:38:59 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/05 18:39:00 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/11/04 20:47:30 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ t_struct	*clone_env(char **env, t_struct *data)
 	}
 	data->envp[i] = 0;
 	data = update_env(data);
-	init_pwd_user(data);
+	if (var_exist(data, "PATH"))
+		init_pwd_user(data);
 	return (data);
 }

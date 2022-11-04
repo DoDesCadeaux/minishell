@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:11:34 by pamartin          #+#    #+#             */
-/*   Updated: 2022/08/18 13:11:36 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/11/04 20:20:31 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ t_struct	*export_global(t_struct *data, char *export)
 				ft_strcpy(data->envp[i], export);
 				return (data);
 			}
+			return (data);
 		}
 		i++;
 	}
