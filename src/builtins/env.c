@@ -31,13 +31,32 @@ void	env_builtin(t_struct *data)
 
 void	export_empty(t_struct *data)
 {
-	int	i;
+	int		i;
+	char	**export;
 
+	export = malloc(sizeof(char *) * len_split(data->envp) + 1);
+	protect_malloc(export);
 	i = 0;
 	while (data->envp[i])
 	{
+		export[i] = malloc(sizeof(char) * ft_strlen(data->envp[i]) + 1);
+		protect_malloc(export[i]);
+		export[i] = ft_strlcpy(export[i], data->envp[i],
+				ft_strlen(data->envp[i]) + 1);
+		i++;
+	}
+	export[i] = 0;
+
+
+
+
+
+
+	i = 0;
+	while (export[i])
+	{
 		printf("declare -x ");
-		printf("%s\n", data->envp[i]);
+		printf("%s\n", export[i]);
 		i++;
 	}
 	exit(EXIT_SUCCESS);

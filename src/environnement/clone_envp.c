@@ -75,10 +75,26 @@ t_struct	*update_lvl(t_struct *data, char *lvl)
 	return (data);
 }
 
+t_struct	*update_env(t_struct *data)
+{
+	char	*lvl;
+
+	lvl = var_exist(data, "SHLVL");
+	if (lvl)
+		data = update_lvl(data, lvl);
+	else
+		data = export_global(data, "SHLVL=1");
+	lvl = var_exist(data, "_");
+	if (lvl)
+		data = update_(data, "_");
+	else
+		data = export_global(data, "_=/usr/bin/env");
+	return (data);
+}
+
 t_struct	*clone_env(char **env, t_struct *data)
 {
 	int		i;
-	char	*lvl;
 
 	data->envp = malloc(sizeof(char *) * len_split(env) + 1);
 	protect_malloc(data->envp);
@@ -92,11 +108,7 @@ t_struct	*clone_env(char **env, t_struct *data)
 		i++;
 	}
 	data->envp[i] = 0;
-	lvl = var_exist(data, "SHLVL");
-	if (lvl)
-		data = update_lvl(data, lvl);
-	else
-		data = export_global(data, "SHLVL=1");
+	data = update_env(data);
 	init_pwd_user(data);
 	return (data);
 }

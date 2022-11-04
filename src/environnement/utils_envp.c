@@ -69,3 +69,27 @@ int	is_env_var(t_struct *data, char *export, int i)
 		return (1);
 	return (0);
 }
+
+t_struct	*update_(t_struct *data, char *variable)
+{
+	int		i;
+	char	*tmp;
+
+	tmp = ft_strjoin(variable, "=");
+	i = 0;
+	while (data->envp[i])
+	{
+		if (!ft_strncmp(data->envp[i], tmp, ft_strlen(tmp)))
+		{
+			free(tmp);
+			free(data->envp[i]);
+			data->envp[i] = malloc(sizeof(char) * ft_strlen("_=/usr/bin/env") + 1);
+			protect_malloc(data->envp[i]);
+			ft_strcpy(data->envp[i], "_=/usr/bin/env");
+			return (data);
+		}
+		i++;
+	}
+	free(tmp);
+	return (NULL);
+}

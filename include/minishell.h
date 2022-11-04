@@ -133,6 +133,7 @@ t_struct	*clone_env(char **env, t_struct *data);
 char		**add_var(char **matrix, int len_matrix, int len_nline,
 				char *n_line);
 char		*var_exist(t_struct *data, char *variable);
+t_struct	*update_(t_struct *data, char *variable);
 int			is_numeric(char *value);
 int			is_env_var(t_struct *data, char *export, int i);
 int			find_env_path(t_struct *data);
