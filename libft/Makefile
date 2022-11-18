@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+         #
+#    By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/10 04:15:26 by pamartin          #+#    #+#              #
-#    Updated: 2021/12/10 04:15:33 by pamartin         ###   ########.fr        #
+#    Updated: 2022/11/14 10:17:13 by algaspar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC 		= 	ft_isalpha.c		ft_isdigit.c 		ft_isalnum.c \
 				ft_putnbr_fd.c		ft_memcpy.c			ft_calloc.c \
 				ft_itoa.c			ft_memmove.c 		ft_strlcpy.c \
 				ft_abs.c			ft_strlcat.c		ft_realloc_int.c \
-				free_split.c		ft_strcpy.c			ft_strfchr.c
+				free_split.c		ft_strcpy.c			ft_strfchr.c	\
+				ft_cmp.c
 
 OBJ 		= 	${SRC:.c=.o}
 

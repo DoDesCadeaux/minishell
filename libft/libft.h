@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 17:30:16 by pamartin          #+#    #+#             */
-/*   Updated: 2021/12/10 17:31:45 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/11/14 10:17:42 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,7 @@ void				*ft_memmove(void *dst, const void *src, size_t len);
 char				*ft_strlcpy(char *dst, const char *src, int dstsize);
 
 size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
+
+int					ft_cmp(char *s1, char *s2);
 
 #endif

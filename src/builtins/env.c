@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:14:33 by pamartin          #+#    #+#             */
-/*   Updated: 2022/11/04 20:35:35 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/11/17 15:50:20 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,100 +29,40 @@ void	env_builtin(t_struct *data)
 	exit(EXIT_SUCCESS);
 }
 
-char	*add_quotes(char *export)
+char	*ft_strdup_quotes(char *src)
 {
 	int		i;
-	char	*tmp;
-	char	*exportable;
-	char	*line;
+	int		j;
+	char	*dup;
 
-	i = ft_strpstr(export, "=");
-	exportable = ft_strrchr(export, '=');
-	tmp = ft_substr(export, 0, i + 1);
-	line = ft_strjoin(tmp, "\"");
-	free(tmp);
-	tmp = ft_strjoin(line, exportable + 1);
-	line = ft_strjoin(tmp, "\"");
-	free(tmp);
-	return (line);
-}
-
-char	**rm_last_exe(char **export)
-{
-	int	i;
-
+	dup = malloc(sizeof(char) * ft_strlen(src) + 3);
+	if (!dup)
+		return (NULL);
 	i = 0;
-	while (export[i])
+	while (src[i - 1] != '=')
 	{
-		if (!ft_strncmp(export[i], VAR_DECLARE, ft_strlen(VAR_DECLARE)))
-		{
-			while (i + 1 < len_split(export) - 1)
-			{
-				free(export[i]);
-				export[i] = 0x0;
-				export[i] = ft_strdup(export[i + 1]);
-				i++;
-			}
-			free(export[i]);
-			export[i] = 0x0;
-			return (export);
-		}
+		dup[i] = src[i];
 		i++;
 	}
-	return (export);
-}
-
-char	**export_to_declare(char **export)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	while (export[i])
+	j = i;
+	dup[i++] = '\"';
+	while (src[j])
 	{
-		tmp = add_quotes(export[i]);
-		free(export[i]);
-		export[i] = ft_strdup(tmp);
-		free(tmp);
+		dup[i] = src[j];
 		i++;
+		j++;
 	}
-	return (export);
+	dup[i++] = '\"';
+	dup[i] = '\0';
+	return (dup);
 }
 
-int	ft_cmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	if (!s1 || !s2)
-		return (1);
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}
-
-void	export_empty(t_struct *data)
+void	sort_export(char **export)
 {
 	int		i;
 	int		j;
 	char	*tmp;
-	char	**export;
 
-	export = malloc(sizeof(char *) * len_split(data->envp) + 1);
-	protect_malloc(export);
-	i = 0;
-	while (data->envp[i])
-	{
-		export[i] = malloc(sizeof(char) * ft_strlen(data->envp[i]) + 1);
-		protect_malloc(export[i]);
-		export[i] = ft_strlcpy(export[i], data->envp[i],
-				ft_strlen(data->envp[i]) + 1);
-		i++;
-	}
-	export[i] = 0;
-	export = export_to_declare(export);
-	export = rm_last_exe(export);
-	tmp = NULL;
 	i = 0;
 	while (export[i])
 	{
@@ -139,12 +79,42 @@ void	export_empty(t_struct *data)
 		}
 		i++;
 	}
+}
+
+void	print_export(char **export)
+{
+	int	i;
+
 	i = 0;
 	while (export[i])
 	{
 		printf("declare -x %s\n", export[i]);
 		i++;
 	}
+}
+
+void	export_empty(t_struct *data)
+{
+	char	**export;
+	int		i;
+	int		j;
+
+	export = malloc(sizeof(char *) * len_split(data->envp));
+	protect_malloc(export);
+	i = 0;
+	j = 0;
+	while (data->envp[i])
+	{
+		if (ft_strncmp("_=/usr/bin/env", data->envp[i], 14) != 0)
+		{
+			export[j] = ft_strdup_quotes(data->envp[i]);
+			j++;
+		}
+		i++;
+	}
+	export[j] = NULL;
+	sort_export(export);
+	print_export(export);
 	ft_free_split(export);
 	exit(EXIT_SUCCESS);
 }

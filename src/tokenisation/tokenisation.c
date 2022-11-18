@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:49:46 by pamartin          #+#    #+#             */
-/*   Updated: 2022/11/04 21:05:34 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/11/14 10:02:51 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ char	**tokenisation(char *line, char **tok, t_struct *data)
 	if (data->type != BU_EXPORT && data->type != BU_EXIT
 		&& data->type != BAD_BINARY)
 		tok[1] = parsing(tok[1], data);
-	//printf("tok[0]=%s\ntok[1]=%s\ntok[2]=%s\n", tok[0], tok[1], tok[2]);
 	if (data->type != BAD_BINARY)
 		data->type = check_type(data, tok);
 	ft_free_split(line_split);
-	printf("type=%d\n", data->type);
 	return (tok);
 }

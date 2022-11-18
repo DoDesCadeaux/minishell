@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_status_binary.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 22:10:18 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/20 22:10:20 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/11/14 10:52:16 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	is_good_binary(t_struct *data, char *cmd)
 	if (!cmd_arg[0])
 		return (0);
 	if (cmd_arg[0][0] == '\"')
-		return (0);
+		return ((int)ft_free_split(cmd_arg));
 	if (!var_exist(data, "PATH"))
 		return (path_exists(cmd_arg, cmd));
 	if (!ft_strncmp(cmd, "./", 2))
