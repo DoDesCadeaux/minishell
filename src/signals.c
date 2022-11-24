@@ -14,7 +14,7 @@
 
 static void	process_ended(int sig)
 {
-	if (access(HERE_DOC, X_OK) == 0)
+	if (access(HERE_DOC, F_OK) == 0)
 	{
 		unlink(HERE_DOC);
 	}

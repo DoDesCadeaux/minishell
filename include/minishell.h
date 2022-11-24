@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
+# include <sys/stat.h>
 # include <signal.h>
 # include <errno.h>
 # include "../libft/libft.h"
@@ -44,7 +45,7 @@
 # define PATH_ERROR 127
 # define FD_ERROR 1
 # define PIPE_ERROR 2
-# define SIGNAL 130
+# define SIGNAL 1
 # define SUCCES	0
 # define JSP 255
 
@@ -119,6 +120,7 @@ typedef struct s_struct
 	int		i_redir;
 	int		cmd;
 	int		real_i;
+	int		error_cat;
 }	t_struct;
 
 typedef struct s_var

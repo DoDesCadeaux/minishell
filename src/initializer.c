@@ -32,6 +32,7 @@ t_struct	*initializer(char **envp, int argc, char **argv)
 	data->tmp_1 = NULL;
 	data->tmp_2 = NULL;
 	data->tmp_3 = NULL;
+	data->error_cat = 0;
 	return (data);
 }
 

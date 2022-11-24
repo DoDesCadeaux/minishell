@@ -23,12 +23,31 @@ static int	export_type(char *line)
 	return (type);
 }
 
-static int	check_binary(t_struct *data, char *tok, int type)
+static int	check_binary(t_struct *data, char **cmd_arg, int type)
 {
+	int			i;
+	struct stat	sb;
+
+	i = 1;
+	data->error_cat = 0;
 	if (type == BINARY)
 	{
-		if (!is_good_binary(data, tok))
+		if (!is_good_binary(data, cmd_arg[0]))
 			type = BAD_BINARY;
+		else
+		{
+			if (!ft_strcmp(cmd_arg[0], "cat"))
+			{
+				if (!ft_strcmp(cmd_arg[i], "-e"))
+					i++;
+				while (cmd_arg[i])
+				{
+					if (stat(cmd_arg[i], &sb) < 0)
+						data->error_cat = 1;
+					i++;
+				}
+			}
+		}
 	}
 	return (type);
 }
@@ -57,7 +76,7 @@ int	check_type(t_struct *data, char **tok)
 	else
 		type = BINARY;
 	if (type == BINARY)
-		type = check_binary(data, full_cmd[0], type);
+		type = check_binary(data, full_cmd, type);
 	ft_free_split(full_cmd);
 	return (type);
 }

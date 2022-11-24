@@ -77,13 +77,11 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 		run_without_pipe(data, tok);
 	if (child == 0)
 		run_child(data, tok, fdin, fdout);
-	waitpid(child, &g_error_code, 0);
-	if (WIFEXITED(child))
-		g_error_code = WEXITSTATUS(child);
-	else
+	waitpid(child, NULL, 0);
+	if (data->error_cat == 1)
 		g_error_code = 1;
-	if (access(HERE_DOC, F_OK) == 0)
-		unlink(HERE_DOC);
+	//if (access(HERE_DOC, F_OK) == 0)
+	//	unlink(HERE_DOC);
 }
 
 void	run_program(t_struct *data, char **tok, char *line)
