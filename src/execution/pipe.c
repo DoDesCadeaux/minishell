@@ -35,9 +35,7 @@ static void	run_multi_pipe(t_struct *data, char **tok, int *pipe_fd1)
 
 	data->check = pipe(pipe_fd2);
 	if (data->check < 0)
-	{
 		error_perror();
-	}
 	if (ft_atoi(tok[0]) == 0 && ft_atoi(tok[2]) == 1)
 		call_exec(data, tok, pipe_fd1[0], pipe_fd2[1]);
 	else if (ft_atoi(tok[0]) == 0 && ft_atoi(tok[2]) != 1)
@@ -64,6 +62,12 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 	len = len_split(split_pipe);
 	i = 0;
 	tok = tokenisation(split_pipe[i], tok, data);
+	if (!tok)
+	{
+		g_error_code = 1;
+		ft_free_split(split_pipe);
+		return ;
+	}
 	data->check = pipe(pipe_fd);
 	if (data->check < 0)
 		error_perror();
