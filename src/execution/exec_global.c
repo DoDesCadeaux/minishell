@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 20:40:15 by pamartin          #+#    #+#             */
-/*   Updated: 2022/11/04 21:17:08 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:09:46 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	execute(t_struct *data, char *cmd)
 void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 {
 	pid_t	child;
+	int		status;
 
 	g_error_code = 0;
 	if (data->type == BU_CD)
@@ -67,19 +68,17 @@ void	call_exec(t_struct *data, char **tok, int fdin, int fdout)
 		exit_builtins(tok[1]);
 	if (data->type == BU_EXPORT)
 		export_env(data, tok[1]);
-	child = fork();
+	child = protected_fork();
 	if (child == -1)
-	{
-		ft_error(msg(NULL, NULL, "", 1), errno);
 		return ;
-	}
 	if (data->pipe == 0)
 		run_without_pipe(data, tok);
 	if (child == 0)
 		run_child(data, tok, fdin, fdout);
-	waitpid(child, NULL, 0);
-	if (data->error_cat == 1)
-		g_error_code = 1;
+	waitpid(child, &status, 0);
+	if (data->type != BU_CD && data->type != BAD_BINARY
+		&& data->type != BU_EXIT && data->type != BU_EXPORT)
+		g_error_code = WEXITSTATUS(status);
 	if (access(HERE_DOC, F_OK) == 0)
 		unlink(HERE_DOC);
 }

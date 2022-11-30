@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:49:30 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/30 13:38:48 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:27:07 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	run_last(t_struct *data, char **tok, int *pipe_fd)
 		call_exec(data, tok, ft_atoi(tok[0]), ft_atoi(tok[2]));
 }
 
-static void	run_multi_pipe(t_struct *data, char **tok, int *pipe_fd1)
+void	run_multi_pipe(t_struct *data, char **tok, int *pipe_fd1)
 {
 	int		pipe_fd2[2];
 
@@ -73,14 +73,7 @@ void	pipe_exec(t_struct *data, char **tok, char *line)
 		error_perror();
 	run_first(data, tok, pipe_fd);
 	ft_clear_split(tok);
-	i++;
-	while (i < len - 2)
-	{
-		tok = tokenisation(split_pipe[i], tok, data);
-		run_multi_pipe(data, tok, pipe_fd);
-		ft_clear_split(tok);
-		i++;
-	}
+	i = pipe_loop(split_pipe, tok, data, pipe_fd);
 	tok = tokenisation(split_pipe[i], tok, data);
 	ft_free_split(split_pipe);
 	run_last(data, tok, pipe_fd);

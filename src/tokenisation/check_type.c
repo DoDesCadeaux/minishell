@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_type.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 18:35:50 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/15 18:35:52 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:04:13 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,10 @@ static int	export_type(char *line)
 
 static int	check_binary(t_struct *data, char **cmd_arg, int type)
 {
-	int			i;
-	struct stat	sb;
-
-	i = 1;
-	data->error_cat = 0;
 	if (type == BINARY)
 	{
 		if (!is_good_binary(data, cmd_arg[0]))
 			type = BAD_BINARY;
-		else
-		{
-			if (!ft_strcmp(cmd_arg[0], "cat"))
-			{
-				if (!ft_strcmp(cmd_arg[i], "-e"))
-					i++;
-				while (cmd_arg[i])
-				{
-					if (stat(cmd_arg[i], &sb) < 0)
-						data->error_cat = 1;
-					i++;
-				}
-			}
-		}
 	}
 	return (type);
 }

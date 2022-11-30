@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 15:15:06 by pamartin          #+#    #+#             */
-/*   Updated: 2022/11/04 21:08:17 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:06:05 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define PATH_ERROR 127
 # define FD_ERROR 1
 # define PIPE_ERROR 2
-# define SIGNAL 1
+# define SIGNAL 130
 # define SUCCES	0
 # define JSP 255
 
@@ -120,7 +120,6 @@ typedef struct s_struct
 	int		i_redir;
 	int		cmd;
 	int		real_i;
-	int		error_cat;
 }	t_struct;
 
 typedef struct s_var
@@ -202,6 +201,9 @@ void		run_program(t_struct *data, char **tok, char *line);
 void		close_fd(int fdin, int fdout);
 void		run_child(t_struct *data, char **tok, int fdin, int fdout);
 void		protect_dup(int check);
+int			pipe_loop(char **split_pipe, char **tok,
+				t_struct *data, int pipe_fd[2]);
+void		run_multi_pipe(t_struct *data, char **tok, int *pipe_fd1);
 
 //GNL
 char		*get_next_line(int fd, char *msg);
@@ -252,6 +254,7 @@ void		ft_error_no_ptr(char *message, int code);
 char		*msg(char *cmd, char *element, char *msg, int code);
 char		*reverse_split(char **line_split, char *add);
 char		*free_and_return(char *txt, char *free1, char *free2, char **free3);
+pid_t		protected_fork(void);
 
 //Initializer.c
 t_struct	*initializer(char **envp, int argc, char **argv);

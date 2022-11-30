@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamartin <pamartin@student.s19.be>         +#+  +:+       +#+        */
+/*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 23:29:57 by pamartin          #+#    #+#             */
-/*   Updated: 2022/09/13 23:30:01 by pamartin         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:03:27 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_struct	*initializer(char **envp, int argc, char **argv)
 	data->tmp_1 = NULL;
 	data->tmp_2 = NULL;
 	data->tmp_3 = NULL;
-	data->error_cat = 0;
 	return (data);
 }
 

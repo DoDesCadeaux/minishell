@@ -6,7 +6,7 @@
 /*   By: algaspar <algaspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:11:34 by pamartin          #+#    #+#             */
-/*   Updated: 2022/11/04 20:20:31 by algaspar         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:02:16 by algaspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,32 +83,31 @@ char	**add_var(char **matrix, int len_matrix, int len_nline, char *n_line)
 	return (new_matrix);
 }
 
-t_struct	*export_global(t_struct *data, char *export)
+t_struct	*export_global(t_struct *d, char *ex)
 {
 	int	i;
 
 	i = 0;
-	while (data->envp[i] && data->pipe != 1)
+	while (d->envp[i] && d->pipe != 1)
 	{
-		if (is_env_var(data, export, i))
+		if (is_env_var(d, ex, i))
 		{
-			if (ft_strncmp(data->envp[i], export, ft_strlen(data->envp[i]) + 1))
+			if (ft_strncmp(d->envp[i], ex, ft_strlen(d->envp[i]) + 1))
 			{
-				free(data->envp[i]);
-				data->envp[i] = malloc(sizeof(char) * ft_strlen(export) + 1);
-				protect_malloc(data->envp[i]);
-				ft_strcpy(data->envp[i], export);
-				return (data);
+				free(d->envp[i]);
+				d->envp[i] = malloc(sizeof(char) * ft_strlen(ex) + 1);
+				protect_malloc(d->envp[i]);
+				ft_strcpy(d->envp[i], ex);
+				return (d);
 			}
-			return (data);
+			return (d);
 		}
 		i++;
 	}
-	if (ft_strfchr(export, '=') == 0 || (!ft_isalpha((int)export[0])
-			&& export[0] != 95) || bad_id(export))
-		ft_error(msg("export", export, "not a valid identifier", 0), 1);
-	else if (ft_strfchr(export, '=') >= 1 && data->pipe == 0)
-		data->envp = add_var(data->envp, len_split(data->envp),
-				ft_strlen(export), export);
-	return (data);
+	if (ft_strfchr(ex, '=') == 0 || (!ft_isalpha((int)ex[0])
+			&& ex[0] != 95) || bad_id(ex))
+		ft_error(msg("ex", ex, "not a valid identifier", 0), 1);
+	else if (ft_strfchr(ex, '=') >= 1 && d->pipe == 0)
+		d->envp = add_var(d->envp, len_split(d->envp), ft_strlen(ex), ex);
+	return (d);
 }
